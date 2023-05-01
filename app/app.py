@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -11,6 +11,7 @@ from werkzeug.utils import secure_filename
 import os
 import mutagen
 from AlbumForm import AlbumForm
+from listenerForm import ListenerForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
@@ -29,6 +30,40 @@ login_manager.login_view = 'login'
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+
+# @app.route('/register', methods=['GET', 'POST'])
+# def register():
+#     form = RegistrationForm()
+#     if form.validate_on_submit():
+#         user_name = form.username.data
+#         email = form.email.data
+#         password = form.password.data
+#         hashed_password = generate_password_hash(password, method='sha256')
+#         user_type = form.user_type.data
+#         date_join = datetime.utcnow()
+
+#         existing_user = User.query.filter_by(username=user_name).first()
+
+#         if existing_user:
+#             flash('Username already exists. Please choose a different username.', 'danger')
+#             return render_template('register.html', form=form)
+
+#         new_user = User(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join)
+#         db.session.add(new_user)
+#         db.session.commit()
+
+#         if user_type == 'listener':
+#             return redirect(url_for('listener_details'))
+    
+
+#         flash('Registration successful. You can now log in.', 'success')
+#         return redirect(url_for('login'))
+
+#     return render_template('register.html', form=form)
+
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
