@@ -13,7 +13,12 @@
         {% endif %}
     {% endwith %}
     <form method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".mp3,.wav,.ogg">
+        <label for="album">Album:</label>
+        <input type="text" name="album" id="album">
+        <br>
+        <label for="file">File:</label>
+        <input type="file" name="file" id="file" accept=".mp3">
+        <br>
         <input type="submit" value="Upload">
     </form>
 </body>

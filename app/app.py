@@ -8,17 +8,23 @@ from forms import RegistrationForm
 from datetime import datetime
 from database import db
 from werkzeug.utils import secure_filename
-import os
+import os, time
 import mutagen
 from AlbumForm import AlbumForm
 from listenerForm import ListenerForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+# # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/users.db'
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+db_path = os.path.join(basedir, 'instance', 'users.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
+
 # db = SQLAlchemy(app)
 UPLOAD_FOLDER = 'static/audio'
-ALLOWED_EXTENSIONS = {'mp3', 'wav', 'ogg'}
+ALLOWED_EXTENSIONS = {'mp3'}    # only mp3 files accepted
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 db.init_app(app) 
@@ -100,8 +106,6 @@ def login():
             return redirect(url_for('dashboard'))
         else:
             flash('Unable to log in. Please check your credentials and try again.', 'danger')
-
-
     return render_template('login.html')
 
 
@@ -138,26 +142,34 @@ def add_artist():
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         if 'file' not in request.files:
             flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
+            return redirect(request.url), 400
+        file = request.files.get('file')
         if file.filename == '':
             flash('No selected file')
-            return redirect(request.url)
+            return redirect(request.url), 400
         if file and allowed_file(file.filename):
+            artist_id = current_user.id
+            album = request.form.get('album').strip().replace(' ', '_').lower()
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-
-            # use mutagen to get the length of the audio file
-            audio = mutagen.File(file_path)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], str(artist_id), album, filename.lower()) 
+            if os.path.exists(file_path):
+                flash('Song already added in the album!'), 400
+                time.sleep(1)
+                return redirect(request.url)
+            os.makedirs(os.path.join(app.config['UPLOAD_FOLDER'], str(artist_id), album), exist_ok=True)
+            print(f'Saving file to: {file_path}')
+            file.save(file_path)
+            print(f'Saved file to: {file_path}')
+            print(f'{os.path.exists(file_path)}')
+            audio = mutagen.File(file_path)     # use mutagen to get the length of the audio file
             length = int(audio.info.length)
-
-            new_song = Song(song_title=filename, file_path=file_path, length=length)
+            new_song = Song(song_title=os.path.splitext(filename)[0], file_path=file_path, length=length)
             db.session.add(new_song)
             db.session.commit()
             flash('File uploaded successfully')
