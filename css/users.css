@@ -1,0 +1,27 @@
+.navList {
+    list-style-type: none;
+    color: #EFE9F4;    
+    font-size: 25px;
+    display: block;
+
+}
+
+.sidebar {
+    color: #EFE9F4;
+    background-color: #388697;
+    height: 100%;
+    width: 280px;
+    position: fixed;
+}
+
+.logo {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+
+@media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .navList {font-size: 18px;}
+}
