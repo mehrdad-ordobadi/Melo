@@ -1,3 +1,7 @@
+body {
+    background-color: #232323;
+}
+
 .navList {
     list-style-type: none;
     color: #EFE9F4;    
@@ -8,10 +12,11 @@
 
 .sidebar {
     color: #EFE9F4;
-    background-color: #388697;
+    background-color: #A0CA92;
     height: 100%;
     width: 280px;
     position: fixed;
+    border-right: solid #3c3c3c;
 }
 
 .logo {
@@ -20,6 +25,10 @@
     margin-bottom: 40px;
 }
 
+#form {
+    display: flex;
+    justify-content: center;
+}
 
 @media screen and (max-height: 450px) {
     .sidebar {padding-top: 15px;}
