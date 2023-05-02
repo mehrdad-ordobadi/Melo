@@ -144,17 +144,31 @@ def allowed_file(filename):
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
+    form = AlbumForm()
     if request.method == 'POST':
         files = request.files.getlist('file')
         if not files:
             flash('No files part')
             return redirect(request.url)
-        # album_release_date = request.form.get('album_release_date')
+
+        album_release_date = form.album_release_date.data
         artist_id = current_user.id
-        album = request.form.get('album').strip()
-        # existing_album = Album.query.filter_by(title=album, artist_id=artist_id).first()
-        # if not existing_album:
-        #     pass    # *******************************
+        album = form.album_title.data.strip()
+        existing_album = Album.query.filter_by(album_title=album, artist_id=artist_id).first()
+        if not existing_album:
+            if not form.album_release_date.data:
+                flash('New albums require a release dates!')
+                return redirect(request.url)
+            if form.validate_on_submit():
+                new_album = Album(
+                    album_title=album,
+                    album_release_date=album_release_date,
+                    artist_id=artist_id
+                )
+                artist = Artist.query.get(artist_id)
+                artist.albums.append(new_album)
+                db.session.add(new_album)
+            
         album = album.strip().replace(' ', '_').lower()
         for file in files:
             if file.filename == '':
@@ -172,12 +186,13 @@ def upload_file():
                 audio = mutagen.File(file_path)     # use mutagen to get the length of the audio file
                 length = int(audio.info.length)
                 new_song = Song(song_title=os.path.splitext(filename)[0], file_path=file_path, length=length)
+                new_album.songs.append(new_song)
                 db.session.add(new_song)
-                db.session.commit()
+        db.session.commit()
         flash('Files uploaded successfully')
         return redirect(url_for('upload_file'))
 
-    return render_template('upload.html')
+    return render_template('upload.html', form=form)
 
 @app.route('/songs')
 def songs():

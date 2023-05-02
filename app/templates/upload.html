@@ -4,7 +4,6 @@
     <title>Upload Music File</title>
 </head>
 <body>
-    {% include 'navbar.html' %}
     <h1>Upload Music File</h1>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -14,11 +13,12 @@
         {% endif %}
     {% endwith %}
     <form method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
         <label for="album">Album:</label>
-        <input type="text" name="album" id="album">
+        {{ form.album_title(id='album') }}
         <br>
-        <!-- <input type="date" name="album_release_date" id="album_release_date">
-        <br> -->
+        {{ form.album_release_date }}
+        <br>
         <label for="file">File:</label>
         <input type="file" name="file" id="file" accept=".mp3" multiple>
         <br>
@@ -26,3 +26,4 @@
     </form>
 </body>
 </html>
+

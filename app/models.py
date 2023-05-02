@@ -27,6 +27,8 @@ class Artist(User):
     artist_stagename = db.Column(db.String(80), nullable=False)
     artist_city = db.Column(db.String(80), nullable=False)
     artist_tags = db.Column(db.String(80), nullable=False)
+    albums = db.relationship('Album', backref='artist', lazy=True)
+
 
     __mapper_args__ = {
         'polymorphic_identity': 'artist',
@@ -54,7 +56,8 @@ class Album(db.Model):
     album_title = db.Column(db.String(80), nullable=False)
     album_release_date = db.Column(db.DateTime, nullable=False)
     # user_name = db.Column(db.String(80), db.ForeignKey('artist.user_name'))
-    artist_id = db.Column(db.Integer, db.ForeignKey('artist.user_id'))
+    artist_id = db.Column(db.Integer, db.ForeignKey('artist.user_id'), nullable=False)
+    # artist_id = db.Column(db.Integer, db.ForeignKey('artist.user_id'))
     songs = db.relationship('Song', backref='album', lazy=True)
     def __repr__(self):
         return f'<Album {self.album_title}>'
