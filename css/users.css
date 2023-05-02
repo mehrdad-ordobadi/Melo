@@ -39,7 +39,7 @@ body {
 
 .navList .nav-link span {
     font-size: 1.35rem;
-    top: -7px;
+    top: 2px;
     position: relative;
     left: 8px;
 }
