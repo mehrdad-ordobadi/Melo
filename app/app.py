@@ -106,8 +106,7 @@ def login():
             return redirect(url_for('dashboard'))
         else:
             flash('Unable to log in. Please check your credentials and try again.', 'danger')
-    return render_template('login.html')
-
+    return render_template('login.html'), 200
 
 @app.route('/add_artist', methods=['GET', 'POST'])
 @login_required
@@ -146,34 +145,38 @@ def allowed_file(filename):
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url), 400
-        file = request.files.get('file')
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url), 400
-        if file and allowed_file(file.filename):
-            artist_id = current_user.id
-            album = request.form.get('album').strip().replace(' ', '_').lower()
-            filename = secure_filename(file.filename)
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], str(artist_id), album, filename.lower()) 
-            if os.path.exists(file_path):
-                flash('Song already added in the album!'), 400
-                time.sleep(1)
+        files = request.files.getlist('file')
+        if not files:
+            flash('No files part')
+            return redirect(request.url)
+        # album_release_date = request.form.get('album_release_date')
+        artist_id = current_user.id
+        album = request.form.get('album').strip()
+        # existing_album = Album.query.filter_by(title=album, artist_id=artist_id).first()
+        # if not existing_album:
+        #     pass    # *******************************
+        album = album.strip().replace(' ', '_').lower()
+        for file in files:
+            if file.filename == '':
+                flash('No selected file')
                 return redirect(request.url)
-            os.makedirs(os.path.join(app.config['UPLOAD_FOLDER'], str(artist_id), album), exist_ok=True)
-            print(f'Saving file to: {file_path}')
-            file.save(file_path)
-            print(f'Saved file to: {file_path}')
-            print(f'{os.path.exists(file_path)}')
-            audio = mutagen.File(file_path)     # use mutagen to get the length of the audio file
-            length = int(audio.info.length)
-            new_song = Song(song_title=os.path.splitext(filename)[0], file_path=file_path, length=length)
-            db.session.add(new_song)
-            db.session.commit()
-            flash('File uploaded successfully')
-            return redirect(url_for('upload_file'))
+
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file_path = os.path.join(app.config['UPLOAD_FOLDER'], str(artist_id), album, filename.lower())
+                if os.path.exists(file_path):
+                    flash('Song already added in the album!')
+                    return redirect(request.url)
+                os.makedirs(os.path.join(app.config['UPLOAD_FOLDER'], str(artist_id), album), exist_ok=True)
+                file.save(file_path)
+                audio = mutagen.File(file_path)     # use mutagen to get the length of the audio file
+                length = int(audio.info.length)
+                new_song = Song(song_title=os.path.splitext(filename)[0], file_path=file_path, length=length)
+                db.session.add(new_song)
+                db.session.commit()
+        flash('Files uploaded successfully')
+        return redirect(url_for('upload_file'))
+
     return render_template('upload.html')
 
 @app.route('/songs')
@@ -186,7 +189,7 @@ def songs():
 def add_album():
     form = AlbumForm()
     if form.validate_on_submit():
-        album_title = form.album_title.data
+        album_title = form.album_title.data.strip()
         album_release_date = form.album_release_date.data
 
         # Create a new Album instance
@@ -245,4 +248,4 @@ def dashboard():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
