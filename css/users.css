@@ -59,6 +59,11 @@ body {
     justify-content: center;
 }
 
+.audio-player {
+    position: fixed;
+    bottom: 0;
+}
+
 @media screen and (max-height: 450px) {
     .sidebar {padding-top: 15px;}
     .navList {font-size: 18px;}
