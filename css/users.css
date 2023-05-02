@@ -80,11 +80,35 @@ body {
     cursor: pointer;
 }
 
-.audio-player {
+.account-nav {
     position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #0C1713;
+}
+
+.account-nav button {
+    background-color: #0C1713;
+    border: none;
+}
+
+.account-nav img {
+    width: 30px;
+    height: 30px;
+    padding: 10px;
+}
+
+.account-nav span {
+    top: -20px;
+    position: relative;
+    padding-right: 10px;
+    color: #EFE9F4;
+}
+
+.audio-player audio {
     bottom: 0;
-    width: 100%;
-    text-align: center;
+    right: 0;
+    position: fixed;
 }
 
 @media screen and (max-height: 450px) {
