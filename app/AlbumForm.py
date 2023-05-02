@@ -4,5 +4,5 @@ from wtforms.validators import DataRequired
 
 class AlbumForm(FlaskForm):
     album_title = StringField('Album Title', validators=[DataRequired()])
-    album_release_date = DateField('Release Date', validators=[DataRequired()], format='%Y-%m-%d')
+    album_release_date = DateField('Release Date', format='%Y-%m-%d')
     submit = SubmitField('Add Album')
