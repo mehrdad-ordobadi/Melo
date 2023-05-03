@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="static/homepage.css" />
 </head>
 <body>
+    {% include 'navbar.html' %}
     <h1>Dashboard</h1>
     <p>Welcome, {{ current_user.username }}!</p>
     {% if current_user.user_type == 'artist' %}

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/users.css" />
+    <link rel="stylesheet" href="css/users.css"/>
     <script src="javascript/script.js" defer></script>
     <title>User Page</title>
   </head>
@@ -13,41 +13,74 @@
       <div class="logo">
         <a href=""><img src="" alt="Logo" /></a>
       </div>
-      <h1 class="logo">Melodiscover</h1>
-      <ol class="navList">
-        <li>
+
+      <form id="form" role="search">
+          <input type="text" id="query" name="q" placeholder="local artists..."/>
+          <button>Search</button>
+        </div>
+      </form>
+
+        <div class="navList"> 
+        <div class="nav-link"><a href="artist.html">
           <img
             src="nav_icons/artists.png"
-            width="40"
-            height="40"
             alt="artists_icon"
-          /> Artists
-        </li>
-        <li>
+          />
+          <span>Artists</span>
+        </a>
+      </div>
+        <div class="nav-link"><a>
           <img
             src="nav_icons/songs.png"
-            width="40"
-            height="40"
             alt="songs_icon"
-          /> Songs
-        </li>
-        <li>
+          />
+          <span>Songs</span>
+        </a>
+      </div>
+        <div class="nav-link"><a>
           <img
             src="nav_icons/playlist.png"
-            width="40"
-            height="40"
             alt="playlist_icon"
-          /> Playlists
-        </li>
-        <li>
+          />
+          <span>Playlists</span>
+        </a>
+      </div>
+       <div class="nav-link"><a>
           <img
             src="nav_icons/events.png"
-            width="40"
-            height="40"
             alt="events_icon"
-          /> Events
-        </li>
-      </ol>
-    </nav>
+          />
+          <span>Events</span>
+        </a>
+      </div>
+    </div> 
+</nav>
+
+<nav class="account-nav">
+  <div>
+    <button class="account-button">
+    <img src="nav_icons/account.png" alt="account_icon"/>
+    <span>My Account</span>
+  </button>
+  <button class="notification-button">
+    <img src="nav_icons/notification.png" alt="notification_icon"/>
+  </button>
+</div>
+</nav>
+
+<main>
+  <h1>Feature Artists of the Week</h1>
+    <div class="album">
+    <img src="album_covers/bigswish_chillinit.jpeg" alt="ChillinIT_Album_Cover"/>
+    <p>ChillinIT - Big Swish (2K 'Court in Session')</p>
+    </div>
+</main>
+
+  <footer class="audio-player">
+    <audio controls="">
+      <source src="music/audio.mp3" type="audio/mpeg">
+      Audio element not supported by your browser. 
+    </audio>
+  </footer>
   </body>
 </html>
