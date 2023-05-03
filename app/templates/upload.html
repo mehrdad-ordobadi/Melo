@@ -13,8 +13,17 @@
         {% endif %}
     {% endwith %}
     <form method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".mp3,.wav,.ogg">
+        {{ form.hidden_tag() }}
+        <label for="album">Album:</label>
+        {{ form.album_title(id='album') }}
+        <br>
+        {{ form.album_release_date }}
+        <br>
+        <label for="file">File:</label>
+        <input type="file" name="file" id="file" accept=".mp3" multiple>
+        <br>
         <input type="submit" value="Upload">
     </form>
 </body>
 </html>
+
