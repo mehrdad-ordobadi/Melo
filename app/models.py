@@ -19,7 +19,7 @@ class User(UserMixin,db.Model):
     }
 
     def __repr__(self):
-        return f'<User {self.user_name}>'
+        return f'<User {self.username}>'
 
 class Artist(User):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)

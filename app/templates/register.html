@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Register</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Register</h1>
     <form method="POST" action="{{ url_for('register') }}">
-        {{ form.hidden_tag() }}
-        <div>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}
-        </div>
-        <div>
-            {{ form.email.label }}<br>
-            {{ form.email(size=32) }}
-        </div>
-        <div>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}
-        </div>
-        <div>
-            {{ form.confirm_password.label }}<br>
-            {{ form.confirm_password(size=32) }}
-        </div>
-        <div>
-            {{ form.user_type.label }}<br>
-            {{ form.user_type() }}
-        </div>
-        <div>
-            {{ form.submit() }}
-        </div>
+      {{ form.hidden_tag() }}
+      <div>
+        {{ form.username.label }}<br />
+        {{ form.username(size=32) }}
+      </div>
+      <div>
+        {{ form.email.label }}<br />
+        {{ form.email(size=32) }}
+      </div>
+      <div>
+        {{ form.password.label }}<br />
+        {{ form.password(size=32) }}
+      </div>
+      <div>
+        {{ form.confirm_password.label }}<br />
+        {{ form.confirm_password(size=32) }}
+      </div>
+      <div>
+        {{ form.user_type.label }}<br />
+        {{ form.user_type() }}
+      </div>
+      {% if form.user_type.data == 'artist' %}
+      <div>
+        {{ form.artist_stagename.label }}<br />
+        {{ form.artist_stagename(size=32) }}
+      </div>
+      <div>
+        {{ form.artist_city.label }}<br />
+        {{ form.artist_city(size=32) }}
+      </div>
+      <div>
+        {{ form.artist_tags.label }}<br />
+        {{ form.artist_tags(size=32) }}
+      </div>
+      {% endif %}
+      <div>{{ form.submit() }}</div>
     </form>
     <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
-</body>
+  </body>
 </html>

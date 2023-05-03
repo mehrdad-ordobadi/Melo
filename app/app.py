@@ -11,7 +11,6 @@ from werkzeug.utils import secure_filename
 import os, time
 import mutagen
 from AlbumForm import AlbumForm
-from listenerForm import ListenerForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
@@ -38,39 +37,6 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-
-# @app.route('/register', methods=['GET', 'POST'])
-# def register():
-#     form = RegistrationForm()
-#     if form.validate_on_submit():
-#         user_name = form.username.data
-#         email = form.email.data
-#         password = form.password.data
-#         hashed_password = generate_password_hash(password, method='sha256')
-#         user_type = form.user_type.data
-#         date_join = datetime.utcnow()
-
-#         existing_user = User.query.filter_by(username=user_name).first()
-
-#         if existing_user:
-#             flash('Username already exists. Please choose a different username.', 'danger')
-#             return render_template('register.html', form=form)
-
-#         new_user = User(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join)
-#         db.session.add(new_user)
-#         db.session.commit()
-
-#         if user_type == 'listener':
-#             return redirect(url_for('listener_details'))
-    
-
-#         flash('Registration successful. You can now log in.', 'success')
-#         return redirect(url_for('login'))
-
-#     return render_template('register.html', form=form)
-
-
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -82,10 +48,28 @@ def register():
         user_type = form.user_type.data
         date_join = datetime.utcnow()
 
-        new_user = User(username=user_name, password=hashed_password, user_type=user_type, user_email = email, date_join=date_join)
+        existing_user = User.query.filter_by(username=user_name).first()
+
+        if existing_user:
+            flash('Username already exists. Please choose a different username.', 'danger')
+            return render_template('register.html', form=form)
+
+        new_user = User(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join)
+        
+        if user_type == 'artist':
+            print(user_type)
+            # Create a new artist object
+            artist = Artist(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, user_id=new_user.id,artist_stagename=form.artist_stagename.data, artist_city=form.artist_city.data, artist_tags=form.artist_tags.data)
+            db.session.add(artist)
+            db.session.commit()    # add the new artist to the session
+            flash('Artist details saved successfully.', 'success')
+            return redirect(url_for('login'))
+        
+        
+
         db.session.add(new_user)
         db.session.commit()
-
+    
         flash('Registration successful. You can now log in.', 'success')
         return redirect(url_for('login'))
 
@@ -203,21 +187,25 @@ def songs():
 @login_required
 def add_album():
     form = AlbumForm()
+    if not form.validate_on_submit():
+        for field, errors in form.errors.items():
+            for error in errors:
+                print(f'Error in {getattr(form, field).label.text}: {error}')
     if form.validate_on_submit():
         album_title = form.album_title.data.strip()
         album_release_date = form.album_release_date.data
-
+        
         # Create a new Album instance
         new_album = Album(
             album_title=album_title,
             album_release_date=album_release_date,
-            artist_id=current_user.id
+            artist=current_user
         )
 
-        # Add the new album to the current user's artist_info
-        current_user.artist_info.albums.append(new_album)
+        # Add the new album to the database session
+        db.session.add(new_album)
 
-        # Commit the changes
+        # Commit the changes to the database
         db.session.commit()
 
         flash('Album added successfully!', 'success')
