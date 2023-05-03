@@ -1,17 +1,56 @@
-.navList {
-    list-style-type: none;
-    color: #EFE9F4;    
-    font-size: 25px;
-    display: block;
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
 
+body {
+    background-color: #0C1713;
+    margin: 0;
+    font-family: 'Dosis', sans-serif;
+}
+
+.navList {
+    color: #0C1713;    
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 250px;
+    margin-top: 20px;
+    font-family: 'Dosis', sans-serif;
+}
+
+.navList .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 0 15px 0px;
+    width: 100%;
+    align-self: stretch;
+}
+
+.navList .nav-link:hover {
+    background-color: gray;
+    cursor: pointer;
+}
+
+.navList .nav-link img {
+    width: 30px;
+    height: 30px;
+    margin-left: 70px;
+    vertical-align: middle;
+}
+
+.navList .nav-link span {
+    font-size: 1.35rem;
+    top: 2px;
+    position: relative;
+    left: 8px;
 }
 
 .sidebar {
     color: #EFE9F4;
-    background-color: #388697;
+    background-color: #C5DAC1;
     height: 100%;
-    width: 280px;
+    width: 250px;
     position: fixed;
+    border-right: solid #3c3c3c;
 }
 
 .logo {
@@ -20,8 +59,59 @@
     margin-bottom: 40px;
 }
 
+#form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#form input {
+    flex: 1;
+    border: none;
+    outline: none;
+}
+
+#form button {
+    background: #F26157;
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    color: white;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.account-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #0C1713;
+}
+
+.account-nav button {
+    background-color: #0C1713;
+    border: none;
+}
+
+.account-nav img {
+    width: 30px;
+    height: 30px;
+    padding: 10px;
+}
+
+.account-nav span {
+    top: -20px;
+    position: relative;
+    padding-right: 10px;
+    color: #EFE9F4;
+}
+
+.audio-player audio {
+    bottom: 0;
+    right: 0;
+    position: fixed;
+}
 
 @media screen and (max-height: 450px) {
-    .sidebar {padding-top: 15px;}
-    .navList {font-size: 18px;}
+
 }

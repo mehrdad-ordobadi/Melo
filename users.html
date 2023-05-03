@@ -15,54 +15,64 @@
       </div>
 
       <form id="form" role="search">
-          <input type="text" id="query" name="q" placeholder="Search..."/>
-          <button>Go</button>
+          <input type="text" id="query" name="q" placeholder="local artists..."/>
+          <button>Search</button>
         </div>
       </form>
 
-        <ol class="navList"> 
-        <li><a>
+        <div class="navList"> 
+        <div class="nav-link"><a>
           <img
             src="nav_icons/artists.png"
-            width="40"
-            height="40"
             alt="artists_icon"
           />
-          Artists
+          <span>Artists</span>
         </a>
-      </li>
-        <li><a>
+      </div>
+        <div class="nav-link"><a>
           <img
             src="nav_icons/songs.png"
-            width="40"
-            height="40"
             alt="songs_icon"
           />
-          Songs
+          <span>Songs</span>
         </a>
-      </li>
-        <li><a>
+      </div>
+        <div class="nav-link"><a>
           <img
             src="nav_icons/playlist.png"
-            width="40"
-            height="40"
             alt="playlist_icon"
           />
-          Playlists
+          <span>Playlists</span>
         </a>
-      </li>
-       <li><a>
+      </div>
+       <div class="nav-link"><a>
           <img
             src="nav_icons/events.png"
-            width="40"
-            height="40"
             alt="events_icon"
           />
-          Events
+          <span>Events</span>
         </a>
-      </li>
-      </ol> 
+      </div>
+    </div> 
+</nav>
 
-    </nav>
+<nav class="account-nav">
+  <div>
+    <button class="account-button">
+    <img src="nav_icons/account.png" alt="account_icon"/>
+    <span>My Account</span>
+  </button>
+  <button class="notification-button">
+    <img src="nav_icons/notification.png" alt="notification_icon"/>
+  </button>
+</div>
+</nav>
+
+  <footer class="audio-player">
+    <audio controls="">
+      <source src="music/audio.mp3" type="audio/mpeg">
+      Audio element not supported by your browser. 
+    </audio>
+  </footer>
   </body>
 </html>
