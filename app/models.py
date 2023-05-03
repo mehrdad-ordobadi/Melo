@@ -19,7 +19,7 @@ class User(UserMixin,db.Model):
     }
 
     def __repr__(self):
-        return f'<User {self.user_name}>'
+        return f'<User {self.username}>'
 
 class Artist(User):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
@@ -27,6 +27,7 @@ class Artist(User):
     artist_stagename = db.Column(db.String(80), nullable=False)
     artist_city = db.Column(db.String(80), nullable=False)
     artist_tags = db.Column(db.String(80), nullable=False)
+    albums = db.relationship('Album', backref='artist', lazy=True)
 
     __mapper_args__ = {
         'polymorphic_identity': 'artist',
