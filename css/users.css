@@ -33,6 +33,11 @@ body {
     align-self: stretch;
 }
 
+.navList .nav-link a {
+    text-decoration: none;
+    color: black;
+}
+
 .navList .nav-link:hover {
     background-color: gray;
     cursor: pointer;
