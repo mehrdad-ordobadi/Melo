@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
 
+/* COLOURS
+pomegranate = #A54657
+seafoam green = #C5DAC1
+burgundy = #582630
+coral = #F26157
+darkest green = #0C1713
+*/
+
 body {
     background-color: #0C1713;
     margin: 0;
@@ -51,6 +59,7 @@ body {
     width: 250px;
     position: fixed;
     border-right: solid #3c3c3c;
+    top: 0;
 }
 
 .logo {
@@ -79,6 +88,17 @@ body {
     color: white;
     letter-spacing: 1px;
     cursor: pointer;
+}
+
+main h1 {
+    color: #EFE9F4;
+    text-align: center;
+    padding-top: 30px;
+}
+
+main .album img {
+    width: 150px;
+    height: 150px;
 }
 
 .account-nav {
