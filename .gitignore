@@ -1,2 +1,3 @@
-app/venv/
-app/instance/
+app/venv
+app/static/audio
+app/instance

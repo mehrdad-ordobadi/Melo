@@ -22,7 +22,8 @@ db_path = os.path.join(basedir, 'instance', 'users.db')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 
 # db = SQLAlchemy(app)
-UPLOAD_FOLDER = 'static/audio'
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static/audio')
 ALLOWED_EXTENSIONS = {'mp3'}    # only mp3 files accepted
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -176,10 +177,6 @@ def upload_file():
 
     return render_template('upload.html', form=form)
 
-# @app.route('/songs')
-# def songs():
-#     all_albums = Album.query.all()
-#     return render_template('songs.html', albums=all_albums)
 @app.route('/songs')
 def songs():
     all_songs = Song.query.all()
@@ -236,6 +233,18 @@ def dashboard():
 def homepage():
     return render_template('homepage.html')
 
+
+@app.route('/search', methods=['POST'])
+def search():
+    search_query = request.form['search_query']
+    artists = Artist.query.filter(Artist.artist_stagename.ilike(f'%{search_query}%')).all()
+    return render_template('search_results.html', artists=artists)
+
+@app.route('/artist/<int:artist_id>', methods=['GET'])
+def artist_page(artist_id):
+    artist = Artist.query.get_or_404(artist_id)
+    albums = Album.query.filter_by(artist_id=artist_id).all()
+    return render_template('artist_page.html', artist=artist, albums=albums)
 
 
 # @app.route('/api/users', methods=['GET'])
