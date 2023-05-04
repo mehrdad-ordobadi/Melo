@@ -1,5 +1,5 @@
 body {
-  background-color: #232323;
+  background-color: #0C1713;
   margin: 0px 1%;
   font-family: 'Red Hat Display', sans-serif;
 }
@@ -60,7 +60,7 @@ nav .login_signup {
 }
 
 .main_images img {
-  width: 100px;
+  width: 100%;
 }
 
 main h2 {
@@ -91,7 +91,7 @@ p {
   background: none;
   border: 2px solid #e4ee23;
   border-radius: 25px;
-  color: #99ee23;
+  color: #C5DAC1;
   font-size: 15px;
   padding: 15px 30px;
 }
