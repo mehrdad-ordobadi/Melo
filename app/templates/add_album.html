@@ -5,6 +5,7 @@
     <title>Add Album</title>
 </head>
 <body>
+    {% include 'navbar.html' %}
     <h1>Add Album</h1>
     <form method="POST" enctype="multipart/form-data">
         {{ form.csrf_token }}
