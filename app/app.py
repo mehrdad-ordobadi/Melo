@@ -35,12 +35,17 @@ login_manager.login_view = 'login'
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
+
+        existing_user = User.query.filter_by(username=form.username.data).first()
+
+        if existing_user:
+            flash('Username already exists. Please choose a different username.', 'danger')
+            return render_template('register.html', form=form)
+
         user_name = form.username.data
         email = form.email.data
         password = form.password.data
@@ -48,32 +53,25 @@ def register():
         user_type = form.user_type.data
         date_join = datetime.utcnow()
 
-        existing_user = User.query.filter_by(username=user_name).first()
-
-        if existing_user:
-            flash('Username already exists. Please choose a different username.', 'danger')
-            return render_template('register.html', form=form)
-
-        new_user = User(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join)
-        
-        if user_type == 'artist':
-            print(user_type)
-            # Create a new artist object
-            artist = Artist(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, user_id=new_user.id,artist_stagename=form.artist_stagename.data, artist_city=form.artist_city.data, artist_tags=form.artist_tags.data)
-            db.session.add(artist)
-            db.session.commit()    # add the new artist to the session
-            flash('Artist details saved successfully.', 'success')
+        if user_type == 'listener':
+            listener = Listener(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data)
+            db.session.add(listener)
+            db.session.commit()
+            flash('Registration successful. You can now log in.', 'success')
             return redirect(url_for('login'))
-        
-        
 
-        db.session.add(new_user)
-        db.session.commit()
-    
-        flash('Registration successful. You can now log in.', 'success')
-        return redirect(url_for('login'))
+        else:
+            artist_stagename = form.artist_stagename.data
+            artist_city = form.artist_city.data
+            artist_tags = form.artist_tags.data
+            artist = Artist(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data, artist_stagename=artist_stagename, artist_city=artist_city, artist_tags=artist_tags)
+            db.session.add(artist)
+            db.session.commit()
+            flash('Registration successful. You can now log in.', 'success')
+            return redirect(url_for('login'))
 
     return render_template('register.html', form=form)
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
