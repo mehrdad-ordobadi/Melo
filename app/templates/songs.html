@@ -6,16 +6,19 @@
     <title>Songs</title>
 </head>
 <body>
-    <h1>Songs</h1>
+    {% include 'navbar.html' %}
+    <h1>Songs:</h1>
     <ul>
-        {% for song in songs %}
-            <li>
-                {{ song.song_title }}
-                <audio controls>
-                    <source src="{{ url_for('static', filename='audio/1/newwww/sweet.mp3') }}" type="audio/mpeg">          
-                              Your browser does not support the audio element.
-                </audio>
-            </li>
+        {% for album in albums %}
+            <h3>{{ album.album_title }}</h3>
+            {% for song in album.songs %}
+                <li>
+                    {{ song.song_title }}
+                    <audio controls>
+                        <source src="{{ url_for('static', filename='audio/' + album.artist_id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}" type="audio/mpeg">
+                    </audio>
+                </li>
+            {% endfor %}
         {% endfor %}
     </ul>
 </body>

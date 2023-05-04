@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>Listener Details</h1>
+    {% include 'navbar.html' %}
     <form method="POST" action="{{ url_for('listener_details') }}">
         {{ form.hidden_tag() }}
         <div>
