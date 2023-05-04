@@ -62,7 +62,7 @@ body {
     background-color: #C5DAC1;
     height: 100%;
     width: 250px;
-    position: fixed;
+    position: absolute;
     border-right: solid #3c3c3c;
     top: 0;
 }
@@ -95,15 +95,24 @@ body {
     cursor: pointer;
 }
 
+.spotlight{
+    position: relative;
+}
+
 main h1 {
     color: #EFE9F4;
-    text-align: center;
     padding-top: 30px;
 }
 
 main .album img {
     width: 150px;
     height: 150px;
+}
+
+.album {
+    position: relative;
+    left: 250px;
+    margin-left: 20px;
 }
 
 .account-nav {
