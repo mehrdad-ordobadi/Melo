@@ -8,21 +8,23 @@
     <script src="javascript/script.js" defer></script>
     <title>User Page</title>
   </head>
+
   <body>
     <main>
-      <div class="nav">
-        <nav class="sidebar">
-          <div class="logo">
-            <a href=""><img src="" alt="Logo" /></a>
-          </div>
 
-          <form id="form" role="search">
-            <input
+        <div class="nav">
+          <nav class="sidebar">
+            <div class="logo">
+              <a href=""><img src="logo/melo-logo-150.png" alt="Logo" /></a>
+            </div>
+
+            <form id="form" role="search">
+              <input
               type="text"
               id="query"
               name="q"
               placeholder="local artists..."
-            />
+              />
             <button>Search</button>
           </form>
 
@@ -69,11 +71,15 @@
 
       <div class="album">
         <h1>Feature Artists of the Week</h1>
-        <img
+        <div class="img-container">
+        <img class="img"
           src="album_covers/bigswish_chillinit.jpeg"
           alt="ChillinIT_Album_Cover"
         />
-        <p>ChillinIT - Big Swish (2K 'Court in Session')</p>
+        <div class="overlay">
+          <div class="album-text">ChillinIT - Big Swish (2K 'Court in Session')</div>
+        </div>
+      </div>
       </div>
     </main>
 
@@ -83,5 +89,6 @@
         Audio element not supported by your browser.
       </audio>
     </footer>
+  </div>
   </body>
 </html>

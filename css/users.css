@@ -31,6 +31,7 @@ body {
     padding: 10px 0 15px 0px;
     width: 100%;
     align-self: stretch;
+
 }
 
 .navList .nav-link a {
@@ -59,12 +60,14 @@ body {
 
 .sidebar {
     color: #EFE9F4;
-    background-color: #C5DAC1;
+    background-color: #A54657;
     height: 100%;
     width: 250px;
     position: absolute;
     border-right: solid #3c3c3c;
     top: 0;
+    grid-column: 1;
+    grid-row: 1/5;
 }
 
 .logo {
@@ -102,17 +105,56 @@ body {
 main h1 {
     color: #EFE9F4;
     padding-top: 30px;
+    grid-column: 2/ span 3;
 }
 
-main .album img {
-    width: 150px;
-    height: 150px;
+main .album .img-container {
+    width: 50%;
+    position: relative;
+    color: #EFE9F4;
+    grid-column: 2;
+    grid-row: 2/5;
+}
+
+main .album .img {
+    display: block;
+    width: 250px;
+    height: auto;
+}
+
+main .album .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 250px;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: red;
+    cursor: pointer;
+}
+
+.img-container:hover .overlay {
+    opacity: 0.75;
+}
+
+.album .overlay .album-text {
+    color: #EFE9F4;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
 }
 
 .album {
-    position: relative;
-    left: 250px;
-    margin-left: 20px;
+    margin-left: 25px;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-auto-rows: auto;
 }
 
 .account-nav {
