@@ -176,10 +176,14 @@ def upload_file():
 
     return render_template('upload.html', form=form)
 
+# @app.route('/songs')
+# def songs():
+#     all_albums = Album.query.all()
+#     return render_template('songs.html', albums=all_albums)
 @app.route('/songs')
 def songs():
-    all_albums = Album.query.all()
-    return render_template('songs.html', albums=all_albums)
+    all_songs = Song.query.all()
+    return render_template('songs.html', songs=all_songs)
 
 
 @app.route('/add_album', methods=['GET', 'POST'])
