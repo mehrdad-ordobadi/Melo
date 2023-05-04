@@ -1,0 +1,134 @@
+body {
+  background-color: #232323;
+  margin: 0px 1%;
+  font-family: 'Red Hat Display', sans-serif;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+nav {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+}
+
+h1 {
+  font-size: 2rem;
+  font-family: 'Lobster', cursive;
+}
+
+h2 {
+  margin: 0px;
+}
+
+main {
+  margin-top: 10%;
+}
+
+nav .logo {
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
+nav .logo a {
+  margin-right: 3%;
+}
+
+nav .logo img {
+  height: 60px;
+}
+
+nav .login_signup {
+  display: flex;
+  flex-direction: row;
+  width: 30%;
+  justify-content: end;
+}
+
+.main_images {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.main_images img {
+  width: 100px;
+}
+
+main h2 {
+  display: flex;
+  color: white;
+  justify-content: center;
+  font-size: 3rem;
+  margin-bottom: 5%;
+  font-family: 'Red Hat Display', sans-serif;
+}
+
+p {
+  color: white;
+  font-family: 'Red Hat Display', sans-serif;
+}
+
+.main_images div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login_signup button {
+  margin-left: 2.5%;
+}
+
+.login-btn {
+  background: none;
+  border: 2px solid #e4ee23;
+  border-radius: 25px;
+  color: #99ee23;
+  font-size: 15px;
+  padding: 15px 30px;
+}
+
+.signup-btn {
+  background: none;
+  border: 2px solid #ffb703;
+  border-radius: 25px;
+  color: #ffb703;
+  font-size: 15px;
+  padding: 15px 30px;
+}
+
+/* footer */
+
+footer {
+  margin-top: 15%;
+  padding: 0%;
+}
+
+footer p {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 5%;
+  margin-bottom: 0px;
+}
+
+/* footer */
+
+@media (max-width: 450px) {
+  .logo h1 {
+    display: none;
+  }
+
+  body {
+    background-color: #232323;
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr;
+  }
+}

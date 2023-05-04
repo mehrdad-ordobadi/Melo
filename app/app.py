@@ -227,6 +227,10 @@ def dashboard():
     return render_template('dashboard.html')
 
 
+@app.route('/')
+def homepage():
+    return render_template('homepage.html')
+
 
 
 # @app.route('/api/users', methods=['GET'])
