@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% set show_navbar = false %}
+
 {% block title %}Melodiscover{% endblock %}
 
 {% block extra_links %}
@@ -15,7 +17,7 @@
 {% endblock %}
 
 {% block content %}
-{% set not_show_navbar = true %}
+
 <nav>
   <div class="logo">
     <a href="index.html"><img src="../static/homepage-images/melo-logo-150.png" alt="Logo"></a>

@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% set show_navbar = false %}
+
 {% block title %}Login{% endblock %}
 {% block extra_links %}
 <link rel="stylesheet" href="../static/login.css">
@@ -12,7 +14,7 @@
 {% endblock %}
 
 {% block content %}
-{% set not_show_navbar = true %}
+
 <main>
     <div class="login-container">
         <h1>Login</h1>
