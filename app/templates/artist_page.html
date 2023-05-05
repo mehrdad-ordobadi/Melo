@@ -10,6 +10,11 @@
     <h1>{{ artist.artist_stagename }}</h1>
     <p>{{ artist.artist_city }}</p>
     <p>{{ artist.artist_tags }}</p>
+    {% if artist.artist_biography %}
+    <p><a href="{{ url_for('artist_biography', artist_id=artist.id) }}">Biography</a></p>
+    {% else %}
+        <p>No biography available for this artist.</p>
+    {% endif %}
 
     <h2>Albums</h2>
     <ul>

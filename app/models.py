@@ -29,6 +29,7 @@ class Artist(User):
     artist_stagename = db.Column(db.String(80), nullable=False)
     artist_city = db.Column(db.String(80), nullable=False)
     artist_tags = db.Column(db.String(80), nullable=False)
+    artist_biography = db.Column(db.Text, nullable=True)
     albums = db.relationship('Album', backref='artist', lazy=True)
 
 

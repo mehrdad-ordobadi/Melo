@@ -8,6 +8,7 @@ from forms import RegistrationForm
 from datetime import datetime
 from database import db
 from werkzeug.utils import secure_filename
+from biography_form import BiographyForm
 import os
 import mutagen
 from AlbumForm import AlbumForm
@@ -64,7 +65,7 @@ def register():
             artist_stagename = form.artist_stagename.data
             artist_city = form.artist_city.data
             artist_tags = form.artist_tags.data
-            artist = Artist(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data, artist_stagename=artist_stagename, artist_city=artist_city, artist_tags=artist_tags)
+            artist = Artist(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data, artist_stagename=artist_stagename, artist_city=artist_city, artist_tags=artist_tags, artist_biography=None)
             db.session.add(artist)
             db.session.commit()
             flash('Registration successful. You can now log in.', 'success')
@@ -185,6 +186,23 @@ def artist_page(artist_id):
     artist = Artist.query.get_or_404(artist_id)
     albums = Album.query.filter_by(artist_id=artist_id).all()
     return render_template('artist_page.html', artist=artist, albums=albums)
+
+
+
+@app.route('/artist/<int:artist_id>/biography', methods=['GET', 'POST'])
+@login_required
+def artist_biography(artist_id):
+    artist = Artist.query.get_or_404(artist_id)
+    form = BiographyForm()
+    if form.validate_on_submit():
+        artist.artist_biography = form.biography.data
+        db.session.commit()
+        flash('Biography updated successfully!', 'success')
+        return redirect(url_for('artist_page', artist_id=artist_id))
+    elif artist.artist_biography:
+        form.biography.data = artist.artist_biography
+    return render_template('artist_biography.html', artist=artist, form=form)
+
 
 
 if __name__ == '__main__':
