@@ -5,17 +5,7 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
 </head> 
-<body>
-    {% include 'navbar.html' %}
-    <h1>Dashboard</h1>
-    <p>Welcome, {{ current_user.username }}!</p>
-    {% if current_user.user_type == 'artist' %}
-        <a href="/upload">Upload Music</a>
-      
-    {% endif %}
-    <a href="/songs"> Songs</a>
-    <hr>
-</body>
+
 </html>
     <link rel="stylesheet" href="static/users.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -154,10 +144,10 @@
 </head>
 
 <body>
+    {% include 'navbar.html' %}
     <header class="navbar">
         <a href="/">Home</a>
-        <a href="/songs">Songs</a>
-        <a href="/logout">Logout</a>
+      
     </header>
     <main>
         <div class="dashboard-container">
@@ -165,16 +155,9 @@
             <p>Welcome, {{ current_user.username }}!</p>
             {% if current_user.user_type == 'artist' %}
                 <a href="/upload">Upload Music</a>
-                <a href="/add_artist">Add Artist</a>
-                <a href="{{ url_for('add_album') }}">Add Album</a>
+          
             {% endif %}
-            <div class="search-container">
-                <form action="{{ url_for('search') }}" method="get">
-                    <input type="text" name="query" placeholder="Search for songs, artists, or albums" required>
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-            
+           
             <a href="/songs">Songs</a>
         </div>
     </main>
