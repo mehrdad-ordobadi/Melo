@@ -11,7 +11,7 @@ class RegistrationForm(FlaskForm):
     user_type = SelectField('User Type', choices=[('listener', 'Listener'), ('artist', 'Artist')], validators=[DataRequired()])
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
-    artist_stagename = StringField('artist_tage Name', validators=[DataRequired()])
+    artist_stagename = StringField('artist_tage Name', validators=[])
     artist_city = StringField('artist_city', validators=[])
     artist_tags = StringField('artist_tag', validators=[])
     
