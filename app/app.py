@@ -197,7 +197,7 @@ def artist_biography(artist_id):
     if form.validate_on_submit():
         artist.artist_biography = form.biography.data
         db.session.commit()
-        flash('Biography updated successfully!', 'success')
+        # flash('Biography updated successfully!', 'success')
         return redirect(url_for('artist_page', artist_id=artist_id))
     elif artist.artist_biography:
         form.biography.data = artist.artist_biography
