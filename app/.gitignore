@@ -2,4 +2,3 @@ venv
 static/audio
 instance
 __pycache__
-random
