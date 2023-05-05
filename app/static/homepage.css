@@ -20,10 +20,6 @@ nav {
   padding: 0px;
 }
 
-h1 {
-  font-size: 2rem;
-  font-family: 'Lobster', cursive;
-}
 
 h2 {
   margin: 0px;
@@ -50,13 +46,20 @@ nav .logo img {
 nav .login_signup {
   display: flex;
   flex-direction: row;
-  width: 30%;
+  width: 50%;
   justify-content: end;
 }
 
 .main_images {
-  display: flex;
+  display: grid;
   justify-content: space-evenly;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-row: 1fr 1fr;
+}
+
+.main_images div {
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .main_images img {
@@ -83,26 +86,31 @@ p {
   align-items: center;
 }
 
+.main_images img {
+  width: 200px;
+}
+
 .login_signup button {
   margin-left: 2.5%;
 }
 
 .login-btn {
   background: none;
-  border: 2px solid #e4ee23;
+  border: 2px solid #C5DAC1;
   border-radius: 25px;
   color: #C5DAC1;
   font-size: 15px;
-  padding: 15px 30px;
+  margin-right: 10px;
+  padding: 10px 40px;
 }
 
 .signup-btn {
   background: none;
-  border: 2px solid #ffb703;
+  border: 2px solid #A54657;
   border-radius: 25px;
   color: #ffb703;
   font-size: 15px;
-  padding: 15px 30px;
+  padding: 10px 40px;
 }
 
 /* footer */
@@ -127,7 +135,7 @@ footer p {
   }
 
   body {
-    background-color: #232323;
+    background-color: #0C1713;
     display: grid;
     grid-template-rows: 1fr 3fr 1fr;
   }
