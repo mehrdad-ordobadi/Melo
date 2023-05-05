@@ -1,8 +1,12 @@
-{% extends 'base.html' %}
-
-{% block title %}{{ artist.artist_stagename }}{% endblock %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ artist.artist_stagename }}</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
     <h1>{{ artist.artist_stagename }}</h1>
     <p>{{ artist.artist_city }}</p>
     <p>{{ artist.artist_tags }}</p>
@@ -25,4 +29,5 @@
             </li>
         {% endfor %}
     </ul>
-{% endblock %}
+</body>
+</html>

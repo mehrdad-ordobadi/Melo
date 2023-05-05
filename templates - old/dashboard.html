@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="static/users.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+    <header class="navbar">
+        <a href="/">Home</a>
+      
+    </header>
+    <main>
+        <div class="dashboard-container">
+            <h1>Dashboard</h1>
+            <p>Welcome, {{ current_user.username }}!</p>
+            {% if current_user.user_type == 'artist' %}
+                <a href="/upload">Upload Music</a>
+          
+            {% endif %}
+           
+            <a href="/songs">Songs</a>
+        </div>
+    </main>
+    </body>
+    
+    </html>
+    

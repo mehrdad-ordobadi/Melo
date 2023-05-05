@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block extra_links %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    {% if not_show_navbar|default(false) %}
+    {% include 'navbar.html' %}
+    {% endif %}
+    {% block content %}{% endblock %}
+</body>
+</html>

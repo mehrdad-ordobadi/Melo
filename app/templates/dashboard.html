@@ -1,167 +1,32 @@
-<!doctype html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-</head> 
+{% block title %}Dashboard{% endblock %}
 
-</html>
-    <link rel="stylesheet" href="static/users.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@1,300&display=swap" rel="stylesheet">
-    <style>
-        body {
-            color: white;
-            background-color: #0C1713;
-            font-family: 'Red Hat Display', sans-serif;
-            margin: 0;
-            position: relative;
-        }
+{% block extra_links %}
+<link rel="stylesheet" href="../static/dashboard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@1,300&display=swap" rel="stylesheet">
+{% endblock %}
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #3C8071;
-            padding: 0.5em 1em;
-            animation: slideDown 1s;
-        }
-
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin-left: 1em;
-            animation: fadeIn 1s;
-        }
-
-        .navbar a:hover {
-            color: #28634A;
-        }
-
-        h1 {
-            font-family: 'Lobster', cursive;
-            margin-bottom: 1em;
-            text-align: center;
-            animation: fadeIn 1s;
-        }
-
-        .dashboard-container {
-            background-color: rgba(12, 23, 19, 0.8);
-            border-radius: 5px;
-            padding: 2em;
-            width: 300px;
-            margin: 2em auto;
-            box-sizing: border-box;
-            animation: fadeIn 1s;
-        }
-
-        p {
-            text-align: center;
-            margin-bottom: 1em;
-            animation: fadeIn 1s;
-        }
-
-        a {
-            display: block;
-            width: 100%;
-            padding: 0.5em;
-            background-color: #3C8071;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            text-align: center;
-            text-decoration: none;
-            margin-bottom: 0.5em;
-            animation: fadeInLinks 1s;
-        }
-
-        a:hover {
-            background-color: #28634A;
-            cursor: pointer;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeInLinks {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .search-container {
-            margin: 2em 0;
-            display: flex;
-            justify-content: center;
-        }
-        
-        .search-container input[type="text"] {
-            padding: 0.5em;
-            border: none;
-            border-radius: 3px 0 0 3px;
-            width: 300px;
-        }
-        
-        .search-container button[type="submit"] {
-            display: block;
-            padding: 0.5em;
-            background-color: #3C8071;
-            color: white;
-            border: none;
-            border-radius: 0 3px 3px 0;
-            cursor: pointer;
-        }
-        
-        .search-container button[type="submit"]:hover {
-            background-color: #28634A;
-        }
-        
-    </style>
-</head>
-
-<body>
-    {% include 'navbar.html' %}
-    <header class="navbar">
-        <a href="/">Home</a>
+{% block content %}
+<header class="navbar">
+    <a href="/">Home</a>
+  
+</header>
+<main>
+    <div class="dashboard-container">
+        <h1>Dashboard</h1>
+        <p>Welcome, {{ current_user.username }}!</p>
+        {% if current_user.user_type == 'artist' %}
+            <a href="/upload">Upload Music</a>
       
-    </header>
-    <main>
-        <div class="dashboard-container">
-            <h1>Dashboard</h1>
-            <p>Welcome, {{ current_user.username }}!</p>
-            {% if current_user.user_type == 'artist' %}
-                <a href="/upload">Upload Music</a>
-          
-            {% endif %}
-           
-            <a href="/songs">Songs</a>
-        </div>
-    </main>
-    </body>
-    
-    </html>
-    
+        {% endif %}
+       
+        <a href="/songs">Songs</a>
+    </div>
+</main>
+{% endblock %}
