@@ -1,0 +1,64 @@
+body {
+    color: white;
+    background-color: #0C1713;
+    font-family: 'Red Hat Display', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+h1 {
+    font-family: 'Lobster', cursive;
+    margin-bottom: 1em;
+}
+
+.login-container {
+    background-color: rgba(12, 23, 19, 0.8);
+    border-radius: 5px;
+    padding: 2em;
+    width: 300px;
+    box-sizing: border-box;
+    animation: fadeIn 1s;
+}
+
+label {
+    display: block;
+    margin: 0.5em 0;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 0.5em;
+    border-radius: 3px;
+    border: none;
+}
+
+input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 0.5em;
+    background-color: #3C8071;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin-top: 1em;
+}
+
+input[type="submit"]:hover {
+    background-color: #28634A;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
