@@ -1,4 +1,25 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block title %}Biography{% endblock %}
+
+{% block content %}
+<body>
+	<h1>{{ artist.artist_stagename }}'s Biography</h1>
+	{% if artist.artist_biography %}
+		<p>{{ artist.artist_biography }}</p>
+	{% else %}
+		<p>No biography available for this artist.</p>
+	{% endif %}
+
+	<form method="POST">
+		{{ form.hidden_tag() }}
+		{{ form.biography.label() }}
+		{{ form.biography() }}
+		{{ form.submit() }}
+	</form>
+</body>
+{% endblock %}
+<!-- <!DOCTYPE html>
 <html>
 <head>
 	<title>{{ artist.artist_stagename }} Biography</title>
@@ -27,4 +48,5 @@
 	</script>
 
 </body>
-</html>
+</html> -->
+

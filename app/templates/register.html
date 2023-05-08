@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 {% set show_navbar = false %}
-
 {% block title %}Register{% endblock %}
 
 {% block extra_links %}
-    <link rel="stylesheet" href="static/register.css">
+    <link rel="stylesheet" href="../static/register.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
@@ -24,6 +23,10 @@
 {% endblock %}
 
 {% block content %}
+<<<<<<< HEAD
+=======
+
+>>>>>>> ed67a2eff9a7028c7e931b500e889c664306f435
 <main>
     <div class="login-container">
         <h1>Register</h1>
@@ -74,4 +77,17 @@
       <p>Already have an account? <a href="{{ url_for('login') }}" style="color: #3C8071;">Login</a></p>
   </div>
 </main>
+
+{% if form.errors %}
+<div class="form-errors">
+    <ul>
+    {% for field, errors in form.errors.items() %}
+        {% for error in errors %}
+        <li>{{ field }}: {{ error }}</li>
+        {% endfor %}
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
 {% endblock %}
