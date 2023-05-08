@@ -7,7 +7,7 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    {% if not_show_navbar|default(false) %}
+    {% if show_navbar|default(true) %}
     {% include 'navbar.html' %}
     {% endif %}
     {% block content %}{% endblock %}

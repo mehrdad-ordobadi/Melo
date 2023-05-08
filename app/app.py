@@ -153,10 +153,6 @@ def songs():
     all_albums = Album.query.all()
     return render_template('songs.html', albums=all_albums)
 
-
-
-
-
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
@@ -195,14 +191,18 @@ def artist_biography(artist_id):
     artist = Artist.query.get_or_404(artist_id)
     form = BiographyForm()
     if form.validate_on_submit():
-        artist.artist_biography = form.biography.data
+        if 'delete' in request.form:
+            
+            artist.artist_biography = ''
+        else:
+            artist.artist_biography = form.biography.data
+
         db.session.commit()
-        # flash('Biography updated successfully!', 'success')
         return redirect(url_for('artist_page', artist_id=artist_id))
     elif artist.artist_biography:
         form.biography.data = artist.artist_biography
-    return render_template('artist_biography.html', artist=artist, form=form)
 
+    return render_template('artist_biography.html', artist=artist, form=form)
 
 
 if __name__ == '__main__':
