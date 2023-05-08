@@ -55,7 +55,7 @@ def register():
         date_join = datetime.utcnow()
 
         if user_type == 'listener':
-            listener = Listener(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data)
+            listener = Listener(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data, followed_ids='')
             db.session.add(listener)
             db.session.commit()
             flash('Registration successful. You can now log in.', 'success')
@@ -65,7 +65,7 @@ def register():
             artist_stagename = form.artist_stagename.data
             artist_city = form.artist_city.data
             artist_tags = form.artist_tags.data
-            artist = Artist(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data, artist_stagename=artist_stagename, artist_city=artist_city, artist_tags=artist_tags, artist_biography=None)
+            artist = Artist(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data, artist_stagename=artist_stagename, artist_city=artist_city, artist_tags=artist_tags, artist_biography=None,followed_ids='')
             db.session.add(artist)
             db.session.commit()
             flash('Registration successful. You can now log in.', 'success')
@@ -203,6 +203,48 @@ def artist_biography(artist_id):
         form.biography.data = artist.artist_biography
 
     return render_template('artist_biography.html', artist=artist, form=form)
+
+@app.route('/follow/<int:artist_id>', methods=['POST'])
+@login_required
+def follow_artist(artist_id):
+    artist = Artist.query.get(artist_id)
+    if artist is None:
+        flash('Artist not found.')
+        return redirect(url_for('homepage'))
+
+    if current_user.is_following(artist):
+        flash('You are already following this artist.')
+        return redirect(url_for('artist_page', artist_id=artist_id))
+    current_user.followed_ids += f',{artist_id}'
+    db.session.commit()
+    flash(f'You are now following {artist.artist_stagename}!')
+    return redirect(url_for('artist_page', artist_id=artist_id))
+
+@app.route('/unfollow/<int:artist_id>', methods=['POST'])
+@login_required
+def unfollow_artist(artist_id):
+    artist = Artist.query.get(artist_id)
+    if artist is None:
+        flash('Artist not found.')
+        return redirect(url_for('homepage'))
+ 
+    if not current_user.is_following(artist):
+        flash('You are not following this artist.')
+        return redirect(url_for('artist_page', artist_id=artist_id))
+    followed_ids = current_user.followed_ids.split(',')
+    followed_ids.remove(str(artist_id))
+    current_user.followed_ids = ','.join(followed_ids)
+    db.session.commit()
+    flash(f'You have unfollowed {artist.artist_stagename}.')
+    return redirect(url_for('artist_page', artist_id=artist_id))
+
+@app.route('/favorite_artists')
+@login_required
+def favorite_artists():
+    
+    artist_ids = current_user.followed_ids.split(',')
+    artists = Artist.query.filter(Artist.id.in_(artist_ids)).all()
+    return render_template('favorite_artists.html', artists=artists)
 
 
 if __name__ == '__main__':

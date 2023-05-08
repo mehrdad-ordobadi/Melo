@@ -11,6 +11,20 @@
     {% else %}
         <p>No biography available for this artist.</p>
     {% endif %}
+    
+    {% if current_user.is_authenticated %}
+
+        {% if not current_user.is_following(artist)  %}
+
+            <form method="post" action="{{ url_for('follow_artist', artist_id=artist.id) }}">
+                <input type="submit" value="Follow">
+            </form>
+        {% elif current_user.is_following(artist) %}
+            <form method="post" action="{{ url_for('unfollow_artist', artist_id=artist.id) }}">
+                <input type="submit" value="Unfollow">
+            </form>
+        {% endif %}
+{% endif %}
 
     <h2>Albums</h2>
     <ul>
