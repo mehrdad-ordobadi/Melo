@@ -4,49 +4,26 @@
 
 {% block content %}
 <body>
-	<h1>{{ artist.artist_stagename }}'s Biography</h1>
-	{% if artist.artist_biography %}
-		<p>{{ artist.artist_biography }}</p>
-	{% else %}
-		<p>No biography available for this artist.</p>
-	{% endif %}
-
-	<form method="POST">
-		{{ form.hidden_tag() }}
-		{{ form.biography.label() }}
-		{{ form.biography() }}
-		{{ form.submit() }}
-	</form>
+    <h1>{{ artist.artist_stagename }}'s Biography</h1>
+    {% if artist.artist_biography %}
+        <p>{{ artist.artist_biography }}</p>
+    {% else %}
+        <p>No biography available for this artist.</p>
+    {% endif %}
+    
+    {% if current_user.user_type == 'artist' and current_user.id == artist.id %}
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.biography.label() }}
+            {{ form.biography() }}
+            {{ form.submit() }}
+            <input type="submit" name="delete" value="Delete" onclick="return confirmDelete('{{ artist.username }}');" />
+        </form>
+        <script>
+            function confirmDelete(username) {
+                return confirm("Are you sure you want to delete the biography for " + username + "?");
+            }
+        </script>
+    {% endif %}
 </body>
 {% endblock %}
-<!-- <!DOCTYPE html>
-<html>
-<head>
-	<title>{{ artist.artist_stagename }} Biography</title>
-</head>
-<body>
-	<h1>{{ artist.artist_stagename }} Biography</h1>
-	{% if artist.artist_biography %}
-		<p>{{ artist.artist_biography }}</p>
-	{% else %}
-		<p>No biography available for this artist.</p>
-	{% endif %}
-    {% if current_user.user_type == 'artist' and current_user.id == artist.id %}
-	<form method="POST">
-		{{ form.hidden_tag() }}
-		{{ form.biography.label() }}
-		{{ form.biography() }}
-		{{ form.submit() }}
-		{% if current_user.user_type == 'artist' and current_user.id == artist.id %}
-			<input type="submit" name="delete" value="Delete" onclick="return confirmDelete('{{ artist.username }}');" />
-		{% endif %}
-	</form>
-	<script>
-		function confirmDelete(username) {
-			return confirm("Are you sure you want to delete the biography for " + username + "?");
-		}
-	</script>
-
-</body>
-</html> -->
-
