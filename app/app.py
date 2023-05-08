@@ -121,7 +121,8 @@ def upload_file():
                 artist = Artist.query.get(artist_id)
                 artist.albums.append(new_album)
                 db.session.add(new_album)
-            
+        else:
+            new_album = existing_album
         album = album.strip().replace(' ', '_').lower()
         for file in files:
             if file.filename == '':
@@ -245,6 +246,31 @@ def favorite_artists():
     artist_ids = current_user.followed_ids.split(',')
     artists = Artist.query.filter(Artist.id.in_(artist_ids)).all()
     return render_template('favorite_artists.html', artists=artists)
+
+@app.route('/delete_song/<int:song_id>', methods=['POST'])
+@login_required
+def delete_song(song_id):
+    song = Song.query.get(song_id)
+    if song is None:
+        flash('Song not found.')
+        return redirect(url_for('songs'))
+    album = song.album
+
+    if current_user.user_type=='artist' and song.album.artist_id == current_user.user_id:
+        os.remove(song.file_path)
+
+        db.session.delete(song)
+        db.session.commit()
+        flash(f'Song {song.song_title} has been deleted.')
+        print(len(album.songs))
+        if len(album.songs) ==0:
+            db.session.delete(album)
+            db.session.commit()
+            flash(f'Album {album.album_title} has been deleted.')
+    else:
+        flash('You do not have permission to delete this song.')
+    return redirect(url_for('songs'))
+
 
 
 if __name__ == '__main__':
