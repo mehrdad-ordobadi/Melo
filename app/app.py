@@ -186,6 +186,15 @@ def artist_page(artist_id):
     playlists = Playlist.query.filter_by(listener_id=current_user.id).all() if current_user.is_authenticated else []
     return render_template('artist_page.html', artist=artist, albums=albums, playlists=playlists)
 
+@app.route('/favorite_artists')
+@login_required
+def favorite_artists():
+    # if current_user.is_artist:
+    #     flash('Artists cannot have favorite artists.')
+    #     return redirect(url_for('dashboard'))
+    artist_ids = current_user.followed_ids.split(',')
+    artists = Artist.query.filter(Artist.id.in_(artist_ids)).all()
+    return render_template('favorite_artists.html', artists=artists)
 
 
 @app.route('/artist/<int:artist_id>/biography', methods=['GET', 'POST'])
@@ -206,6 +215,62 @@ def artist_biography(artist_id):
         form.biography.data = artist.artist_biography
 
     return render_template('artist_biography.html', artist=artist, form=form)
+
+@app.route('/follow/<int:artist_id>', methods=['POST'])
+@login_required
+def follow_artist(artist_id):
+    artist = Artist.query.get(artist_id)
+    if artist is None:
+        flash('Artist not found.')
+        return redirect(url_for('homepage'))
+
+    if current_user.is_following(artist):
+        flash('You are already following this artist.')
+        return redirect(url_for('artist_page', artist_id=artist_id))
+    current_user.followed_ids += f',{artist_id}'
+    db.session.commit()
+    flash(f'You are now following {artist.artist_stagename}!')
+    return redirect(url_for('artist_page', artist_id=artist_id))
+
+@app.route('/unfollow/<int:artist_id>', methods=['POST'])
+@login_required
+def unfollow_artist(artist_id):
+    artist = Artist.query.get(artist_id)
+    if artist is None:
+        flash('Artist not found.')
+        return redirect(url_for('homepage'))
+ 
+    if not current_user.is_following(artist):
+        flash('You are not following this artist.')
+        return redirect(url_for('artist_page', artist_id=artist_id))
+    followed_ids = current_user.followed_ids.split(',')
+    followed_ids.remove(str(artist_id))
+    current_user.followed_ids = ','.join(followed_ids)
+    db.session.commit()
+    flash(f'You have unfollowed {artist.artist_stagename}.')
+    return redirect(url_for('artist_page', artist_id=artist_id))
+@app.route('/delete_song/<int:song_id>', methods=['POST'])
+@login_required
+def delete_song(song_id):
+    song = Song.query.get(song_id)
+    if song is None:
+        flash('Song not found.')
+        return redirect(url_for('songs'))
+    if current_user.user_type=='artist' and song.album.artist_id == current_user.user_id:
+        os.remove(song.file_path)
+        album = song.album
+        db.session.delete(song)
+        db.session.commit()
+        flash(f'Song {song.song_title} has been deleted.')
+        if len(album.songs) == 0:
+            db.session.delete(album)
+            db.session.commit()
+            flash(f'Album {album.album_title} has been deleted.')
+    else:
+        flash('You do not have permission to delete this song.')
+
+    return redirect(url_for('songs'))
+
 
 # @app.route('/create_playlist', methods=['POST'])
 # @login_required
