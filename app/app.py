@@ -56,7 +56,7 @@ def register():
         date_join = datetime.utcnow()
 
         if user_type == 'listener':
-            listener = Listener(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data)
+            listener = Listener(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data, followed_ids='')
             db.session.add(listener)
             db.session.commit()
             flash('Registration successful. You can now log in.', 'success')
@@ -66,7 +66,7 @@ def register():
             artist_stagename = form.artist_stagename.data
             artist_city = form.artist_city.data
             artist_tags = form.artist_tags.data
-            artist = Artist(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data, artist_stagename=artist_stagename, artist_city=artist_city, artist_tags=artist_tags, artist_biography=None)
+            artist = Artist(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data, artist_stagename=artist_stagename, artist_city=artist_city, artist_tags=artist_tags, artist_biography=None,followed_ids='')
             db.session.add(artist)
             db.session.commit()
             flash('Registration successful. You can now log in.', 'success')
@@ -122,7 +122,8 @@ def upload_file():
                 artist = Artist.query.get(artist_id)
                 artist.albums.append(new_album)
                 db.session.add(new_album)
-            
+        else:
+            new_album = existing_album
         album = album.strip().replace(' ', '_').lower()
         for file in files:
             if file.filename == '':
@@ -205,62 +206,6 @@ def artist_biography(artist_id):
         form.biography.data = artist.artist_biography
 
     return render_template('artist_biography.html', artist=artist, form=form)
-
-# @app.route('/create_playlist', methods=['POST'])
-# @login_required
-# def create_playlist():
-#     data = request.get_json()
-#     playlist_name = data.get('playlist_name', '').strip()
-
-#     if not playlist_name:
-#         flash('Playlist can not be empty')
-#         return 400
-
-#     new_playlist = Playlist(playlist_title=playlist_name, listener_id=current_user.id)
-#     db.session.add(new_playlist)
-#     db.session.commit()
-
-#     return jsonify({'success': True})
-
-@app.route('/get_playlists')
-@login_required
-def get_playlists():
-    playlists = Playlist.query.filter_by(listener_id=current_user.id).all()
-    return jsonify({'playlists': [{'id': p.playlist_id, 'title': p.playlist_title} for p in playlists]})
-
-@app.route("/add_to_playlist", methods=["POST"])
-@login_required
-def add_to_playlist():
-    song_id = request.form.get("song_id")
-    print(f'Received song_id: {song_id}')
-    playlist_id = request.form.get("playlist_id")
-    new_playlist_name = request.form.get("new_playlist_name")
-
-    if playlist_id == "create":
-        if not new_playlist_name:
-            flash('Playlist name cannot be empty.', 'danger')
-            return redirect(request.referrer)
-
-        # Add the current timestamp when creating a new playlist
-        new_playlist = Playlist(playlist_title=new_playlist_name, playlist_creation_date=datetime.now(), listener_id=current_user.id)
-        db.session.add(new_playlist)
-        db.session.commit()
-        playlist_id = new_playlist.playlist_id
-
-    existing_entry = PlaylistSong.query.filter_by(playlist_id=playlist_id, song_id=song_id).first()
-    if existing_entry:
-        flash('The song is already in the playlist.', 'danger')
-    else:
-        print(f'-------------*******playlist id: {playlist_id}, song id: {song_id}******---------')
-        new_entry = PlaylistSong(playlist_id=playlist_id, song_id=song_id)
-        db.session.add(new_entry)
-        db.session.commit()
-        flash('Song added to the playlist.', 'success')
-
-    return redirect(request.referrer)
-
-
-
 
 
 if __name__ == '__main__':

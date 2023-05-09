@@ -10,7 +10,7 @@
     {% else %}
         <p>No biography available for this artist.</p>
     {% endif %}
-    
+        
     {% if current_user.user_type == 'artist' and current_user.id == artist.id %}
         <form method="POST">
             {{ form.hidden_tag() }}

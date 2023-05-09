@@ -2,6 +2,7 @@
 from datetime import datetime
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 from database import db
+
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(80), nullable=False, unique=True)
@@ -15,11 +16,18 @@ class User(UserMixin,db.Model):
     # artist = db.relationship('Artist', uselist=False, back_populates='user')
     # listener = db.relationship('Listener', uselist=False, back_populates='user')
     type = db.Column(db.String(50)) 
+    followed_ids = db.Column(db.String(1000), default='')
+
+  
+    ...
     __mapper_args__ = {
         'polymorphic_identity': 'user',
         'polymorphic_on': type,
     }
-
+    def is_following(self, artist):
+        return str(artist.id) in self.followed_ids.split(',')
+  
+    ...
     def __repr__(self):
         return f'<User {self.username}>'
 
@@ -36,7 +44,8 @@ class Artist(User):
     __mapper_args__ = {
         'polymorphic_identity': 'artist',
     }
-
+    def is_following(self, artist):
+        return str(artist.id) in self.followed_ids.split(',')
     def __repr__(self):
         return f'<Artist {self.artist_stagename}>'
     
@@ -50,7 +59,8 @@ class Listener(User):
     __mapper_args__ = {
         'polymorphic_identity': 'listener',
     }
-
+    def is_following(self, artist):
+        return str(artist.id) in self.followed_ids.split(',')
     def __repr__(self):
         return f'<Listener {self.first_name} {self.last_name}>'
     
