@@ -114,12 +114,13 @@ form .input-box span.details{
    letter-spacing: 1px;
    cursor: pointer;
    transition: all 0.3s ease;
-   background: #F26157;
+   background: linear-gradient(135deg, #C5DAC1, #F26157);
  }
  form .button input:hover{
   /* transform: scale(0.99); */
   background: #C5DAC1;
   }
+
  @media(max-width: 584px){
  .container{
   max-width: 100%;
