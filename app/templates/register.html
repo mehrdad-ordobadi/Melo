@@ -1,89 +1,100 @@
-{% extends 'base.html' %}
-{% set show_navbar = false %}
-{% block title %}Register{% endblock %}
+{% extends 'base.html' %} {% set show_navbar = false %} {% block title
+%}Register{% endblock %} {% block extra_links %}
+<link rel="stylesheet" href="../static/register.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+  rel="stylesheet"
+/>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@1,300&display=swap"
+  rel="stylesheet"
+/>
 
-{% block extra_links %}
-    <link rel="stylesheet" href="../static/register.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@1,300&display=swap" rel="stylesheet">
+<script>
+  function toggleArtistFields() {
+    const userType = document.getElementById("user_type").value;
+    const artistFields = document.getElementsByClassName("artist-field");
+    for (let i = 0; i < artistFields.length; i++) {
+      artistFields[i].style.display = userType === "artist" ? "block" : "none";
+    }
+  }
+</script>
+{% endblock %} {% block content %}
 
-    <script>
-        function toggleArtistFields() {
-            const userType = document.getElementById("user_type").value;
-            const artistFields = document.getElementsByClassName("artist-field");
-            for (let i = 0; i < artistFields.length; i++) {
-                artistFields[i].style.display = userType === "artist" ? "block" : "none";
-            }
-        }
-    </script>
-{% endblock %}
-
-{% block content %}
 <main>
-    <div class="login-container">
-        <h1>Register</h1>
-        <form method="POST" action="{{ url_for('register') }}">
-            {{ form.hidden_tag() }}
-            <div>
-                {{ form.username.label }}<br />
-                {{ form.username(class="form-input", size=32) }}
-            </div>
-            <div>
-                {{ form.email.label }}<br />
-                {{ form.email(class="form-input", size=32) }}
-            </div>
-            <div>
-              {{ form.password.label }}<br />
-              {{ form.password(class="form-input", size=32) }}
-          </div>
-          <div>
-              {{ form.confirm_password.label }}<br />
-              {{ form.confirm_password(class="form-input", size=32) }}
-          </div>
-          <div>
-              {{ form.user_type.label }}<br />
-              {{ form.user_type(id="user_type", class="form-input", onchange="toggleArtistFields()") }}
-          </div>
-          <div>
-              {{ form.first_name.label }}<br />
-              {{ form.first_name(class="form-input", size=32) }}
-          </div>
-          <div>
-              {{ form.last_name.label }}<br />
-              {{ form.last_name(class="form-input", size=32) }}
-          </div>
-          <div class="artist-field" style="display:none;">
-              {{ form.artist_stagename.label }}<br />
-              {{ form.artist_stagename(class="form-input", size=32) }}
-          </div>
-          <div class="artist-field" style="display:none;">
-              {{ form.artist_city.label }}<br />
-              {{ form.artist_city(class="form-input", size=32) }}
-          </div>
-          <div class="artist-field" style="display:none;">
-            {{ form.artist_tags.label }}<br />
-            {{ form.artist_tags(class="form-input", size=32) }}
-          </div>
-          <div>{{ form.submit(class="submit-btn") }}</div>
-      </form>
-      <p>Already have an account? <a href="{{ url_for('login') }}" style="color: #3C8071;">Login</a></p>
+  <div class="flash-messages">
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for
+    message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %} {% endif %} {% endwith %}
+  </div>
+  <div class="login-container">
+
+    
+    <h1>Register</h1>
+    <form method="POST" action="{{ url_for('register') }}">
+      {{ form.hidden_tag() }}
+      <div>
+        {{ form.username.label }}<br />
+        {{ form.username(class="form-input", size=32) }}
+      </div>
+      <div>
+        {{ form.email.label }}<br />
+        {{ form.email(class="form-input", size=32) }}
+      </div>
+      <div>
+        {{ form.password.label }}<br />
+        {{ form.password(class="form-input", size=32) }}
+      </div>
+      <div>
+        {{ form.confirm_password.label }}<br />
+        {{ form.confirm_password(class="form-input", size=32) }}
+      </div>
+      <div>
+        {{ form.user_type.label }}<br />
+        {{ form.user_type(id="user_type", class="form-input",
+        onchange="toggleArtistFields()") }}
+      </div>
+      <div>
+        {{ form.first_name.label }}<br />
+        {{ form.first_name(class="form-input", size=32) }}
+      </div>
+      <div>
+        {{ form.last_name.label }}<br />
+        {{ form.last_name(class="form-input", size=32) }}
+      </div>
+      <div class="artist-field" style="display: none">
+        {{ form.artist_stagename.label }}<br />
+        {{ form.artist_stagename(class="form-input", size=32) }}
+      </div>
+      <div class="artist-field" style="display: none">
+        {{ form.artist_city.label }}<br />
+        {{ form.artist_city(class="form-input", size=32) }}
+      </div>
+      <div class="artist-field" style="display: none">
+        {{ form.artist_tags.label }}<br />
+        {{ form.artist_tags(class="form-input", size=32) }}
+      </div>
+      <div>{{ form.submit(class="submit-btn") }}</div>
+    </form>
+    <p>
+      Already have an account?
+      <a href="{{ url_for('login') }}" style="color: #3c8071">Login</a>
+    </p>
   </div>
 </main>
 
 {% if form.errors %}
 <div class="form-errors">
-    <ul>
-    {% for field, errors in form.errors.items() %}
-        {% for error in errors %}
-        <li>{{ field }}: {{ error }}</li>
-        {% endfor %}
-    {% endfor %}
-    </ul>
+  <ul>
+    {% for field, errors in form.errors.items() %} {% for error in errors %}
+    <li>{{ field }}: {{ error }}</li>
+    {% endfor %} {% endfor %}
+  </ul>
 </div>
-{% endif %}
 
-{% endblock %}
+{% endif %} {% endblock %}
