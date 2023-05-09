@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
-
+{% block extra_links %}
+<script src="../static/createPlaylist.js"></script>
+<link rel="stylesheet" href="../static/artist_page.css">
+{% endblock %}
 {% block title %}{{ artist.artist_stagename }}{% endblock %}
 
 {% block content %}
@@ -48,6 +51,21 @@
                             <audio controls>
                                 <source src="{{ url_for('static', filename='audio/' + artist.id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}" type="audio/mpeg">
                             </audio>
+                            <button class="show-add-to-playlist-btn" onclick="showAddToPlaylistForm(this)">+</button>
+                            <form action="{{ url_for('add_to_playlist') }}" method="post" class="add-to-playlist-form">
+                                <input type="hidden" name="song_id" value="{{ song.song_id }}">
+                                <select name="playlist_id" class="hidden" onchange="showNewPlaylistInput(this)">
+                                    <option value="">Add to Playlist</option>
+                                    {% for playlist in playlists %}
+                                    <option value="{{ playlist.playlist_id }}">{{ playlist.playlist_title }}</option>
+                                    {% endfor %}
+                                    <option value="create">Create New Playlist</option>
+                                </select>
+                                <div style="display:none;" class="new-playlist-input hidden">
+                                    <input type="text" name="new_playlist_name" placeholder="New Playlist Name">
+                                </div>
+                                <button type="submit" class="hidden">Add</button>
+                            </form>
                         </li>
                     {% endfor %}
                 </ul>
