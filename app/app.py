@@ -232,7 +232,6 @@ def get_playlists():
 @login_required
 def add_to_playlist():
     song_id = request.form.get("song_id")
-    print(f'Received song_id: {song_id}')
     playlist_id = request.form.get("playlist_id")
     new_playlist_name = request.form.get("new_playlist_name")
 
@@ -251,7 +250,6 @@ def add_to_playlist():
     if existing_entry:
         flash('The song is already in the playlist.', 'danger')
     else:
-        print(f'-------------*******playlist id: {playlist_id}, song id: {song_id}******---------')
         new_entry = PlaylistSong(playlist_id=playlist_id, song_id=song_id)
         db.session.add(new_entry)
         db.session.commit()
