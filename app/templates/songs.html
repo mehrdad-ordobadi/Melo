@@ -4,6 +4,13 @@
 
 {% block content %}
     <h1>Songs:</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
     <ul>
         {% for album in albums %}
             <h3>{{ album.album_title }}</h3>

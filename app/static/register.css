@@ -53,6 +53,17 @@ input[type="submit"]:hover {
     background-color: #28634A;
     cursor: pointer;
 }
+.flash-messages {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #3f3d36; 
+    padding: 0px;
+    text-align: center;
+    z-index: 1000;
+}
+
 
 @keyframes fadeIn {
     from {
