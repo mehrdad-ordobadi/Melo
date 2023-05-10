@@ -88,14 +88,17 @@
     cursor: pointer;
 }
 
-.logout {
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
+.logout-button {
+    background: #F26157;
+    position: fixed;
+    top: 0;
     right: 0;
-    bottom: 0;
-    text-align: center;
+    height: 35px;
+    border: none;
+    outline: none;
+    color: #FFF;
+    letter-spacing: 1px;
+    cursor: pointer;
 }
 
 
