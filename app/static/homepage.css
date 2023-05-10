@@ -91,34 +91,45 @@ p {
   width: 200px;
 }
 
-.login_signup button {
-  margin-left: 2.5%;
-}
-
 .main_images p {
   font-size: 2rem;
 }
 
+.login_signup a {
+  padding-right: 20px;
+}
+
 .login-btn {
-  background: none;
-  border: 2px solid #C5DAC1;
-  border-radius: 25px;
-  color: #C5DAC1;
-  font-size: 15px;
-  padding: 10px 40px;
-  margin: 10px;
-  white-space: nowrap;
+  height: 100%;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #C5DAC1, #F26157);
 }
 
 .signup-btn {
-  background: none;
-  border: 2px solid #F26157;
-  border-radius: 25px;
-  color: #F26157;
-  font-size: 15px;
-  padding: 10px 40px;
-  margin: 10px;
-  white-space: nowrap;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #C5DAC1, #F26157);
+}
+
+.login_signup button:hover {
+  background: #C5DAC1;
 }
 
 /* footer */
