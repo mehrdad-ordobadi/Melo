@@ -138,7 +138,7 @@ def upload_file():
                     return redirect(request.url)
                 os.makedirs(os.path.join(app.config['UPLOAD_FOLDER'], str(artist_id), album), exist_ok=True)
                 file.save(file_path)
-                audio = mutagen.File(file_path)     # use mutagen to get the length of the audio file
+                audio = mutagen.File(file_path)    
                 length = int(audio.info.length)
                 new_song = Song(song_title=os.path.splitext(filename)[0], file_path=file_path, length=length)
                 new_album.songs.append(new_song)
@@ -249,6 +249,7 @@ def unfollow_artist(artist_id):
     db.session.commit()
     flash(f'You have unfollowed {artist.artist_stagename}.')
     return redirect(url_for('artist_page', artist_id=artist_id))
+
 @app.route('/delete_song/<int:song_id>', methods=['POST'])
 @login_required
 def delete_song(song_id):
@@ -256,9 +257,13 @@ def delete_song(song_id):
     if song is None:
         flash('Song not found.')
         return redirect(url_for('songs'))
+    album = song.album
+
     if current_user.user_type=='artist' and song.album.artist_id == current_user.user_id:
+        
         os.remove(song.file_path)
-        album = song.album
+        artist_id=album.artist_id
+
         db.session.delete(song)
         db.session.commit()
         flash(f'Song {song.song_title} has been deleted.')
@@ -269,7 +274,7 @@ def delete_song(song_id):
     else:
         flash('You do not have permission to delete this song.')
 
-    return redirect(url_for('songs'))
+    return redirect(url_for('artist_page', artist_id=artist_id))
 
 
 # @app.route('/create_playlist', methods=['POST'])

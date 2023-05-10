@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block extra_links %}
 <script src="../static/createPlaylist.js"></script>
+<script src="../static/songs.js"></script>
 <link rel="stylesheet" href="../static/artist_page.css">
+<!-- <link rel="stylesheet" href="../static/player.css"> -->
 {% endblock %}
 {% block title %}{{ artist.artist_stagename }}{% endblock %}
 
@@ -48,10 +50,10 @@
                 <ul>
                     {% for song in album.songs %}
                         <li>
-                            {{ song.song_title }}
-                            <audio controls>
-                                <source src="{{ url_for('static', filename='audio/' + artist.id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}" type="audio/mpeg">
-                            </audio>
+                            <!-- <a href="#" class="song-link" data-src="{{ url_for('static', filename='audio/' + artist.id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}">{{ song.song_title }}</a>
+                             -->
+                             <a href="#" class="song-link" data-src="{{ url_for('static', filename='audio/' + artist.id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}" data-title="{{ song.song_title }}" data-artist="{{ artist.artist_stagename }}">{{ song.song_title }}</a>
+
                             <button class="show-add-to-playlist-btn" onclick="showAddToPlaylistForm(this)">+</button>
                             <form action="{{ url_for('add_to_playlist') }}" method="post" class="add-to-playlist-form">
                                 <input type="hidden" name="song_id" value="{{ song.song_id }}">
@@ -67,6 +69,16 @@
                                 </div>
                                 <button type="submit" class="hidden">Add</button>
                             </form>
+                            {% if current_user.user_type== 'artist' %}
+                                <form action="{{ url_for('delete_song', song_id=song.song_id) }}" method="post" onsubmit="return confirmDelete('{{ song.song_title }}');">
+                                    <button type="submit">Delete</button>
+                                </form>
+                                <script>
+                                    function confirmDelete(songTitle) {
+                                        return confirm("Are you sure you want to delete the song \"" + songTitle + "\"?");
+                                    }
+                                </script>
+                            {% endif %}
                         </li>
                     {% endfor %}
                 </ul>
@@ -74,4 +86,31 @@
         {% endfor %}
     </ul>
     </div>
-{% endblock %}
+    <div class="player-container hidden">
+        <div class="player">
+          <nav>
+            <div class="circle">
+              <i class="fa-solid fa-angle-left"></i>
+            </div>
+            <div class="circle">
+              <i class="fa-solid fa-bars"></i>
+            </div>
+          </nav>
+          <img src="../static/nav_icons/events.png" alt="bear" class="song_img" id="song-img">
+          <div class="song-info-container hidden" id="song-info-container">
+            <h2 id="song-info-title"></h2>
+            <p id="song-info-artist"></p>
+          </div>
+          <h1 id="song-title" class="hidden"></h1>
+          <p id="song-artist" class="hidden"></p>
+          <button id="info-button">Show info</button>
+          <audio id="player" controls>
+            <!-- Empty source tag, it will be updated by JavaScript -->
+            <source src="" type="audio/mpeg">
+          </audio>
+        </div>
+      </div>
+      
+      
+    
+        {% endblock %}
