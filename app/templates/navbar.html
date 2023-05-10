@@ -16,15 +16,15 @@
         <div class="nav-link">
             <a href="{{ url_for('artist_biography', artist_id=current_user.user_id) }}"><img src="../static/nav_icons/bio.png"/><span>Add/Edit Bio</span></a>
         </div>
-    </div>
+   
     {% endif %}
-    <div class="navList">
         <div class="nav-link">
             <a href="/songs"><img src="../static/nav_icons/songs.png"/><span>Songs</span></a>
         </div>
         <div class="nav-link">
             <a href="{{ url_for('favorite_artists') }}"><img src="../static/nav_icons/artists.png"/><span>Favorite Artists</span></a>
         </div>
+        </div> 
     </div>
 </nav>
 

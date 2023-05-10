@@ -7,7 +7,8 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Songs:</h1>
+    <h1>Songs:</h1>    
+    <div class="songs-content"></div>    
     {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for message in messages %}
@@ -15,7 +16,7 @@
         {% endfor %}
     {% endif %}
     {% endwith %}
-    <div class="songs-content">
+
         <ul>
             {% for album in albums %}
                 <h3>{{ album.album_title }}</h3>
