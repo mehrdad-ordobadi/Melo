@@ -21,9 +21,13 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 db_path = os.path.join(basedir, 'instance', 'users.db')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 
+
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static/audio')
 ALLOWED_EXTENSIONS = {'mp3', 'jpeg'}    # only mp3 files accepted
+
+STATIC_FOLDER = os.path.join(BASE_DIR,'static')
+app.config['STATIC_FOLDER'] = STATIC_FOLDER
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 db.init_app(app) 
@@ -153,7 +157,8 @@ def upload_file():
             cover_art_path = os.path.join(cover_art_folder, cover_art_filename.lower())
             cover_art_file.save(cover_art_path)
             new_album.cover_art = cover_art_path
-        elif not cover_art_file and 
+        elif not cover_art_file and not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], str(artist_id), album, 'album_cover')):
+            new_album.cover_art = os.path.join(app.config['STATIC_FOLDER'], 'album_placehoder', 'music-placeholder.jpeg')
         else:
             flash('Invalid cover art file format')
             return redirect(request.url)
@@ -195,12 +200,14 @@ def search():
     artists = Artist.query.filter(Artist.artist_stagename.ilike(f'%{search_query}%')).all()
     return render_template('search_results.html', artists=artists)
 
+
 @app.route('/artist/<int:artist_id>', methods=['GET'])
 def artist_page(artist_id):
     artist = Artist.query.get_or_404(artist_id)
     albums = Album.query.filter_by(artist_id=artist_id).all()
     playlists = Playlist.query.filter_by(listener_id=current_user.id).all() if current_user.is_authenticated else []
     return render_template('artist_page.html', artist=artist, albums=albums, playlists=playlists)
+
 
 @app.route('/favorite_artists')
 @login_required
@@ -232,6 +239,7 @@ def artist_biography(artist_id):
 
     return render_template('artist_biography.html', artist=artist, form=form)
 
+
 @app.route('/follow/<int:artist_id>', methods=['POST'])
 @login_required
 def follow_artist(artist_id):
@@ -247,6 +255,7 @@ def follow_artist(artist_id):
     db.session.commit()
     flash(f'You are now following {artist.artist_stagename}!')
     return redirect(url_for('artist_page', artist_id=artist_id))
+
 
 @app.route('/unfollow/<int:artist_id>', methods=['POST'])
 @login_required
