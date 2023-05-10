@@ -2,7 +2,7 @@
 
 <nav class="sidebar">
     <div class="logo"><img src="../static/homepage-images/melo-logo-150.png"/>
-    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
     </div>
     <form id="form" action="{{ url_for('search') }}" method="POST">
         <input type="text" name="search_query" placeholder="Search for artists...">

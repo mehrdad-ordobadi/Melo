@@ -1,5 +1,5 @@
 .sidebar {
-    color: #EFE9F4;
+    color: #FFF;
     background-color: #A54657;
     height: 100%;
     width: 250px;
@@ -12,6 +12,11 @@
     text-align: center;
     margin-top: 10px;
     margin-bottom: 40px;
+}
+
+.sidebar .logo a {
+    padding: 20px;
+    display: inline-block;
 }
 
 #form {
@@ -31,7 +36,7 @@
     padding: 10px 15px;
     border: none;
     outline: none;
-    color: white;
+    color: #FFF;
     letter-spacing: 1px;
     cursor: pointer;
 }
