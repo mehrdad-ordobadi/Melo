@@ -99,7 +99,7 @@
 }
 
 
-@media screen and (max-width: 450px) {
+/* @media screen and (max-width: 450px) {
     #form {
         display: block;
     }
@@ -133,5 +133,5 @@
     .navList .nav-link img {
         display: none;
     }    
-}
+} */
 
