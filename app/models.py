@@ -72,6 +72,7 @@ class Album(db.Model):
     artist_id = db.Column(db.Integer, db.ForeignKey('artist.user_id'), nullable=False)
     # artist_id = db.Column(db.Integer, db.ForeignKey('artist.user_id'))
     songs = db.relationship('Song', backref='album', lazy=True)
+    cover_art = db.Column(db.String(255), nullable=True)
     def __repr__(self):
         return f'<Album {self.album_title}>'
 

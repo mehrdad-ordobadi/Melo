@@ -23,7 +23,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static/audio')
-ALLOWED_EXTENSIONS = {'mp3'}    # only mp3 files accepted
+ALLOWED_EXTENSIONS = {'mp3', 'jpeg'}    # only mp3 files accepted
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 db.init_app(app) 
@@ -101,6 +101,7 @@ def upload_file():
     form = AlbumForm()
     if request.method == 'POST':
         files = request.files.getlist('file')
+        cover_art_file = request.files['cover']  # Get the cover art file
         if not files:
             flash('No files part')
             return redirect(request.url)
@@ -125,6 +126,7 @@ def upload_file():
         else:
             new_album = existing_album
         album = album.strip().replace(' ', '_').lower()
+
         for file in files:
             if file.filename == '':
                 flash('No selected file')
@@ -143,11 +145,25 @@ def upload_file():
                 new_song = Song(song_title=os.path.splitext(filename)[0], file_path=file_path, length=length)
                 new_album.songs.append(new_song)
                 db.session.add(new_song)
+        
+        if cover_art_file and allowed_file(cover_art_file.filename):
+            cover_art_filename = secure_filename(cover_art_file.filename)
+            cover_art_folder = os.path.join(app.config['UPLOAD_FOLDER'], str(artist_id), album, 'album_cover')
+            os.makedirs(cover_art_folder, exist_ok=True)
+            cover_art_path = os.path.join(cover_art_folder, cover_art_filename.lower())
+            cover_art_file.save(cover_art_path)
+            new_album.cover_art = cover_art_path
+        elif not cover_art_file and 
+        else:
+            flash('Invalid cover art file format')
+            return redirect(request.url)
+
         db.session.commit()
         flash('Files uploaded successfully')
         return redirect(url_for('upload_file'))
 
     return render_template('upload.html', form=form)
+
 
 
 @app.route('/songs')
@@ -328,6 +344,15 @@ def add_to_playlist():
 
     return redirect(request.referrer)
 
+
+@app.route('/my_playlists')
+@login_required
+def my_playlists():
+    playlists = Playlist.query.filter_by(listener_id=current_user.id).all()
+    for playlist in playlists:
+        playlist.songs = [ps.song for ps in playlist.playlist_songs]
+
+    return render_template('my_playlists.html', playlists=playlists)
 
 
 
