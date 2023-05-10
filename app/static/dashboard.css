@@ -2,11 +2,9 @@ body {
     color: white;
     background-color: #0C1713;
     font-family: 'Red Hat Display', sans-serif;
-    margin: 0;
-    position: relative;
 }
 
-.navbar {
+/* .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -24,7 +22,7 @@ body {
 
 .navbar a:hover {
     color: #28634A;
-}
+} */
 
 h1 {
     font-family: 'Lobster', cursive;
