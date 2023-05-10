@@ -2,8 +2,12 @@
 
 {% block title %}Biography{% endblock %}
 
+{% block extra_links %}
+<link rel="stylesheet" href="../static/artist_bio.css"/>
+{% endblock %}
+
 {% block content %}
-<body>
+<div class="bio-content">
     <h1>{{ artist.artist_stagename }}'s Biography</h1>
     
     {% if artist.artist_biography %}
@@ -26,5 +30,5 @@
             }
         </script>
     {% endif %}
-</body>
+</div>
 {% endblock %}
