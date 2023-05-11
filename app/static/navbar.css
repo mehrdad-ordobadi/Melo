@@ -77,6 +77,42 @@
     left: 8px;
 }
 
+/*   */
+.navList .nav-link_listener {
+    display: flex;
+    align-items: center;
+    padding: 10px 0 15px 0px;
+    width: 100%;
+    align-self: stretch;
+
+}
+
+.navList .nav-link_listener a {
+    text-decoration: none;
+    color: black;
+}
+
+.navList .nav-link_listener:hover {
+    background-color: gray;
+    cursor: pointer;
+}
+
+.navList .nav-link_listener img {
+    width: 30px;
+    height: 30px;
+    margin-left: 35px;
+    vertical-align: middle;
+}
+
+.navList .nav-link_listener span {
+    font-size: 1.35rem;
+    top: 2px;
+    position: relative;
+    left: 8px;
+}
+
+
+
 #form button, input[type="submit" i] {
     background: #F26157;
     padding: 10px 15px;

@@ -7,9 +7,9 @@
         <input type="text" name="search_query" placeholder="Search for artists...">
         <button type="submit">Search</button>
     </form>
-
-    {% if current_user.user_type == 'artist' %}
     <div class="navList">
+    {% if current_user.user_type == 'artist' %}
+    
         <div class="nav-link">
             <a href="/upload"><img src="../static/nav_icons/upload.png"/><span>Upload Music</span></a>
         </div>
@@ -18,12 +18,16 @@
         </div>
    
     {% endif %}
-        <div class="nav-link">
+        <div class="nav-link_listener">
             <a href="/songs"><img src="../static/nav_icons/songs.png"/><span>Songs</span></a>
         </div>
-        <div class="nav-link">
+        <div class="nav-link_listener">
             <a href="{{ url_for('favorite_artists') }}"><img src="../static/nav_icons/artists.png"/><span>Favorite Artists</span></a>
         </div>
+        <div class="nav-link_listener">
+            <a href="{{ url_for('my_playlists') }}"><span>My Playlist</span></a>
+        </div>
+        
         </div> 
     </div>
 </nav>

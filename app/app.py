@@ -101,7 +101,7 @@ def upload_file():
     form = AlbumForm()
     if request.method == 'POST':
         files = request.files.getlist('file')
-        cover_art_file = request.files['cover']  # Get the cover art file
+        # cover_art_file = request.files['cover']  # Get the cover art file
         if not files:
             flash('No files part')
             return redirect(request.url)
@@ -146,17 +146,17 @@ def upload_file():
                 new_album.songs.append(new_song)
                 db.session.add(new_song)
         
-        if cover_art_file and allowed_file(cover_art_file.filename):
-            cover_art_filename = secure_filename(cover_art_file.filename)
-            cover_art_folder = os.path.join(app.config['UPLOAD_FOLDER'], str(artist_id), album, 'album_cover')
-            os.makedirs(cover_art_folder, exist_ok=True)
-            cover_art_path = os.path.join(cover_art_folder, cover_art_filename.lower())
-            cover_art_file.save(cover_art_path)
-            new_album.cover_art = cover_art_path
-        elif not cover_art_file and 
-        else:
-            flash('Invalid cover art file format')
-            return redirect(request.url)
+        # if cover_art_file and allowed_file(cover_art_file.filename):
+        #     cover_art_filename = secure_filename(cover_art_file.filename)
+        #     cover_art_folder = os.path.join(app.config['UPLOAD_FOLDER'], str(artist_id), album, 'album_cover')
+        #     os.makedirs(cover_art_folder, exist_ok=True)
+        #     cover_art_path = os.path.join(cover_art_folder, cover_art_filename.lower())
+        #     cover_art_file.save(cover_art_path)
+        #     new_album.cover_art = cover_art_path
+        # elif not cover_art_file and 
+        # else:
+        #     flash('Invalid cover art file format')
+        #     return redirect(request.url)
 
         db.session.commit()
         flash('Files uploaded successfully')
@@ -205,9 +205,7 @@ def artist_page(artist_id):
 @app.route('/favorite_artists')
 @login_required
 def favorite_artists():
-    # if current_user.is_artist:
-    #     flash('Artists cannot have favorite artists.')
-    #     return redirect(url_for('dashboard'))
+
     artist_ids = current_user.followed_ids.split(',')
     artists = Artist.query.filter(Artist.id.in_(artist_ids)).all()
     return render_template('favorite_artists.html', artists=artists)
@@ -353,6 +351,23 @@ def my_playlists():
         playlist.songs = [ps.song for ps in playlist.playlist_songs]
 
     return render_template('my_playlists.html', playlists=playlists)
+
+@app.route('/delete_song_from_playlist', methods=['POST'])
+@login_required
+def delete_song_from_playlist():
+    song_id = request.form.get("song_id")
+    playlist_id = request.form.get("playlist_id")
+
+    entry = PlaylistSong.query.filter_by(playlist_id=playlist_id, song_id=song_id).first()
+    if entry:
+        db.session.delete(entry)
+        db.session.commit()
+        flash('Song removed from the playlist.', 'success')
+    else:
+        flash('Song not found in the playlist.', 'danger')
+
+    return redirect(request.referrer or url_for('my_playlists'))
+
 
 
 
