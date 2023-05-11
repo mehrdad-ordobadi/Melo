@@ -156,9 +156,10 @@ def upload_file():
             os.makedirs(cover_art_folder, exist_ok=True)
             cover_art_path = os.path.join(cover_art_folder, cover_art_filename.lower())
             cover_art_file.save(cover_art_path)
-            new_album.cover_art = cover_art_path
+            new_album.cover_art = os.path.relpath(cover_art_path, app.config['UPLOAD_FOLDER'])
+            new_album.cover_name = cover_art_file.filename
         elif not cover_art_file and not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], str(artist_id), album, 'album_cover')):
-            new_album.cover_art = os.path.join(app.config['STATIC_FOLDER'], 'album_placehoder', 'music-placeholder.jpeg')
+            new_album.cover_art = os.path.join('album_placehoder', 'music-placeholder.jpeg')
         else:
             flash('Invalid cover art file format')
             return redirect(request.url)
