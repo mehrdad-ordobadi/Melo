@@ -188,10 +188,6 @@ main .album .overlay {
     position: fixed;
 }
 
-@media screen and (max-height: 450px) {
-
-}
-
 .login-container {
     background-color: #0C1713;
     max-width: 400px;
@@ -231,3 +227,12 @@ main .album .overlay {
     background-color: #F26157;
 }
 
+
+
+
+
+@media screen and (max-width: 450px) {
+    .sidebar {
+
+    }
+}

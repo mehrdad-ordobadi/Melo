@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../static/navbar.css"/>
+<link rel="stylesheet" href="../static/navbar.css" />
 
 <nav class="sidebar">
     <div class="logo"><a href="{{ url_for('dashboard') }}"><img src="../static/homepage-images/melo-logo-150.png" /></a>
@@ -8,27 +8,30 @@
         <button type="submit">Search</button>
     </form>
     <div class="navList">
-    {% if current_user.user_type == 'artist' %}
-    
+        {% if current_user.user_type == 'artist' %}
+
         <div class="nav-link">
-            <a href="/upload"><img src="../static/nav_icons/upload.png"/><span>Upload Music</span></a>
+            <a href="/upload"><img src="../static/nav_icons/upload.png" /><span>Upload Music</span></a>
         </div>
         <div class="nav-link">
-            <a href="{{ url_for('artist_biography', artist_id=current_user.user_id) }}"><img src="../static/nav_icons/bio.png"/><span>Add/Edit Bio</span></a>
+            <a href="{{ url_for('artist_biography', artist_id=current_user.user_id) }}"><img
+                    src="../static/nav_icons/bio.png" /><span>Add/Edit Bio</span></a>
         </div>
-   
-    {% endif %}
+
+        {% endif %}
         <div class="nav-link_listener">
-            <a href="/songs"><img src="../static/nav_icons/songs.png"/><span>Songs</span></a>
-        </div>
-        <div class="nav-link_listener">
-            <a href="{{ url_for('favorite_artists') }}"><img src="../static/nav_icons/artists.png"/><span>Favorite Artists</span></a>
+            <a href="/songs"><img src="../static/nav_icons/songs.png" /><span>Songs</span></a>
         </div>
         <div class="nav-link_listener">
-            <a href="{{ url_for('my_playlists') }}"><img src="../static/nav_icons/playlist.png"/><span>My Playlist</span></a>
+            <a href="{{ url_for('favorite_artists') }}"><img src="../static/nav_icons/artists.png" /><span>Favorite
+                    Artists</span></a>
         </div>
-        
-        </div> 
+        <div class="nav-link_listener">
+            <a href="{{ url_for('my_playlists') }}"><img src="../static/nav_icons/playlist.png" /><span>My
+                    Playlist</span></a>
+        </div>
+
+    </div>
     </div>
 </nav>
 
@@ -37,4 +40,3 @@
         <input type="submit" value="Logout">
     </form>
 </div>
-    
