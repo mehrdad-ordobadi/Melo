@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300&display=swap');
 
 body {
-    color: white;
+    color: #FFF;
     background-color: #0C1713;
     font-family: 'Roboto', sans-serif;
     margin-left: 25px;
@@ -15,52 +15,8 @@ body {
 }
 
 h1 {
-    font-family: 'Lobster', cursive;
+    font-family: 'Roboto', sans-serif;
     margin-bottom: 1em;
     text-align: center;
     animation: fadeIn 1s;
 }
-
-/* .navList {
-    color: #0C1713;    
-    font-size: 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 250px;
-    margin-top: 20px;
-    font-family: 'Dosis', sans-serif;
-}
-
-.navList .nav-link {
-    display: flex;
-    align-items: center;
-    padding: 10px 0 15px 0px;
-    width: 100%;
-    align-self: stretch;
-
-}
-
-.navList .nav-link a {
-    text-decoration: none;
-    color: black;
-}
-
-.navList .nav-link:hover {
-    background-color: gray;
-    cursor: pointer;
-}
-
-.navList .nav-link img {
-    width: 30px;
-    height: 30px;
-    margin-left: 70px;
-    vertical-align: middle;
-}
-
-.navList .nav-link span {
-    font-size: 1.35rem;
-    top: 2px;
-    position: relative;
-    left: 8px;
-} */
