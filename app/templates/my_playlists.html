@@ -18,7 +18,7 @@
                 <ul>
                     {% for song in playlist.songs %}
                         <li>
-                            <a href="#" class="song-link" data-src="{{ url_for('static', filename='audio/' + song.album.artist_id|string + '/' + song.album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}" data-title="{{ song.song_title }}" data-artist="{{ song.album.artist.artist_name }}" data-cover="{{ url_for('static', filename='audio/' + song.album.artist_id|string + '/' + song.album.album_title.replace(' ', '_').lower() + '/' +'album_cover/' + song.album.cover_name) if song.album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}">{{ song.song_title }}</a>
+                            <a href="#" class="song-link" data-src="{{ url_for('static', filename='audio/' + song.album.artist_id|string + '/' + song.album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}" data-title="{{ song.song_title }}" data-artist="{{ song.album.artist.artist_stagename}}" data-cover="{{ url_for('static', filename='audio/' + song.album.artist_id|string + '/' + song.album.album_title.replace(' ', '_').lower() + '/' +'album_cover/' + song.album.cover_name) if song.album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}">{{ song.song_title }}</a>
 
                             <form action="{{ url_for('delete_song_from_playlist') }}" method="post" onsubmit="return confirmDelete('{{ song.song_title }}');">
                                 <input type="hidden" name="playlist_id" value="{{ playlist.playlist_id }}">
