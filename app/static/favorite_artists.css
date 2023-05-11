@@ -1,0 +1,10 @@
+body {
+    margin-left: 25px;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-auto-rows: auto
+}
+
+.favorite-artists-container {
+    grid-column: 3/5;
+}
