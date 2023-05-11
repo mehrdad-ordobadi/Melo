@@ -3,9 +3,10 @@
 }
 
 body {
-    margin-left: 25px;
-    display: grid;
-    grid-template-columns: repeat(5,1fr);
+    color: white;
+    background-color: #0C1713;
+    font-family: 'Red Hat Display', sans-serif;
+    margin-left: 20%;
     grid-auto-rows: auto
 }
 
