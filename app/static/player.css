@@ -21,7 +21,7 @@
   text-align: center;
 }
 
-nav {
+.player-nav {
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
