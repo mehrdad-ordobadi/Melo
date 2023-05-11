@@ -3,16 +3,21 @@
 {% block title %}Search Results{% endblock %}
 
 {% block extra_links %}
-<link rel="stylesheet" href="../static/search_results.css"/>
+<link rel="stylesheet" href="../static/search_results.css" />
 {% endblock %}
 
 {% block content %}
 <div class="search-content">
     <h1>Search Results</h1>
-    <ul>
-        {% for artist in artists %}
-            <li><a href="{{ url_for('artist_page', artist_id=artist.id) }}">{{ artist.artist_stagename }}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="search_list">
+        <ul>
+            {% for artist in artists %}
+            <li>
+                <a id="artist_name" href="{{ url_for('artist_page', artist_id=artist.id) }}"> {{ artist.artist_stagename
+                    }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 {% endblock %}
