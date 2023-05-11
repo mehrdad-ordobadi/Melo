@@ -50,10 +50,9 @@
                 <ul>
                     {% for song in album.songs %}
                         <li>
-                            <!-- <a href="#" class="song-link" data-src="{{ url_for('static', filename='audio/' + artist.id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}">{{ song.song_title }}</a>
-                             -->
-                             <a href="#" class="song-link" data-src="{{ url_for('static', filename='audio/' + artist.id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}" data-title="{{ song.song_title }}" data-artist="{{ artist.artist_stagename }}">{{ song.song_title }}</a>
+                            <a href="#" class="song-link" data-src="{{ url_for('static', filename='audio/' + artist.id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}" data-title="{{ song.song_title }}" data-artist="{{ artist.artist_stagename }}" data-cover="{{ url_for('static', filename='audio/' + artist.id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' +'album_cover/' + album.cover_name) if album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}">{{ song.song_title }}</a>
 
+                             
                             <button class="show-add-to-playlist-btn" onclick="showAddToPlaylistForm(this)">+</button>
                             <form action="{{ url_for('add_to_playlist') }}" method="post" class="add-to-playlist-form">
                                 <input type="hidden" name="song_id" value="{{ song.song_id }}">
@@ -96,7 +95,7 @@
               <i class="fa-solid fa-bars"></i>
             </div>
           </nav>
-          <img src="../static/nav_icons/events.png" alt="bear" class="song_img" id="song-img">
+          <img src="../static/nav_icons/events.png" alt="Cover Art" class="song_img" id="song-img">
           <div class="song-info-container hidden" id="song-info-container">
             <h2 id="song-info-title"></h2>
             <p id="song-info-artist"></p>
