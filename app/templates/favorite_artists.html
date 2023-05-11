@@ -8,18 +8,17 @@
 
 {% block content %}
 
-<main>
-    <div class="favorite-artists-container">
-        <h1>Favorite Artists</h1>
-        {% if not artists %}
-            <p>You are not following any artists.</p>
-        {% else %}
-            <ul>
-                {% for artist in artists %}
-                    <li><a href="{{ url_for('artist_page', artist_id=artist.id) }}">{{ artist.artist_stagename }}</a></li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
-</main>
+
+<div class="favorite-artists-container">
+    <h1>Favorite Artists</h1>
+    {% if not artists %}
+        <p>You are not following any artists.</p>
+    {% else %}
+        <ul>
+            {% for artist in artists %}
+                <li><a href="{{ url_for('artist_page', artist_id=artist.id) }}">{{ artist.artist_stagename }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
 {% endblock %}

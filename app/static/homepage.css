@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300&display=swap');
 
 body {
   background-color: #0C1713;
   margin: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
 button {
@@ -72,7 +73,7 @@ main h2 {
   justify-content: center;
   font-size: 3rem;
   margin-bottom: 5%;
-  font-family: 'Lobster Two', cursive;
+  font-family: 'Roboto Slab', serif;
 }
 
 p {

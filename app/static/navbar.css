@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300&display=swap');
+
 .sidebar {
     color: #FFF;
     background-color: #A54657;
@@ -75,6 +77,7 @@
     top: 2px;
     position: relative;
     left: 8px;
+    font-family: 'Roboto Slab', serif;
 }
 
 /*   */
@@ -109,6 +112,7 @@
     top: 2px;
     position: relative;
     left: 8px;
+    font-family: 'Roboto', sans-serif;
 }
 
 

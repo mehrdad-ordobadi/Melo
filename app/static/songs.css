@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300&display=swap');
+
 body {
     margin-left: 25px;
     display: grid;
     grid-template-columns: repeat(5,1fr);
-    grid-auto-rows: auto
+    grid-auto-rows: auto;
+    font-family: 'Roboto', sans-serif;
 }
 
 h1 {

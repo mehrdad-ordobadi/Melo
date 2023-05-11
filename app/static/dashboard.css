@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300&display=swap');
+
 body {
     color: white;
     background-color: #0C1713;
-    font-family: 'Red Hat Display', sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin-left: 25px;
     display: grid;
     grid-template-columns: repeat(5,1fr);
