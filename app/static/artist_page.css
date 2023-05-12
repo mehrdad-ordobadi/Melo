@@ -11,57 +11,6 @@ body {
 }
 
 h1 {
-    grid-column: 3/5
+    margin-bottom: 20%;
 }
 
-.artist-content {
-    grid-column: 3/5;
-    grid-row: 3/5;
-}
-
-.player-container {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    z-index: 1000;
-}
-.player-container .song_img {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-}
-
-
-.player-container .player {
-    grid-column: 3/5;
-    grid-row: 1/3;
-}
-
-.player-container .song-info {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.player-container .song-info .song-details {
-    margin-left: 10px;
-}
-
-.player-container .song-info .show-info-btn {
-    margin-left: 10px;
-}
-
-@media (max-width: 768px) {
-    .player-container .song-info {
-        display: none;
-    }
-    .player-container .show-info-btn {
-        display: block;
-    }
-    .player-container.show-info .song-info {
-        display: flex;
-    }
-    .player-container.show-info .show-info-btn {
-        display: none;
-    }
-}
