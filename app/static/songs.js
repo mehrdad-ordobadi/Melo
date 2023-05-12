@@ -36,10 +36,12 @@ document.addEventListener('DOMContentLoaded', function () {
       songTitleElement.classList.remove('hidden');
       songArtistElement.classList.remove('hidden');
       infoContainer.classList.remove('hidden');
+      infoButton.textContent = 'Hide info';
     } else {
       songTitleElement.classList.add('hidden');
       songArtistElement.classList.add('hidden');
       infoContainer.classList.add('hidden');
+      infoButton.textContent = 'Show info';
     }
   });
 });
