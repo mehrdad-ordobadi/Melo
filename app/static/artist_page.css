@@ -18,7 +18,7 @@ h1 {
 .song-link {
     color: #fff;
     text-decoration: none;
-    transition: 0.3s ease-in-out;
+    transition: 0.1s ease-in-out;
 }
 
 .song-link:hover {
@@ -58,7 +58,7 @@ ul button {
 .artist-info a {
     color: #fff;
     text-decoration: none;
-    transition: 0.3s ease-in-out;
+    transition: 0.1s ease-in-out;
 }
 
 .artist-info a:hover {
