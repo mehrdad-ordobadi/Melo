@@ -8,7 +8,8 @@
 
 {% block content %}
 
-    <h1>My Playlists:</h1>
+<h1>My Playlists:</h1>
+  <div class="playlist-list">
     <ul>
         {% for playlist in playlists %}
             <li>
@@ -35,6 +36,7 @@
             </li>
         {% endfor %}
     </ul>
+  </div>
 
     <div class="player-container hidden">
         <div class="player">
