@@ -15,12 +15,12 @@ h1 {
     filter: brightness(150%);
 }
 
-a {
+.song-link {
     color: #fff;
     text-decoration: none;
 }
 
-a:hover {
+.song-link:hover {
     background-color: #162e23;
 }
 
@@ -98,7 +98,7 @@ ul button {
 }
 
 
-.player-container .player {
+.player {
     /* grid-column: 3/5;
     grid-row: 1/3; */
 }

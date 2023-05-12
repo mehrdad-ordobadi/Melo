@@ -27,12 +27,24 @@ main {
   }
 
 .box .box-content {
-    text-align: center;
+    margin: 0 auto;
+    display: table;
 }
 
-.select-songs {
-    margin-top: 20px;
-    margin-left: 30px;
+.box input[type="text" i],input[type="date" i] {
+    height: 25px;
+    flex: 1;
+    border: 1px solid #242424;
+    outline: none;
+}
+
+.box label {
+    text-align: left;
+    margin-right: 10px;
+}
+
+.album-input, .release-date ,.select-songs, .cover-art {
+    margin: 20px 0 10px 0;
 }
 
 .upload-button {

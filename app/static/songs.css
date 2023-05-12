@@ -6,6 +6,8 @@ body {
     grid-template-columns: repeat(5,1fr);
     grid-auto-rows: auto;
     font-family: 'Roboto', sans-serif;
+    background-color: #0C1713;
+    color: #FFF;
 }
 
 h1 {
