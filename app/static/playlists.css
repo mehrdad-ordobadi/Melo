@@ -131,6 +131,104 @@ h1 {
     }
 }
 
+/* PLAYER CSS */
+.player-container {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+  
+  .container {
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .player {
+    background-color: white;
+    width: 400px;
+    padding: 25px 25px;
+    border-radius: 10%;
+    text-align: center;
+  }
+  
+  .player-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+  
+  .player-nav .circle {
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    box-shadow: 0 5px 10px rgb(0, 0, 0, 0.4);
+  }
+  
+  .song_img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 8px solid black;
+    box-shadow: 0 10px 60px rgb(0, 0, 0, 0.4);
+  }
+  
+  .player h1 {
+    font-size: 30px;
+    font-weight: 500;
+    margin-top: 30px;
+  }
+
+  .player p {
+    font-size: 20px;
+    font-weight: 100;
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .bttn_audio {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .bttn_audio audio {
+    margin-right: 10px;
+  }
+
+  .bttn_audio button {
+    background-color: #162e23;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .bttn_audio button:hover {
+    background-color: #162e23;
+  }
+
+  .bttn_audio button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #162e23;
+}
+
+
+  .song-info-container {
+    color: #000;
+  }
+
+  .player-container img{
+    margin-bottom:30px;
+  }
 
 
 
