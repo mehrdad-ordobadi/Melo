@@ -346,7 +346,7 @@ darkest green = #0C1713
     /* APPLYING TRANSITION TO THE MENU :  */
     
       transition: all 0.4s ease;
-      margin-left: -25px;
+      margin-left: -8px;
   }
   
   .menu .logo {
@@ -356,7 +356,7 @@ darkest green = #0C1713
   /* IF THE TOGGLER IS CHECKED, THEN INCREASE THE WIDTH OF THE MENU TO 30% , CREATING A SMOOTH EFFECT :  */
   
   .toggler:checked ~ .menu{
-      width: 85%;
+      width: 84%;
       margin-top: -10px;
   }
   
