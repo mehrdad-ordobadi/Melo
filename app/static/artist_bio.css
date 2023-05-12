@@ -11,6 +11,8 @@ body {
     grid-auto-rows: auto;
     font-family: 'Roboto', sans-serif;
     transition: all 0.3s ease-in-out;
+    background-color: #0C1713;
+    color: #FFF;
 }
 
 h1 {
