@@ -3,7 +3,7 @@
 body {
     color: #FFF;
     background-color: #0C1713;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto slab', sans-serif;
     margin-left: 25px;
     display: grid;
     grid-template-columns: repeat(5,1fr);
@@ -15,7 +15,7 @@ body {
 }
 
 h1 {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto slab', sans-serif;
     margin-bottom: 1em;
     text-align: center;
     animation: fadeIn 1s;

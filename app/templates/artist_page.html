@@ -19,31 +19,32 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
+    <div class="artist-info">
+        <p>{{ artist.artist_city }}</p>
+        <p>{{ artist.artist_tags }}</p>
+        {% if artist.artist_biography %}
+        <p><a href="{{ url_for('artist_biography', artist_id=artist.id) }}">Biography</a></p>
+        {% else %}
+        <p>No biography available for this artist.</p>
+        {% endif %}
 
-    <p>{{ artist.artist_city }}</p>
-    <p>{{ artist.artist_tags }}</p>
-    {% if artist.artist_biography %}
-    <p><a href="{{ url_for('artist_biography', artist_id=artist.id) }}">Biography</a></p>
-    {% else %}
-    <p>No biography available for this artist.</p>
-    {% endif %}
+        {% if current_user.is_authenticated %}
 
-    {% if current_user.is_authenticated %}
+        {% if not current_user.is_following(artist) %}
 
-    {% if not current_user.is_following(artist) %}
-
-    <form method="post" action="{{ url_for('follow_artist', artist_id=artist.id) }}">
-        <input type="submit" value="Follow">
-    </form>
-    {% elif current_user.is_following(artist) %}
-    <form method="post" action="{{ url_for('unfollow_artist', artist_id=artist.id) }}">
-        <input type="submit" value="Unfollow">
-    </form>
-    {% endif %}
-    {% endif %}
+        <form method="post" action="{{ url_for('follow_artist', artist_id=artist.id) }}">
+            <input type="submit" value="Follow">
+        </form>
+        {% elif current_user.is_following(artist) %}
+        <form method="post" action="{{ url_for('unfollow_artist', artist_id=artist.id) }}">
+            <input type="submit" value="Unfollow">
+        </form>
+        {% endif %}
+        {% endif %}
+    </div>
+    <hr>
+    <h2>Albums</h2>
     <div class="album_list">
-        <h2>Albums</h2>
-
         <ul>
             {% for album in albums %}
             <li>
@@ -86,29 +87,29 @@
     </div>
     <div class="player-container hidden">
         <div class="player">
-          <nav class="player-nav">
-            <div class="circle">
-                <i class="fa-solid fa-angle-left"></i>
+            <nav class="player-nav">
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <img src="../static/nav_icons/events.png" alt="Cover Art" class="song_img" id="song-img">
+            <div class="song-info-container hidden" id="song-info-container">
+                <h2 id="song-info-title"></h2>
+                <p id="song-info-artist"></p>
             </div>
-            <div class="circle">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-        </nav>
-        <img src="../static/nav_icons/events.png" alt="Cover Art" class="song_img" id="song-img">
-        <div class="song-info-container hidden" id="song-info-container">
-            <h2 id="song-info-title"></h2>
-            <p id="song-info-artist"></p>
+            <h1 id="song-title" class="hidden"></h1>
+            <p id="song-artist" class="hidden"></p>
+            <button id="info-button">Show info</button>
+            <audio id="player" controls>
+                <!-- Empty source tag, it will be updated by JavaScript -->
+                <source src="" type="audio/mpeg">
+            </audio>
         </div>
-        <h1 id="song-title" class="hidden"></h1>
-        <p id="song-artist" class="hidden"></p>
-        <button id="info-button">Show info</button>
-        <audio id="player" controls>
-            <!-- Empty source tag, it will be updated by JavaScript -->
-            <source src="" type="audio/mpeg">
-        </audio>
     </div>
-</div>
 
 
 
-{% endblock %}
+    {% endblock %}
