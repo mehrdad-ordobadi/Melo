@@ -1,75 +1,51 @@
-{% extends 'base.html' %} {% block title %}Upload Music File{% endblock %} {%
-block extra_links %}
+{% extends 'base.html' %} 
+
+{% block title %}Upload Music File{% endblock %}
+
+{%block extra_links %}
 <link rel="stylesheet" href="../static/upload.css" />
-{% endblock %} {% block content %}
+{% endblock %} 
+
+{% block content %}
 <main>
   <div class="box">
     <div class="box-content">
       <h1>Upload Music File</h1>
 
-      {% with messages = get_flashed_messages() %} {% if messages %} {% for
-      message in messages %}
-      <p>{{ message }}</p>
-      {% endfor %} {% endif %} {% endwith %}
+      {% with messages = get_flashed_messages() %} 
+        {% if messages %} 
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        {% endif %} 
+      {% endwith %}
 
-      <form method="post" enctype="multipart/form-data">
-        <div class="album-input">
-          {{ form.hidden_tag() }}
-          <label for="album">Album:</label>
-          {{ form.album_title(id='album') }}
-        </div>
-        <div class="release-date">
-          <label for="release">Release Date:</label>
-          {{ form.album_release_date }}
-        </div>
-        <div class="select-songs">
-          <label for="file">Songs:</label>
-          <input type="file" name="file" id="file" accept=".mp3" multiple />
-        </div>
-        <div class="cover-art">
-          <label for="cover">Cover Art:</label>
-          <input
-            type="file"
-            name="cover"
-            id="cover"
-            accept=".jpeg, .jpg"
-            multiple
-          />
-        </div>
-      </form>
+        <form method="post" enctype="multipart/form-data">
+          <div class="album-input">
+            {{ form.hidden_tag() }}
+            <label for="album">Album:</label>
+            {{ form.album_title(id='album') }}
+          </div>
 
-<<<<<<< HEAD
-      <div class="upload-button">
-        <input type="submit" value="Upload" />
-      </div>
-=======
-            <form method="post" enctype="multipart/form-data">
-                <div class="album-input">
-                    {{ form.hidden_tag() }}
-                    <label for="album">Album:</label>
-                    {{ form.album_title(id='album') }}
-                    <br>
-                    <label for="release">Release Date:</label>
-                    {{ form.album_release_date }}
-                    <br>
-                </div>
-                <div class="select-songs">
-                    <label for="file">Songs:</label>
-                    <input type="file" name="file" id="file" accept=".mp3" multiple>
-                </div>
-                <div class="cover-art">
-                    <br>
-                    <label for="cover">Cover Art:</label>
-                    <input type="file" name="cover" id="cover" accept=".jpeg, .jpg" multiple>
-                    <br>
-                </div>
-           
+          <div class="release-date">
+            <label for="release">Release Date:</label>
+            {{ form.album_release_date }}
+          </div>
 
-            <div class="upload-button">
-                <input type="submit" value="Upload">
-            </div> </form>
-        </div> 
->>>>>>> 0c1d2894678b09387e4bdae94ba7c8f597da7f1d
+          <div class="select-songs">
+            <label for="file">Songs:</label>
+            <input type="file" name="file" id="file" accept=".mp3" multiple>
+          </div>
+
+          <div class="cover-art">
+            <label for="cover">Cover Art:</label>
+            <input type="file" name="cover" id="cover" accept=".jpeg, .jpg" multiple>
+          </div>
+                
+          <div class="upload-button">
+              <input type="submit" value="Upload">
+          </div> 
+        </form>
     </div>
   </div>
 </main>
