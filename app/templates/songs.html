@@ -23,7 +23,7 @@
                 {% for song in album.songs %}
                     <li>
                         {{ song.song_title }}
-                        <audio controls>
+                        <audio controls class="song-player">
                             <source src="{{ url_for('static', filename='audio/' + album.artist_id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}" type="audio/mpeg">
                         </audio>
                         {% if current_user.user_type== 'artist' %}
@@ -42,4 +42,16 @@
             {% endfor %}
         </ul>
     </div>
-    {% endblock %}
+    <script>
+    let audioElements = Array.from(document.getElementsByClassName("song-player"));
+
+    audioElements.forEach((audio, index) => {
+        audio.addEventListener('ended', function () {
+            let nextIndex = index + 1;
+            if (nextIndex < audioElements.length) {
+                audioElements[nextIndex].play();
+            }
+        });
+    });
+    </script>
+{% endblock %}
