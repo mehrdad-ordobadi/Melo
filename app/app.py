@@ -187,11 +187,8 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    artist_id = current_user.id
-    artist = Artist.query.get(artist_id)
-    albums = artist.albums
-    return render_template('dashboard.html',albums=albums)
-
+    albums = Album.query.all()
+    return render_template('dashboard.html', albums=albums)
 
 @app.route('/')
 def homepage():
