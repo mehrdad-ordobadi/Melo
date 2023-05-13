@@ -13,8 +13,6 @@ class User(UserMixin,db.Model):
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
 
-    # artist = db.relationship('Artist', uselist=False, back_populates='user')
-    # listener = db.relationship('Listener', uselist=False, back_populates='user')
     type = db.Column(db.String(50)) 
     followed_ids = db.Column(db.String(1000), default='')
 
@@ -54,8 +52,7 @@ class Listener(User):
     # user_name = db.Column(db.String(80), db.ForeignKey('user.username'), primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
 
-    # first_name = db.Column(db.String(80), nullable=False)
-    # last_name = db.Column(db.String(80), nullable=False)
+
     __mapper_args__ = {
         'polymorphic_identity': 'listener',
     }

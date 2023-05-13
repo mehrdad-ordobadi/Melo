@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const audioPlayer = document.getElementById('player');
   const songTitleElement = document.getElementById('song-title');
   const songArtistElement = document.getElementById('song-artist');
-  const songImgElement = document.getElementById('song-img'); // Added this line
+  const songImgElement = document.getElementById('song-img'); 
   const infoButton = document.getElementById('info-button');
   const songInfoTitleElement = document.getElementById('song-info-title');
   const songInfoArtistElement = document.getElementById('song-info-artist');
@@ -36,12 +36,12 @@ document.addEventListener('DOMContentLoaded', function () {
       songTitleElement.classList.remove('hidden');
       songArtistElement.classList.remove('hidden');
       infoContainer.classList.remove('hidden');
-      // infoButton.textContent = 'Hide info';
+      infoButton.textContent = 'Hide info';
     } else {
       songTitleElement.classList.add('hidden');
       songArtistElement.classList.add('hidden');
       infoContainer.classList.add('hidden');
-      // infoButton.textContent = 'Show info';
+      infoButton.textContent = 'Show info';
     }
   });
 });
