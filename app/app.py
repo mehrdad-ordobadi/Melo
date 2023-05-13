@@ -105,7 +105,7 @@ def upload_file():
     form = AlbumForm()
     if request.method == 'POST':
         files = request.files.getlist('file')
-        cover_art_file = request.files['cover']  # Get the cover art file
+        cover_art_file = request.files['cover'] 
         if not files:
             flash('No files part')
             return redirect(request.url)
