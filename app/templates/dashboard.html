@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Artist Dashboard{% endblock %}
 
 {% block extra_links %}
 <link rel="stylesheet" href="../static/dashboard.css">
+<script src="../static/dashboard.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
@@ -13,11 +14,21 @@
 {% endblock %}
 
 {% block content %}
-
 <main>
     <div class="dashboard-container">
         <h1>Welcome, {{ current_user.username }}!</h1>
+        <ul class="album-lists">
+        {% for album in albums %}
+            {% if album.artist_id == current_user.id %}
+            <li>
+                <a href="{{ url_for('album_songs', album_id=album.album_id) }}">
+                    <img src="{{ url_for('static', filename='audio/' + album.artist_id|string + '/' + album.album_title.replace(' ', '_').lower() + '/album_cover/' + album.cover_name) if album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}" alt="Cover Art">
+                    <h3>{{ album.album_title }}</h3>
+                </a>
+            </li>
+            {% endif %}
+        {% endfor %}
+        </ul>
     </div>
 </main>
 {% endblock %}
-

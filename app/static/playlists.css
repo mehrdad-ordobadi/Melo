@@ -12,70 +12,30 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
+    
     font-family: 'Roboto', sans-serif;
-    background-color: #0C1713;
 }
 
 h1 {
     text-align: center;
     width: 100%;
     margin-top: 60px;
-    color: #FFF;
 }
 
-.playlist-list h2 {
-    color: black;
-    font-size: 2rem;
-}
-
-.number-list {
-    list-style-type: decimal;
-    color: black;
-    font-size: 1.5rem;
-}
-
-.number-list li {
-    padding: 10px 10px 10px 10px;
-}
-
-.element {
-    display: inline-block;
-    position: static;
-}
-
-.playlist-list ul {
+ul {
+    list-style-type: none;
     padding: 0;
 }
 
-.playlist-list li a {
+li {
     text-align: center;
-    text-decoration: none;
-    color: black;
-    font-size: 1.5rem;
-
 }
 
-.playlist-list {
-    color:#FFF;
-    position: relative;
-    padding: 50px 50px 50px 80px;
-    background: #fff;
-    border-radius: 10px;
-    margin-top: 75px;
+header.navbar {
+    text-align: center;
+    top: 0;
+    left: 0;
 }
-
-.playlist-list button {
-    background: #F26157;
-    padding: 10px 15px;
-    height: 35px;
-    border: none;
-    outline: none;
-    color: #FFF;
-    letter-spacing: 1px;
-    cursor: pointer;
-}
-
-
 
 
 
@@ -130,7 +90,3 @@ h1 {
         display: none;
     }
 }
-
-
-
-

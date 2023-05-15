@@ -81,7 +81,7 @@ text-decoration: underline;
 
 .album_list li {
     list-style: none;
-    display: grid;
+    /* display: grid; */
     background-color: #0C1713;
     grid-template-columns: 1fr 1fr;
     margin-bottom: 30px;

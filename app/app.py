@@ -105,7 +105,7 @@ def upload_file():
     form = AlbumForm()
     if request.method == 'POST':
         files = request.files.getlist('file')
-        cover_art_file = request.files['cover']  # Get the cover art file
+        cover_art_file = request.files['cover'] 
         if not files:
             flash('No files part')
             return redirect(request.url)
@@ -187,8 +187,8 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
-
+    albums = Album.query.all()
+    return render_template('dashboard.html', albums=albums)
 
 @app.route('/')
 def homepage():
@@ -380,6 +380,11 @@ def delete_song_from_playlist():
 
 
 
+@app.route('/album/<int:album_id>/songs', methods=['GET'])
+def album_songs(album_id):
+    album = Album.query.get_or_404(album_id)
+
+    return render_template('album_songs.html', album=album)
 
 
 if __name__ == '__main__':
