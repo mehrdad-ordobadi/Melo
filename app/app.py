@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import FlaskForm
-from models import User, Artist, Album, Listener, Song, Playlist, PlaylistSong, Event
+from models import User, Artist, Album, Listener, Song, Playlist, PlaylistSong, Event, UserEvent
 from forms import RegistrationForm, EventForm
 from datetime import datetime
 from database import db
@@ -70,7 +70,7 @@ def register():
             artist_stagename = form.artist_stagename.data
             artist_city = form.artist_city.data
             artist_tags = form.artist_tags.data
-            artist = Artist(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data, artist_stagename=artist_stagename, artist_city=artist_city, artist_tags=artist_tags, artist_biography=None,followed_ids='', events=None)
+            artist = Artist(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data, artist_stagename=artist_stagename, artist_city=artist_city, artist_tags=artist_tags, artist_biography=None, followed_ids='')
             db.session.add(artist)
             db.session.commit()
             flash('Registration successful. You can now log in.', 'success')
@@ -428,14 +428,27 @@ def create_event():
 
 @app.route('/view-events/<int:artist_id>', methods=['GET'])
 def view_events(artist_id):
+    # Fetching events directly from the Event model using a query
+    events = Event.query.filter_by(artist_id=artist_id).order_by(Event.event_date).all()
     artist = Artist.query.get_or_404(artist_id)
-    events = artist.events.order_by(Event.event_date).all()
     return render_template('view_events.html', artist_name=artist.artist_stagename, events=events)
 
-# @app.toute('/rsvp/<int:event_id>', methods=['POST'])
-# def rsvp(event_id):
-#     event = Event.query.get_or_404(event_id)
-#     user_id = current_user.id
+@app.route('/rsvp/<int:event_id>', methods=['POST'])
+def rsvp(event_id):
+    event = Event.query.get_or_404(event_id)
+    user_id = current_user.id
+
+    user_event = UserEvent.query.filter_by(user_id=user_id, event_id=event_id).first()
+
+    if not user_event:
+        user_event = UserEvent(user_id=user_id, event_id=event_id)
+        db.session.add(user_event)
+        db.session.commit()
+        flash(f'Successfully RSVPed to {event.event_title}.')
+    else:
+        flash(f'You have already RSVPed to {event.event_title}.')
+
+    return redirect(url_for('view_events', artist_id=event.artist_id))
 
 
 
