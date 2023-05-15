@@ -187,8 +187,21 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    albums = Album.query.all()
-    return render_template('dashboard.html', albums=albums)
+    user_id = current_user.id
+
+    # Fetch the user's playlists
+    playlists = Playlist.query.filter_by(listener_id=user_id).all()
+
+    # If user is an artist, fetch their albums
+    if current_user.user_type == 'artist':
+        artist_id = current_user.id  # Assuming there is an attribute 'id' in the Artist model
+        albums = Album.query.filter_by(artist_id=artist_id).all()
+    else:
+        albums = []
+
+    return render_template('dashboard.html', playlists=playlists, albums=albums)
+
+
 
 @app.route('/')
 def homepage():
@@ -198,7 +211,9 @@ def homepage():
 @app.route('/search', methods=['POST'])
 def search():
     search_query = request.form['search_query']
-    artists = Artist.query.filter(Artist.artist_stagename.ilike(f'%{search_query}%')).all()
+    # artists = Artist.query.filter(Artist.artist_stagename.ilike(f'%{search_query}%')).all()
+    artists = Artist.query.filter((Artist.artist_stagename.ilike(f'%{search_query}%')) | (Artist.artist_tags.ilike(f'%{search_query}%'))).all()
+
     return render_template('search_results.html', artists=artists)
 
 
