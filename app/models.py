@@ -139,7 +139,7 @@ class Notification(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     content = db.Column(db.String(255), nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    expiry_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow+timedelta(days=14))
+    expiry_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow()+timedelta(days=14))
     read = db.Column(db.Boolean, nullable=False, default=False)
 
 

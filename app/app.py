@@ -477,16 +477,18 @@ def rsvp(event_id):
 
 
 def remove_expired_notifications():
-    now = datetime.utcnow()
-    expired_notifications = Notification.query.filter(Notification.expiry_date < now).all()
-    for notification in expired_notifications:
-        db.session.delete(notification)
-    db.session.commit()
+    with app.app_context():
+        now = datetime.utcnow()
+        expired_notifications = Notification.query.filter(Notification.expiry_date < now).all()
+        for notification in expired_notifications:
+            db.session.delete(notification)
+        db.session.commit()
+
 
 
 def start_scheduler():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(remove_expired_notifications, 'interval', seconds=30)
+    scheduler.add_job(remove_expired_notifications, 'interval', hours=6)
     scheduler.start()
 
 if __name__ == '__main__':
