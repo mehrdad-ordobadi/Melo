@@ -37,7 +37,7 @@ class Artist(User):
     artist_tags = db.Column(db.String(80), nullable=False)
     artist_biography = db.Column(db.Text, nullable=True)
     albums = db.relationship('Album', backref='artist', lazy=True)
-
+    events = db.relationship('Event', backref='artist', lazy=True)
 
     __mapper_args__ = {
         'polymorphic_identity': 'artist',

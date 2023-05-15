@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, SelectField, DateTimeLocalField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from wtforms.validators import Optional
 
@@ -17,3 +17,8 @@ class RegistrationForm(FlaskForm):
     
     submit = SubmitField('Sign Up')
 
+class EventForm(FlaskForm):
+    event_title = StringField('Event Title', validators=[DataRequired()])
+    event_date = DateTimeLocalField('Event Date', format='%Y-%m-%dT%H:%M', validators=[DataRequired()])
+    event_venue = StringField('Venue', validators=[DataRequired()])
+    submit = SubmitField('Add Event')

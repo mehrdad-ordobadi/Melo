@@ -3,8 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import FlaskForm
-from models import User, Artist, Album, Listener, Song, Playlist, PlaylistSong
-from forms import RegistrationForm
+from models import User, Artist, Album, Listener, Song, Playlist, PlaylistSong, Event
+from forms import RegistrationForm, EventForm
 from datetime import datetime
 from database import db
 from werkzeug.utils import secure_filename
@@ -70,7 +70,7 @@ def register():
             artist_stagename = form.artist_stagename.data
             artist_city = form.artist_city.data
             artist_tags = form.artist_tags.data
-            artist = Artist(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data, artist_stagename=artist_stagename, artist_city=artist_city, artist_tags=artist_tags, artist_biography=None,followed_ids='')
+            artist = Artist(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data, artist_stagename=artist_stagename, artist_city=artist_city, artist_tags=artist_tags, artist_biography=None,followed_ids='', events=None)
             db.session.add(artist)
             db.session.commit()
             flash('Registration successful. You can now log in.', 'success')
@@ -379,13 +379,37 @@ def delete_song_from_playlist():
     return redirect(request.referrer or url_for('my_playlists'))
 
 
-
 @app.route('/album/<int:album_id>/songs', methods=['GET'])
 def album_songs(album_id):
     album = Album.query.get_or_404(album_id)
 
     return render_template('album_songs.html', album=album)
 
+
+@app.route('/create-event', methods=['GET', 'Post'])
+def create_event():
+    form = EventForm()
+    if request.method == 'POST':
+        if current_user.type != 'artist':
+            flash('Only artists can creatae events!')
+            return redirect(request.url)
+        event_title = form.event_title.data
+        event_date = form.event_date.data
+        event_venue = form.event_venue.data
+        event_artist = current_user.id
+        new_event = Event(
+            event_title=event_title,
+            artist_id=event_artist,
+            event_date=event_date,
+            event_venue=event_venue
+        )
+        artist = Artist.query.get(event_artist)
+        artist.events.append(new_event)
+        db.session.add(new_event)
+        db.session.commit()
+        flash(f'Event {event_title} created successfully!')
+        return redirect(request.url)
+    return render_template('create_event.html', form=form)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
