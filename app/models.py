@@ -12,7 +12,7 @@ class User(UserMixin,db.Model):
     user_email = db.Column(db.String(120), nullable=True)
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
-
+    notifications = db.relationship('Notification', backref='user', lazy=True)
     type = db.Column(db.String(50)) 
     followed_ids = db.Column(db.String(1000), default='')
 
@@ -79,12 +79,12 @@ class Event(db.Model):
     event_title = db.Column(db.String(80), nullable=False)
     event_date = db.Column(db.DateTime, nullable=False)
     event_venue = db.Column(db.String(80), nullable=False)
-    # user_name = db.Column(db.String(80), db.ForeignKey('artist.user_name'))
     artist_id = db.Column(db.Integer, db.ForeignKey('artist.user_id'))
-    listener_events = db.relationship('ListenerEvent', backref='event', lazy=True)
+    user_events = db.relationship('UserEvent', backref='event', lazy=True)
 
     def __repr__(self):
         return f'<Event {self.event_title}>'
+
 
 
 
@@ -99,25 +99,14 @@ class Song(db.Model):
 
     def __repr__(self):
         return f'<Song {self.song_title}>'
-    
-# class Song(db.Model):
-#     song_id = db.Column(db.Integer, primary_key=True)
-#     song_title = db.Column(db.String(80), nullable=False)
-#     length = db.Column(db.Integer, nullable=False)
-#     album_id = db.Column(db.Integer, db.ForeignKey('album.album_id'))
-#     listener_songs = db.relationship('ListenerSong', backref='song', lazy=True)
-#     playlist_songs = db.relationship('PlaylistSong', backref='song', lazy=True)
 
-#     def __repr__(self):
-#         return f'<Song {self.song_title}>'
-
-class ListenerEvent(db.Model):
-    # user_name = db.Column(db.String(80), db.ForeignKey('listener.user_name'), primary_key=True)
-    listener_id = db.Column(db.Integer, db.ForeignKey('listener.user_id'), primary_key=True)
+class UserEvent(db.Model):
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.event_id'), primary_key=True)
 
     def __repr__(self):
-        return f'<ListenerEvent listener={self.user_name} event={self.event_id}>'
+        return f'<UserEvent user={self.user_id} event={self.event_id}>'
+
 
 class Playlist(db.Model):
     playlist_id = db.Column(db.Integer, primary_key=True)
@@ -144,3 +133,13 @@ class PlaylistSong(db.Model):
 
     def __repr__(self):
         return f'<PlaylistSong playlist={self.playlist_id} song={self.song_id}>'
+    
+class Notification(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    content = db.Column(db.String(255), nullable=False)
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'<Notification {self.content}>'
+
