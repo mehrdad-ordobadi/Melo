@@ -411,5 +411,19 @@ def create_event():
         return redirect(request.url)
     return render_template('create_event.html', form=form)
 
+@app.route('/view-events/<int:artist_id>', methods=['GET'])
+def view_events(artist_id):
+    artist = Artist.query.get_or_404(artist_id)
+    events = artist.events.order_by(Event.event_date).all()
+    return render_template('view_events.html', artist_name=artist.artist_stagename, events=events)
+
+# @app.toute('/rsvp/<int:event_id>', methods=['POST'])
+# def rsvp(event_id):
+#     event = Event.query.get_or_404(event_id)
+#     user_id = current_user.id
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
