@@ -13,8 +13,9 @@
     <h1>My Playlists:</h1>
     <ul>
         {% for playlist in playlists %}
-            <li>
-                <h3>{{ playlist.playlist_title }}</h3>
+        
+            <li id="{{ 'playlist-' + playlist.playlist_id|string }}">
+                <h2>{{ playlist.playlist_title }}</h2>
                 <ul>
                     {% for song in playlist.songs %}
                         <li>

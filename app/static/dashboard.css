@@ -53,7 +53,10 @@ h1 {
     padding: 5px;
 }
 
-
+.dashboard-playlist {
+    margin-left: 300px;
+    margin-top: 100px;
+}
 @media screen and (max-width: 450px) {
     body {
         display: block;
