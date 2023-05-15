@@ -12,7 +12,7 @@ from biography_form import BiographyForm
 import os
 import mutagen
 from AlbumForm import AlbumForm
-from datetime import datetime
+from datetime import datetime, MINYEAR
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
@@ -39,6 +39,7 @@ login_manager.login_view = 'login'
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -198,7 +199,6 @@ def dashboard():
         albums = Album.query.filter_by(artist_id=artist_id).all()
     else:
         albums = []
-
     return render_template('dashboard.html', playlists=playlists, albums=albums)
 
 
@@ -400,13 +400,12 @@ def album_songs(album_id):
 
     return render_template('album_songs.html', album=album)
 
-
 @app.route('/create-event', methods=['GET', 'Post'])
 def create_event():
     form = EventForm()
     if request.method == 'POST':
         if current_user.type != 'artist':
-            flash('Only artists can creatae events!')
+            flash('Only artists can create events!')
             return redirect(request.url)
         event_title = form.event_title.data
         event_date = form.event_date.data
@@ -428,9 +427,10 @@ def create_event():
 
 @app.route('/view-events/<int:artist_id>', methods=['GET'])
 def view_events(artist_id):
+    events = Event.query.filter_by(artist_id=artist_id).order_by(Event.event_date).all()
     artist = Artist.query.get_or_404(artist_id)
-    events = artist.events.order_by(Event.event_date).all()
     return render_template('view_events.html', artist_name=artist.artist_stagename, events=events)
+
 
 # @app.toute('/rsvp/<int:event_id>', methods=['POST'])
 # def rsvp(event_id):
