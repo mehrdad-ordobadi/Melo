@@ -13,6 +13,8 @@ import os
 import mutagen
 from AlbumForm import AlbumForm
 from datetime import datetime
+from apscheduler.schedulers.background import BackgroundScheduler
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
@@ -474,5 +476,19 @@ def rsvp(event_id):
     return redirect(url_for('view_events', artist_id=event.artist_id))
 
 
+def remove_expired_notifications():
+    now = datetime.utcnow()
+    expired_notifications = Notification.query.filter(Notification.expiry_date < now).all()
+    for notification in expired_notifications:
+        db.session.delete(notification)
+    db.session.commit()
+
+
+def start_scheduler():
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(remove_expired_notifications, 'interval', seconds=30)
+    scheduler.start()
+
 if __name__ == '__main__':
+    start_scheduler()
     app.run(debug=True, port=5001)
