@@ -46,3 +46,7 @@ main {
 .event-title, .event-date , .event-venue {
   margin: 20px 0 10px 0;
 }
+
+.upload-button {
+  margin-top: 50px;
+}
