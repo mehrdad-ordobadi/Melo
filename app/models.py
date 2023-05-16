@@ -16,6 +16,8 @@ class User(UserMixin,db.Model):
     type = db.Column(db.String(50)) 
     followed_ids = db.Column(db.String(1000), default='')
 
+    def is_following(self, artist):
+        return str(artist.id) in self.followed_ids.split(',')
   
     ...
     __mapper_args__ = {
@@ -56,8 +58,6 @@ class Listener(User):
     __mapper_args__ = {
         'polymorphic_identity': 'listener',
     }
-    def is_following(self, artist):
-        return str(artist.id) in self.followed_ids.split(',')
     def __repr__(self):
         return f'<Listener {self.first_name} {self.last_name}>'
     
