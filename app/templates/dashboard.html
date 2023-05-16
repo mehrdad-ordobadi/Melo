@@ -51,7 +51,7 @@
                 {% for album in albums %}
                     <li>
                         <a href="{{ url_for('album_songs', album_id=album.album_id) }}">
-                            <img src="{{ url_for('static', filename='audio/' + album.artist_id|string + '/' + album.albumtitle.replace(' ', '').lower() + '/album_cover/' + album.cover_name) if album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}" alt="Cover Art">
+                            <img src="{{ url_for('static', filename='audio/' + album.artist_id|string + '/' + album.album_title.replace(' ', '').lower() + '/album_cover/' + album.cover_name) if album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}" alt="Cover Art">
                             <h3>{{ album.album_title }}</h3>
                         </a>
                     </li>
