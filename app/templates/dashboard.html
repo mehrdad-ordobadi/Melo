@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@1,300&display=swap" rel="stylesheet">
 {% endblock %}
+
 {% block content %}
 <main>
 
@@ -26,14 +27,15 @@
 {% endwith %}
 {% if current_user.is_authenticated %}
     {% if notifications %}
-        <h3>Notifications:</h3>
-        <ul class="notifications">
+        <ul class="notifications"  id="notification_section">
             {% for notification in notifications %}
+            {% if not notification.read %}
                 <li>
                     <a href="{{ url_for('read_notification', notification_id=notification.id) }}">
                         {{ notification.content }}
                     </a>
                 </li>
+                {% endif %}
             {% endfor %}
         </ul>
     {% endif %}
@@ -49,23 +51,31 @@
                 {% for album in albums %}
                     <li>
                         <a href="{{ url_for('album_songs', album_id=album.album_id) }}">
-                            <img src="{{ url_for('static', filename='audio/' + album.artist_id|string + '/' + album.album_title.replace(' ', '_').lower() + '/album_cover/' + album.cover_name) if album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}" alt="Cover Art">
+                            <img src="{{ url_for('static', filename='audio/' + album.artist_id|string + '/' + album.albumtitle.replace(' ', '').lower() + '/album_cover/' + album.cover_name) if album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}" alt="Cover Art">
                             <h3>{{ album.album_title }}</h3>
                         </a>
                     </li>
                 {% endfor %}
             </ul>
         {% endif %}
-<div class="dashboard-playlist">
-        <h2>My Playlists:</h2>
-        <ul class="playlist-lists">
-            {% for playlist in playlists %}
-                <li>
-                    <a href="{{ url_for('my_playlists') + '#playlist-' + playlist.playlist_id|string }}">{{ playlist.playlist_title }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+
+        <div class="dashboard-playlist">
+            <h2>My Playlists:</h2>
+            <ul class="playlist-lists">
+                {% for playlist in playlists %}
+                    <li>
+                        <a href="{{ url_for('my_playlists') + '#playlist-' + playlist.playlist_id|string }}">{{ playlist.playlist_title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 </main>
+<script>
+    setTimeout(function() {
+        var element = document.getElementById('notification_section');
+        element.style.display = 'none'; // hide the notifications after 5 seconds
+    }, 5000);
+</script>
+
 {% endblock %}

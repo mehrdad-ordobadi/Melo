@@ -60,6 +60,22 @@ h2{
     margin-left: 300px;
     margin-top: 100px;
 }
+ul.notifications {
+    position: fixed;
+    bottom: 0;
+    width: 450px;
+    background-color:0C1713; /* choose color that fits your design */
+    text-align: center;
+    z-index: 1000; /* to make sure the notifications appear on top of other elements */
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* optional: adds a bit of shadow for a floating effect */
+    margin-left: 560px;
+}
+
+ul.notifications li {
+    margin: 10px 0;
+}
+
 @media screen and (max-width: 450px) {
     body {
         display: block;
