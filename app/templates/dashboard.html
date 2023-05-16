@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block title %}Dashboard{% endblock %}
 
 {% block extra_links %}
@@ -23,18 +24,22 @@
             {% endfor %}
         </ul>
     {% endif %}
-    {% endwith %}
-    
-    {% if current_user.is_authenticated %}
-        {% if notifications %}
-            <h3>Notifications:</h3>
-            <ul class="notifications">
-                {% for notification in notifications %}
-                    <li>{{ notification.content }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+{% endwith %}
+{% if current_user.is_authenticated %}
+    {% if notifications %}
+        <h3>Notifications:</h3>
+        <ul class="notifications">
+            {% for notification in notifications %}
+                <li>
+                    <a href="{{ url_for('read_notification', notification_id=notification.id) }}">
+                        {{ notification.content }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
     {% endif %}
+{% endif %}
+
 
     <div class="dashboard-container">
         <h1>Welcome, {{ current_user.username }}!</h1>

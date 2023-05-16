@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -12,7 +12,9 @@ from biography_form import BiographyForm
 import os
 import mutagen
 from AlbumForm import AlbumForm
-from datetime import datetime, MINYEAR
+from datetime import datetime
+from apscheduler.schedulers.background import BackgroundScheduler
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
@@ -433,18 +435,10 @@ def create_event():
         artist.events.append(new_event)
         db.session.add(new_event)
         db.session.commit()
-        event_url = url_for('view_event', event_id=new_event.event_id, _external=True)
-        message = f"{artist.artist_stagename} has created a new event: {event_title}. Check it out at {event_url}"
+        id = new_event.event_id
+        message = f"{artist.artist_stagename} has created a new event: {event_title} on {event_date}"
         for follower in get_followers(artist):
-            notification = Notification(user_id=follower.id, content=message)
-        #     notification = Notification(
-        #     user_id=follower.id,
-        #     content={
-        #         "message": f"{artist.artist_stagename} has created a new event: {event_title}. Check it out at {event_url}",
-        #         "event_id": new_event.event_id
-        #     }
-        # )
-
+            notification = Notification(user_id=follower.id, content=message, event_id=id, event=new_event)
             db.session.add(notification)
         db.session.commit()
         flash(f'Event {event_title} created successfully!')
@@ -460,9 +454,14 @@ def view_events(artist_id):
 
 @app.route('/view-event/<int:event_id>', methods=['GET'])
 def view_event(event_id):
+    artist_id = request.args.get('artist_id', None)
+    if artist_id is None:
+        abort(404)
+
     event = Event.query.get_or_404(event_id)
-    artist = Artist.query.get_or_404(event.artist_id)
+    artist = Artist.query.get_or_404(artist_id)
     return render_template('view_event.html', event=event, artist=artist)
+
 
 
 @app.route('/rsvp/<int:event_id>', methods=['POST'])
@@ -483,5 +482,40 @@ def rsvp(event_id):
     return redirect(url_for('view_events', artist_id=event.artist_id))
 
 
+@app.route('/read-notification/<int:notification_id>', methods=['GET'])
+@login_required
+def read_notification(notification_id):
+    notification = Notification.query.get_or_404(notification_id)
+
+    # Check if the current user is the owner of the notification
+    if notification.user_id != current_user.id:
+        abort(403)
+
+    # Mark the notification as read
+    notification.read = True
+    db.session.commit()
+
+    # Redirect to the event page with the artist_id as a query parameter
+    return redirect(url_for('view_event', event_id=notification.event_id, artist_id=notification.event.artist_id))
+
+
+
+
+def remove_expired_notifications():
+    with app.app_context():
+        now = datetime.utcnow()
+        expired_notifications = Notification.query.filter(Notification.expiry_date < now).all()
+        for notification in expired_notifications:
+            db.session.delete(notification)
+        db.session.commit()
+
+
+def start_scheduler():
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(remove_expired_notifications, 'interval', hours=6)
+    scheduler.start()
+
+
 if __name__ == '__main__':
+    start_scheduler()
     app.run(debug=True, port=5001)

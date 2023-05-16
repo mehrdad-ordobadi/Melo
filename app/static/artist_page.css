@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300&display=swap');
 
+
 .hidden {
   display: none;
 }
@@ -13,6 +14,11 @@ body {
 
 h1 {
   filter: brightness(150%);
+  animation: fadeInDown 1s ease-in-out;
+}
+
+h2 {
+  animation: fadeInDown 1s ease-in-out;
 }
 
 .song-link {
@@ -45,7 +51,20 @@ ul button {
   border: 2px solid white;
   background-color: #0C1713;
   color: #fff;
+  transition: 0.1s ease-in-out;
+}
 
+.add-to-playlist-form button:hover {
+  width: 40px;
+  height: 25px;
+  border-radius: 20px;
+}
+
+.show-add-to-playlist-btn:hover {
+  width: 25px;
+  height: 25px;
+  border-radius: 20px;
+  font-size: large;
 }
 
 .add-to-playlist-form button {
@@ -58,6 +77,7 @@ ul button {
   display: flex;
   flex-direction: column;
   margin-right: 1%;
+  animation: fadeInUp 1s ease-in-out;
 }
 
 .artist-info {
@@ -88,6 +108,7 @@ ul button {
   border-radius: 5%;
   width: 100%;
   height: 430px;
+  animation: fadeInUp 1s ease-in-out;
 }
 
 .album_list li {
@@ -113,7 +134,7 @@ ul button {
   width: 50px;
   height: 23px;
   margin-left: 10px;
-  border-color: #F26157;
+  /* border-color: #F26157; */
   /* background-color: #e63946; */
 }
 
@@ -143,6 +164,7 @@ ul button {
 .player-container .song-info .show-info-btn {
   margin-left: 10px;
 }
+
 
 @media (max-width: 768px) {
   .player-container .song-info {
@@ -260,4 +282,26 @@ ul button {
 
 .player-container img {
   margin-bottom: 30px;
+}
+
+@keyframes fadeInDown {
+  0% {
+      opacity: 0;
+      transform: translateY(0px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
 }
