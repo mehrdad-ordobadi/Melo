@@ -481,6 +481,14 @@ def rsvp(event_id):
 
     return redirect(url_for('view_events', artist_id=event.artist_id))
 
+@app.route('/my-rsvp-events', methods=['GET'])
+def my_rsvp_events():
+    user_id = current_user.id
+    user_events = UserEvent.query.filter_by(user_id=user_id).all()
+    event_ids = [ue.event_id for ue in user_events]
+    events = Event.query.filter(Event.event_id.in_(event_ids)).order_by(Event.event_date).all()
+    return render_template('my_rsvp_events.html', events=events)
+
 
 @app.route('/read-notification/<int:notification_id>', methods=['GET'])
 @login_required

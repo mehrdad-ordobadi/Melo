@@ -100,7 +100,15 @@
       >
     </div>
     <div class="nav-link">
-      <a href="/create-event"><span>Create Event</span></a>
+      <a
+      href="{{ url_for('view_events', artist_id=current_user.user_id) }}"
+      ><img src="../static/nav_icons/events.png" /><span
+          >My Events</span
+      ></a
+      >
+    </div>
+    <div class="nav-link">
+      <a href="/create-event"><img src="../static/nav_icons/events.png" /><span>Create Event</span></a>
     </div>
 
     {% endif %}
@@ -123,6 +131,15 @@
         ></a
       >
     </div>
+    <div class="nav-link">
+      <a
+      href="{{ url_for('my_rsvp_events') }}"
+      ><span
+          >Upcoming Events</span
+      ></a
+      >
+    </div>
+  
   </div>
 </nav>
 

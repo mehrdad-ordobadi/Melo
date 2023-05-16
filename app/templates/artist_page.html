@@ -28,6 +28,10 @@
             {% else %}
             <p>No biography available for this artist.</p>
             {% endif %}
+            <a href="{{ url_for('view_events', artist_id=current_user.user_id) }}"
+                ><span
+                    >Artist Events</span
+                ></a>
 
             {% if current_user.is_authenticated %}
 

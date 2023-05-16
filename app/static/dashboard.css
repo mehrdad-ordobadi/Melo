@@ -20,6 +20,9 @@ h1 {
 h2{
     margin-left: 200px;
 }
+.all-playlists{
+    color: white;
+}
 
 .album-lists {
     display: grid;
@@ -57,7 +60,7 @@ h2{
 }
 
 .dashboard-playlist {
-    margin-left: 300px;
+    margin-left: 200px;
     margin-top: 100px;
 }
 ul.notifications {
