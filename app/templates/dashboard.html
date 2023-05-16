@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% set show_navbar = false %}
 {% block title %}Dashboard{% endblock %}
 
 {% block extra_links %}
@@ -12,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@1,300&display=swap" rel="stylesheet">
 {% endblock %}
+
 {% block content %}
 <main>
 
@@ -23,18 +23,18 @@
             {% endfor %}
         </ul>
     {% endif %}
-{% endwith %}
-{% if current_user.is_authenticated %}
-    {% if notifications %}
-        <h3>Notifications:</h3>
-        <ul class="notifications">
-            {% for notification in notifications %}
-                <li>{{ notification.content }}</li>
-            {% endfor %}
-        </ul>
+    {% endwith %}
+    
+    {% if current_user.is_authenticated %}
+        {% if notifications %}
+            <h3>Notifications:</h3>
+            <ul class="notifications">
+                {% for notification in notifications %}
+                    <li>{{ notification.content }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     {% endif %}
-{% endif %}
-
 
     <div class="dashboard-container">
         <h1>Welcome, {{ current_user.username }}!</h1>
@@ -45,23 +45,24 @@
                 {% for album in albums %}
                     <li>
                         <a href="{{ url_for('album_songs', album_id=album.album_id) }}">
-                            <img src="{{ url_for('static', filename='audio/' + album.artist_id|string + '/' + album.album_title.replace(' ', '_').lower() + '/album_cover/' + album.cover_name) if album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}" alt="Cover Art">
+                            <img src="{{ url_for('static', filename='audio/' + album.artist_id|string + '/' + album.albumtitle.replace(' ', '').lower() + '/album_cover/' + album.cover_name) if album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}" alt="Cover Art">
                             <h3>{{ album.album_title }}</h3>
                         </a>
                     </li>
                 {% endfor %}
             </ul>
         {% endif %}
-<div class="dashboard-playlist">
-        <h2>My Playlists:</h2>
-        <ul class="playlist-lists">
-            {% for playlist in playlists %}
-                <li>
-                    <a href="{{ url_for('my_playlists') + '#playlist-' + playlist.playlist_id|string }}">{{ playlist.playlist_title }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+
+        <div class="dashboard-playlist">
+            <h2>My Playlists:</h2>
+            <ul class="playlist-lists">
+                {% for playlist in playlists %}
+                    <li>
+                        <a href="{{ url_for('my_playlists') + '#playlist-' + playlist.playlist_id|string }}">{{ playlist.playlist_title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 </main>
 {% endblock %}

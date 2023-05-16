@@ -437,6 +437,14 @@ def create_event():
         message = f"{artist.artist_stagename} has created a new event: {event_title}. Check it out at {event_url}"
         for follower in get_followers(artist):
             notification = Notification(user_id=follower.id, content=message)
+        #     notification = Notification(
+        #     user_id=follower.id,
+        #     content={
+        #         "message": f"{artist.artist_stagename} has created a new event: {event_title}. Check it out at {event_url}",
+        #         "event_id": new_event.event_id
+        #     }
+        # )
+
             db.session.add(notification)
         db.session.commit()
         flash(f'Event {event_title} created successfully!')

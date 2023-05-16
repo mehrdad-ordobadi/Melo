@@ -156,37 +156,32 @@ darkest green = #0C1713
     letter-spacing: 1px;
     cursor: pointer;
 }
-
-
-/* Dropdown Button */
-.dropbtn {
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
+h3{
+    size: 100px;
+    color:#A54657
 }
-
-/* The container <div> - needed to position the dropdown content */
+.dropbtn img{
+    width: 30px;
+    height: 30px;
+}
 .dropdown {
     position: relative;
     display: inline-block;
 }
-.dropbtn img {
-    width: 100px;
-    height: 100px;
-}
 
-/* Dropdown Content (Hidden by Default) */
+
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f1f1f1;
+    background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
     z-index: 1;
+    right: 0;
+
 }
 
-/* Links inside the dropdown */
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -194,16 +189,13 @@ darkest green = #0C1713
     display: block;
 }
 
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {background-color: #f1f1f1}
 
-/* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
-
-
+.notifications li {
+    color: black;
+}
 /* Nav Mobile Hamburger */
 
 .nav-mobile {

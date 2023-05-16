@@ -93,21 +93,28 @@
 </nav>
 
 <div class="logout-button">
+    
+    
     <form class="logout" action="{{ url_for('logout') }}" method="POST">
         <input type="submit" value="Logout">
     </form>
-    <!-- <a href="#">
-        <img src="{{ url_for('static', filename='nav_icons/bell_icon.png') }}" alt="Notifications">
-    </a> -->
     <div class="dropdown">
         <button class="dropbtn">
-            <img src="../static/nav_icons/bell_icon.png" alt="Notifications">
+            <img src="{{ url_for('static', filename='nav_icons/bell_icon.png') }}" alt="Notifications">
         </button>
-        <div class="dropdown-content">
-            <a href="/view-events/{{ current_user.id }}">View Events</a>
-            <!-- Add more links here as needed -->
+        <div class="dropdown-content" id="dropdownContent">
+            {% if current_user.is_authenticated %}
+                {% if notifications %}
+                    <h3>Notifications:</h3>
+                    <ul class="notifications">
+                        {% for notification in notifications %}
+                            {% set notification_parts = notification.content.split("Check it out at") %}
+                            <li><a href="{{ notification_parts[1] }}">{{notification_parts[0]}}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
-    
-    
 </div>
+
