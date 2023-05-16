@@ -43,6 +43,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -418,7 +419,7 @@ def create_event():
     form = EventForm()
     if request.method == 'POST':
         if current_user.type != 'artist':
-            flash('Only artists can creatae events!')
+            flash('Only artists can create events!')
             return redirect(request.url)
         event_title = form.event_title.data
         event_date = form.event_date.data
