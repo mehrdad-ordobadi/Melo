@@ -2,119 +2,160 @@
 
 <!-- MOBILE VIEW -->
 <div class="nav-mobile">
+  <input type="checkbox" class="toggler" />
+  <div class="hamburger"><div></div></div>
 
-    <input type="checkbox" class="toggler">
-    <div class="hamburger"><div></div></div>
-
-
-    <div class="menu">
-      <div class="logo">
-        <a href=""><img src="../static/homepage-images/melo-logo-150.png" alt="Logo" /></a>
-      </div>
-
-        <div>
-            <ul class="mobile-navigation">
-              <li><form id="nav-mobile-form" role="search">
-                <input
-                type="text"
-                id="query"
-                name="q"
-                placeholder="local artists..."
-                />
-              <button>Search</button>
-            </form></li>
-
-            <div class="list-container">
-            {% if current_user.user_type == 'artist' %}
-            <li class="nav-link">
-              <a href="/upload"><img src="../static/nav_icons/upload.png" /><span>Upload Music</span></a>
-            </li>
-            <li class="nav-link">
-                <a href="{{ url_for('artist_biography', artist_id=current_user.user_id) }}"><img
-                    src="../static/nav_icons/bio.png" /><span>Add/Edit Bio</span></a>
-            </li>
-            {% endif %}
-            <li class="nav-link_listener">
-                <a href="/songs"><img src="../static/nav_icons/songs.png" /><span>Songs</span></a>
-            </li>
-            <li class="nav-link_listener">
-                <a href="{{ url_for('favorite_artists') }}"><img src="../static/nav_icons/artists.png" /><span>Favorite
-                Artists</span></a>
-            </li>
-            <li class="nav-link_listener">
-                <a href="{{ url_for('my_playlists') }}"><img src="../static/nav_icons/playlist.png" /><span>My
-                    Playlist</span></a>
-            </li>
-            </div>
-
-            </ul>
-        </div>
+  <div class="menu">
+    <div class="logo">
+      <a href=""
+        ><img src="../static/homepage-images/melo-logo-150.png" alt="Logo"
+      /></a>
     </div>
+
+    <div>
+      <ul class="mobile-navigation">
+        <li>
+          <form id="nav-mobile-form" role="search">
+            <input
+              type="text"
+              id="query"
+              name="q"
+              placeholder="local artists..."
+            />
+            <button>Search</button>
+          </form>
+        </li>
+
+        <div class="list-container">
+          {% if current_user.user_type == 'artist' %}
+          <li class="nav-link">
+            <a href="/upload"
+              ><img src="../static/nav_icons/upload.png" /><span
+                >Upload Music</span
+              ></a
+            >
+          </li>
+          <li class="nav-link">
+            <a
+              href="{{ url_for('artist_biography', artist_id=current_user.user_id) }}"
+              ><img src="../static/nav_icons/bio.png" /><span
+                >Add/Edit Bio</span
+              ></a
+            >
+          </li>
+          {% endif %}
+          <li class="nav-link_listener">
+            <a href="/songs"
+              ><img src="../static/nav_icons/songs.png" /><span>Songs</span></a
+            >
+          </li>
+          <li class="nav-link_listener">
+            <a href="{{ url_for('favorite_artists') }}"
+              ><img src="../static/nav_icons/artists.png" /><span
+                >Favorite Artists</span
+              ></a
+            >
+          </li>
+          <li class="nav-link_listener">
+            <a href="{{ url_for('my_playlists') }}"
+              ><img src="../static/nav_icons/playlist.png" /><span
+                >My Playlist</span
+              ></a
+            >
+          </li>
+        </div>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <nav class="sidebar">
+  <div class="logo">
+    <a href="{{ url_for('dashboard') }}"
+      ><img src="../static/homepage-images/melo-logo-150.png"
+    /></a>
+  </div>
+  <form id="form" action="{{ url_for('search') }}" method="POST">
+    <input
+      type="text"
+      name="search_query"
+      placeholder="Search for artists or tags..."
+    />
+    <button type="submit">Search</button>
+  </form>
+  <div class="navList">
+    {% if current_user.user_type == 'artist' %}
 
-    <div class="logo"><a href="{{ url_for('dashboard') }}"><img src="../static/homepage-images/melo-logo-150.png" /></a>
+    <div class="nav-link">
+      <a href="/upload"
+        ><img src="../static/nav_icons/upload.png" /><span
+          >Upload Music</span
+        ></a
+      >
     </div>
-    <form id="form" action="{{ url_for('search') }}" method="POST">
-        <input type="text" name="search_query" placeholder="Search for artists or tags...">
-        <button type="submit">Search</button>
-    </form>
-    <div class="navList">
-        {% if current_user.user_type == 'artist' %}
-
-        <div class="nav-link">
-            <a href="/upload"><img src="../static/nav_icons/upload.png" /><span>Upload Music</span></a>
-        </div>
-        <div class="nav-link">
-            <a href="{{ url_for('artist_biography', artist_id=current_user.user_id) }}"><img
-                    src="../static/nav_icons/bio.png" /><span>Add/Edit Bio</span></a>
-        </div>
-        <div class="nav-link">
-            <a href="/create-event"><span>Create Event</span></a>
-        </div>
-
-        {% endif %}
-        <div class="nav-link_listener">
-            <a href="/songs"><img src="../static/nav_icons/songs.png" /><span>Songs</span></a>
-        </div>
-        <div class="nav-link_listener">
-            <a href="{{ url_for('favorite_artists') }}"><img src="../static/nav_icons/artists.png" /><span>Favorite
-                Artists</span></a>
-        </div>
-        <div class="nav-link_listener">
-            <a href="{{ url_for('my_playlists') }}"><img src="../static/nav_icons/playlist.png" /><span>My
-                    Playlist</span></a>
-        </div>
-        
-
+    <div class="nav-link">
+      <a
+        href="{{ url_for('artist_biography', artist_id=current_user.user_id) }}"
+        ><img src="../static/nav_icons/bio.png" /><span>Add/Edit Bio</span></a
+      >
     </div>
+    <div class="nav-link">
+      <a href="/create-event"><span>Create Event</span></a>
     </div>
+
+    {% endif %}
+    <div class="nav-link_listener">
+      <a href="/songs"
+        ><img src="../static/nav_icons/songs.png" /><span>Songs</span></a
+      >
+    </div>
+    <div class="nav-link_listener">
+      <a href="{{ url_for('favorite_artists') }}"
+        ><img src="../static/nav_icons/artists.png" /><span
+          >Favorite Artists</span
+        ></a
+      >
+    </div>
+    <div class="nav-link_listener">
+      <a href="{{ url_for('my_playlists') }}"
+        ><img src="../static/nav_icons/playlist.png" /><span
+          >My Playlist</span
+        ></a
+      >
+    </div>
+  </div>
 </nav>
 
 <div class="logout-button">
-    
-    
-    <form class="logout" action="{{ url_for('logout') }}" method="POST">
-        <input type="submit" value="Logout">
-    </form>
-    <div class="dropdown">
-        <button class="dropbtn">
-            <img src="{{ url_for('static', filename='nav_icons/bell_icon.png') }}" alt="Notifications">
-        </button>
-        <div class="dropdown-content" id="dropdownContent">
-            {% if current_user.is_authenticated %}
-                {% if notifications %}
-                    <h3>Notifications:</h3>
-                    <ul class="notifications">
-                        {% for notification in notifications %}
-                            {% set notification_parts = notification.content.split("Check it out at") %}
-                            <li><a href="{{ notification_parts[1] }}">{{notification_parts[0]}}</a></li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endif %}
-        </div>
-    </div>
-</div>
+  <form class="logout" action="{{ url_for('logout') }}" method="POST">
+    <input type="submit" value="Logout" />
+  </form>
+  <div class="dropdown">
+    <button class="dropbtn">
+      <img
+        src="{{ url_for('static', filename='nav_icons/bell_icon.png') }}"
+        alt="Notifications"
+      />
+    </button>
+    <div class="dropdown-content" id="dropdownContent">
+      {% if current_user.is_authenticated %} 
+      {% if notifications %}
+      <h3>Notifications:</h3>
+      <ul class="notify">
+        {% for notification in notifications %}
+        {% set notification_parts = notification.content.split("on") %}
 
+        <li>
+
+          <a
+            href="{{ url_for('read_notification', notification_id=notification.id) }}"
+          >
+            {{ notification_parts[0] }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endif %}
+    </div>
+  </div>
+</div>
