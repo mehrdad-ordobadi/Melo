@@ -12,8 +12,9 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
-    
-    font-family: 'Roboto', sans-serif;
+    background-color: #0C1713;
+    color: #fff;
+    font-family: 'Roboto Slab', sans-serif;
 }
 
 h1 {
@@ -50,6 +51,22 @@ header.navbar {
     right: 10px;
     z-index: 1000;
 }
+
+.song-link {
+    text-decoration: none;
+    color: #fff;
+}
+
+ul li form button {
+    width: 50px;
+    height: 23px;
+    padding-left: 4px;
+    border-radius: 10px;
+    background-color: #0C1713;
+    border: 2px solid #fff;
+    color: #fff;
+}
+
 .player-container .song_img {
     width: 40px;
     height: 40px;
