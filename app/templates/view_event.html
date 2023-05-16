@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ event.event_title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ event.event_title }} by {{ artist.artist_stagename }}</h1>
+    <p>Date: {{ event.event_date.strftime('%Y-%m-%d %H:%M') }}</p>
+    <p>Venue: {{ event.event_venue }}</p>
+{% endblock %}

@@ -1,10 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import FlaskForm
-from models import User, Artist, Album, Listener, Song, Playlist, PlaylistSong
-from forms import RegistrationForm
+from models import User, Artist, Album, Listener, Song, Playlist, PlaylistSong, Event, UserEvent, Notification
+from forms import RegistrationForm, EventForm
 from datetime import datetime
 from database import db
 from werkzeug.utils import secure_filename
@@ -13,6 +13,8 @@ import os
 import mutagen
 from AlbumForm import AlbumForm
 from datetime import datetime
+from apscheduler.schedulers.background import BackgroundScheduler
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
@@ -70,7 +72,7 @@ def register():
             artist_stagename = form.artist_stagename.data
             artist_city = form.artist_city.data
             artist_tags = form.artist_tags.data
-            artist = Artist(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data, artist_stagename=artist_stagename, artist_city=artist_city, artist_tags=artist_tags, artist_biography=None,followed_ids='')
+            artist = Artist(username=user_name, password=hashed_password, user_type=user_type, user_email=email, date_join=date_join, first_name=form.first_name.data, last_name=form.last_name.data, artist_stagename=artist_stagename, artist_city=artist_city, artist_tags=artist_tags, artist_biography=None, followed_ids='')
             db.session.add(artist)
             db.session.commit()
             flash('Registration successful. You can now log in.', 'success')
@@ -105,7 +107,7 @@ def upload_file():
     form = AlbumForm()
     if request.method == 'POST':
         files = request.files.getlist('file')
-        cover_art_file = request.files['cover']  # Get the cover art file
+        cover_art_file = request.files['cover'] 
         if not files:
             flash('No files part')
             return redirect(request.url)
@@ -187,7 +189,24 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
+    user_id = current_user.id
+
+    # Fetch the user's playlists
+    playlists = Playlist.query.filter_by(listener_id=user_id).all()
+
+    # If user is an artist, fetch their albums
+    if current_user.user_type == 'artist':
+        artist_id = current_user.id  # Assuming there is an attribute 'id' in the Artist model
+        albums = Album.query.filter_by(artist_id=artist_id).all()
+    else:
+        albums = []
+
+    # Fetch the user's notifications
+    notifications = Notification.query.filter_by(user_id=user_id).order_by(Notification.timestamp.desc()).all()
+
+    return render_template('dashboard.html', playlists=playlists, albums=albums, notifications=notifications)
+
+
 
 
 @app.route('/')
@@ -198,7 +217,9 @@ def homepage():
 @app.route('/search', methods=['POST'])
 def search():
     search_query = request.form['search_query']
-    artists = Artist.query.filter(Artist.artist_stagename.ilike(f'%{search_query}%')).all()
+    # artists = Artist.query.filter(Artist.artist_stagename.ilike(f'%{search_query}%')).all()
+    artists = Artist.query.filter((Artist.artist_stagename.ilike(f'%{search_query}%')) | (Artist.artist_tags.ilike(f'%{search_query}%'))).all()
+
     return render_template('search_results.html', artists=artists)
 
 
@@ -379,8 +400,121 @@ def delete_song_from_playlist():
     return redirect(request.referrer or url_for('my_playlists'))
 
 
+@app.route('/album/<int:album_id>/songs', methods=['GET'])
+def album_songs(album_id):
+    album = Album.query.get_or_404(album_id)
 
+    return render_template('album_songs.html', album=album)
+
+
+def get_followers(artist):
+    all_listeners = Listener.query.all()
+    followers = [listener for listener in all_listeners if listener.is_following(artist)]
+    return followers
+
+
+@app.route('/create-event', methods=['GET', 'POST'])
+def create_event():
+    form = EventForm()
+    if request.method == 'POST':
+        if current_user.type != 'artist':
+            flash('Only artists can creatae events!')
+            return redirect(request.url)
+        event_title = form.event_title.data
+        event_date = form.event_date.data
+        event_venue = form.event_venue.data
+        event_artist = current_user.id
+        new_event = Event(
+            event_title=event_title,
+            artist_id=event_artist,
+            event_date=event_date,
+            event_venue=event_venue
+        )
+        artist = Artist.query.get(event_artist)
+        artist.events.append(new_event)
+        db.session.add(new_event)
+        db.session.commit()
+        id = new_event.event_id
+        message = f"{artist.artist_stagename} has created a new event: {event_title} on {event_date}"
+        for follower in get_followers(artist):
+            notification = Notification(user_id=follower.id, content=message, event_id=id, event=new_event)
+            db.session.add(notification)
+        db.session.commit()
+        flash(f'Event {event_title} created successfully!')
+        return redirect(request.url)
+    return render_template('create_event.html', form=form)
+
+@app.route('/view-events/<int:artist_id>', methods=['GET'])
+def view_events(artist_id):
+    # Fetching events directly from the Event model using a query
+    events = Event.query.filter_by(artist_id=artist_id).order_by(Event.event_date).all()
+    artist = Artist.query.get_or_404(artist_id)
+    return render_template('view_events.html', artist_name=artist.artist_stagename, events=events)
+
+@app.route('/view-event/<int:event_id>', methods=['GET'])
+def view_event(event_id):
+    artist_id = request.args.get('artist_id', None)
+    if artist_id is None:
+        abort(404)
+
+    event = Event.query.get_or_404(event_id)
+    artist = Artist.query.get_or_404(artist_id)
+    return render_template('view_event.html', event=event, artist=artist)
+
+
+
+@app.route('/rsvp/<int:event_id>', methods=['POST'])
+def rsvp(event_id):
+    event = Event.query.get_or_404(event_id)
+    user_id = current_user.id
+
+    user_event = UserEvent.query.filter_by(user_id=user_id, event_id=event_id).first()
+
+    if not user_event:
+        user_event = UserEvent(user_id=user_id, event_id=event_id)
+        db.session.add(user_event)
+        db.session.commit()
+        flash(f'Successfully RSVPed to {event.event_title}.')
+    else:
+        flash(f'You have already RSVPed to {event.event_title}.')
+
+    return redirect(url_for('view_events', artist_id=event.artist_id))
+
+
+@app.route('/read-notification/<int:notification_id>', methods=['GET'])
+@login_required
+def read_notification(notification_id):
+    notification = Notification.query.get_or_404(notification_id)
+
+    # Check if the current user is the owner of the notification
+    if notification.user_id != current_user.id:
+        abort(403)
+
+    # Mark the notification as read
+    notification.read = True
+    db.session.commit()
+
+    # Redirect to the event page with the artist_id as a query parameter
+    return redirect(url_for('view_event', event_id=notification.event_id, artist_id=notification.event.artist_id))
+
+
+
+
+def remove_expired_notifications():
+    with app.app_context():
+        now = datetime.utcnow()
+        expired_notifications = Notification.query.filter(Notification.expiry_date < now).all()
+        for notification in expired_notifications:
+            db.session.delete(notification)
+        db.session.commit()
+
+
+def start_scheduler():
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(remove_expired_notifications, 'interval', hours=6)
+    scheduler.start()
 
 
 if __name__ == '__main__':
+    start_scheduler()
     app.run(debug=True, port=5001)

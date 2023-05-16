@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% set show_navbar = false %}
+{% block title %}
+    Create Event
+{% endblock %}
+
+{% block content %}
+    <h1>Create Event</h1>
+    {% with messages = get_flashed_messages() %} 
+        {% if messages %} 
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        {% endif %} 
+      {% endwith %}
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+
+        <label for="{{ form.event_title.id }}">Event Title:</label>
+        {{ form.event_title }}<br>
+
+        <label for="{{ form.event_date.id }}">Event Date:</label>
+        {{ form.event_date(class="datetime-local") }}<br>
+
+        <label for="{{ form.event_venue.id }}">Venue:</label>
+        {{ form.event_venue }}<br>
+
+        {{ form.submit }}
+    </form>
+{% endblock %}

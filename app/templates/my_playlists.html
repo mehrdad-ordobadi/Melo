@@ -7,25 +7,26 @@
 {% block title %}My Playlists{% endblock %}
 
 {% block content %}
-
-<h1>My Playlists:</h1>
-  <div class="playlist-list">
+<header class="navbar">
+    <a href="/dashboard">dashboard</a>
+</header>
+    <h1>My Playlists:</h1>
     <ul>
         {% for playlist in playlists %}
-            <li>
+        
+            <li id="{{ 'playlist-' + playlist.playlist_id|string }}">
                 <h2>{{ playlist.playlist_title }}</h2>
-                <ul class="number-list">
+                <ul>
                     {% for song in playlist.songs %}
                         <li>
-                            <a class="element" href="#" data-src="{{ url_for('static', filename='audio/' + song.album.artist_id|string + '/' + song.album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}" data-title="{{ song.song_title }}" data-artist="{{ song.album.artist.artist_stagename}}" data-cover="{{ url_for('static', filename='audio/' + song.album.artist_id|string + '/' + song.album.album_title.replace(' ', '_').lower() + '/' +'album_cover/' + song.album.cover_name) if song.album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}">{{ song.song_title }}</a>
+                            <a href="#" class="song-link" data-src="{{ url_for('static', filename='audio/' + song.album.artist_id|string + '/' + song.album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}" data-title="{{ song.song_title }}" data-artist="{{ song.album.artist.artist_stagename}}" data-cover="{{ url_for('static', filename='audio/' + song.album.artist_id|string + '/' + song.album.album_title.replace(' ', '_').lower() + '/' +'album_cover/' + song.album.cover_name) if song.album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}">{{ song.song_title }}</a>
 
-                            <div class="element">
                             <form action="{{ url_for('delete_song_from_playlist') }}" method="post" onsubmit="return confirmDelete('{{ song.song_title }}');">
                                 <input type="hidden" name="playlist_id" value="{{ playlist.playlist_id }}">
                                 <input type="hidden" name="song_id" value="{{ song.song_id }}">
                                 <button type="submit">Delete</button>
                             </form>
-                            </div>
+                            
                             <script>
                                 function confirmDelete(songTitle) {
                                     return confirm("Are you sure you want to delete the song \"" + songTitle + "\"?");
@@ -37,7 +38,6 @@
             </li>
         {% endfor %}
     </ul>
-  </div>
 
     <div class="player-container hidden">
         <div class="player">

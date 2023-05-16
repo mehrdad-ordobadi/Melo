@@ -12,70 +12,31 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
     background-color: #0C1713;
+    color: #fff;
+    font-family: 'Roboto Slab', sans-serif;
 }
 
 h1 {
     text-align: center;
     width: 100%;
     margin-top: 60px;
-    color: #FFF;
 }
 
-.playlist-list h2 {
-    color: black;
-    font-size: 2rem;
-}
-
-.number-list {
-    list-style-type: decimal;
-    color: black;
-    font-size: 1.5rem;
-}
-
-.number-list li {
-    padding: 10px 10px 10px 10px;
-}
-
-.element {
-    display: inline-block;
-    position: static;
-}
-
-.playlist-list ul {
+ul {
+    list-style-type: none;
     padding: 0;
 }
 
-.playlist-list li a {
+li {
     text-align: center;
-    text-decoration: none;
-    color: black;
-    font-size: 1.5rem;
-
 }
 
-.playlist-list {
-    color:#FFF;
-    position: relative;
-    padding: 50px 50px 50px 80px;
-    background: #fff;
-    border-radius: 10px;
-    margin-top: 75px;
+header.navbar {
+    text-align: center;
+    top: 0;
+    left: 0;
 }
-
-.playlist-list button {
-    background: #F26157;
-    padding: 10px 15px;
-    height: 35px;
-    border: none;
-    outline: none;
-    color: #FFF;
-    letter-spacing: 1px;
-    cursor: pointer;
-}
-
-
 
 
 
@@ -90,6 +51,22 @@ h1 {
     right: 10px;
     z-index: 1000;
 }
+
+.song-link {
+    text-decoration: none;
+    color: #fff;
+}
+
+ul li form button {
+    width: 50px;
+    height: 23px;
+    padding-left: 4px;
+    border-radius: 10px;
+    background-color: #0C1713;
+    border: 2px solid #fff;
+    color: #fff;
+}
+
 .player-container .song_img {
     width: 40px;
     height: 40px;
@@ -116,6 +93,7 @@ h1 {
     margin-left: 10px;
 }
 
+
 @media (max-width: 768px) {
     .player-container .song-info {
         display: none;
@@ -129,6 +107,7 @@ h1 {
     .player-container.show-info .show-info-btn {
         display: none;
     }
+<<<<<<< HEAD
 }
 
 /* PLAYER CSS */
@@ -232,3 +211,6 @@ h1 {
 
 
 
+=======
+}
+>>>>>>> ffb50f1b2e0dead76cf3360ac9cfce5459c69217

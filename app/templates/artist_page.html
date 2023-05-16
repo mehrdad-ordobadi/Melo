@@ -9,109 +9,111 @@
 {% block title %}{{ artist.artist_stagename }}{% endblock %}
 
 {% block content %}
-<h1>{{ artist.artist_stagename }}</h1>
+<div>
+    <h1>{{ artist.artist_stagename }}</h1>
 
-<div class="artist-content">
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-    <div class="artist-info">
-        <p>{{ artist.artist_city }}</p>
-        <p>{{ artist.artist_tags }}</p>
-        {% if artist.artist_biography %}
-        <p><a href="{{ url_for('artist_biography', artist_id=artist.id) }}">Biography</a></p>
-        {% else %}
-        <p>No biography available for this artist.</p>
+    <div class="artist-content">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
         {% endif %}
+        {% endwith %}
+        <div class="artist-info">
+            <p>{{ artist.artist_city }}</p>
+            <p>{{ artist.artist_tags }}</p>
+            {% if artist.artist_biography %}
+            <p><a href="{{ url_for('artist_biography', artist_id=artist.id) }}">Biography</a></p>
+            {% else %}
+            <p>No biography available for this artist.</p>
+            {% endif %}
 
-        {% if current_user.is_authenticated %}
+            {% if current_user.is_authenticated %}
 
-        {% if not current_user.is_following(artist) %}
+            {% if not current_user.is_following(artist) %}
 
-        <form method="post" action="{{ url_for('follow_artist', artist_id=artist.id) }}">
-            <input type="submit" value="Follow">
-        </form>
-        {% elif current_user.is_following(artist) %}
-        <form method="post" action="{{ url_for('unfollow_artist', artist_id=artist.id) }}">
-            <input type="submit" value="Unfollow">
-        </form>
-        {% endif %}
-        {% endif %}
-    </div>
-    <hr>
-    <h2>Albums</h2>
-    <div class="album_list">
-        <ul>
-            {% for album in albums %}
-            <li>
-                <h3>{{ album.album_title }}</h3>
-                <ul>
-                    {% for song in album.songs %}
-                    <li>
-                        <a href="#" class="song-link"
-                            data-src="{{ url_for('static', filename='audio/' + artist.id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}"
-                            data-title="{{ song.song_title }}" data-artist="{{ artist.artist_stagename }}"
-                            data-cover="{{ url_for('static', filename='audio/' + artist.id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' +'album_cover/' + album.cover_name) if album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}">{{
-                            song.song_title }}</a>
-                        <button class="show-add-to-playlist-btn" onclick="showAddToPlaylistForm(this)">+</button>
-                        <form action="{{ url_for('add_to_playlist') }}" method="post" class="add-to-playlist-form">
-                            <input type="hidden" name="song_id" value="{{ song.song_id }}">
-                            <select name="playlist_id" class="hidden" onchange="showNewPlaylistInput(this)">
-                                <option value="">Add to Playlist</option>
-                                {% for playlist in playlists %}
-                                <option value="{{ playlist.playlist_id }}">{{ playlist.playlist_title }}</option>
-                                {% endfor %}
-                                <option value="create">Create New Playlist</option>
-                            </select>
-                            <div style="display:none;" class="new-playlist-input hidden">
-                                <input type="text" name="new_playlist_name" placeholder="New Playlist Name">
-                            </div>
-                            <button type="submit" class="hidden">Add</button>
-                        </form>
-                        {% if current_user.user_type== 'artist' %}
-                        <form action="{{ url_for('delete_song', song_id=song.song_id) }}" method="post"
-                            onsubmit="return confirmDelete('{{ song.song_title }}');">
-                            <button type="submit">Delete</button>
-                        </form>
-                        {% endif %}
-                    </li>
-                    {% endfor %}
-                </ul>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="player-container hidden">
-        <div class="player">
-            <nav class="player-nav">
-                <div class="circle">
-                    <i class="fa-solid fa-angle-left"></i>
+            <form method="post" action="{{ url_for('follow_artist', artist_id=artist.id) }}">
+                <input type="submit" value="Follow">
+            </form>
+            {% elif current_user.is_following(artist) %}
+            <form method="post" action="{{ url_for('unfollow_artist', artist_id=artist.id) }}">
+                <input type="submit" value="Unfollow">
+            </form>
+            {% endif %}
+            {% endif %}
+        </div>
+        <hr>
+        <h2>Albums</h2>
+        <div class="album_list">
+            <ul>
+                {% for album in albums %}
+                <li>
+                    <h3>{{ album.album_title }}</h3>
+                    <ul>
+                        {% for song in album.songs %}
+                        <li>
+                            <a href="#" class="song-link"
+                                data-src="{{ url_for('static', filename='audio/' + artist.id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}"
+                                data-title="{{ song.song_title }}" data-artist="{{ artist.artist_stagename }}"
+                                data-cover="{{ url_for('static', filename='audio/' + artist.id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' +'album_cover/' + album.cover_name) if album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}">{{
+                                song.song_title }}</a>
+                            <button class="show-add-to-playlist-btn" onclick="showAddToPlaylistForm(this)">+</button>
+                            <form action="{{ url_for('add_to_playlist') }}" method="post" class="add-to-playlist-form">
+                                <input type="hidden" name="song_id" value="{{ song.song_id }}">
+                                <select name="playlist_id" class="hidden" onchange="showNewPlaylistInput(this)">
+                                    <option value="">Add to Playlist</option>
+                                    {% for playlist in playlists %}
+                                    <option value="{{ playlist.playlist_id }}">{{ playlist.playlist_title }}</option>
+                                    {% endfor %}
+                                    <option value="create">Create New Playlist</option>
+                                </select>
+                                <div style="display:none;" class="new-playlist-input hidden">
+                                    <input type="text" name="new_playlist_name" placeholder="New Playlist Name">
+                                </div>
+                                <button type="submit" class="hidden">Add</button>
+                            </form>
+                            {% if current_user.user_type== 'artist' and current_user.id == artist.id %}
+                            <form action="{{ url_for('delete_song', song_id=song.song_id) }}" method="post"
+                                onsubmit="return confirmDelete('{{ song.song_title }}');">
+                                <button type="submit" class="delete_btn">Delete</button>
+                            </form>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="player-container hidden">
+            <div class="player">
+                <nav class="player-nav">
+                    <div class="circle">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </div>
+                    <div class="circle">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                </nav>
+                <img src="../static/nav_icons/events.png" alt="Cover Art" class="song_img" id="song-img">
+                <div class="song-info-container hidden" id="song-info-container">
+                    <h2 id="song-info-title"></h2>
+                    <p id="song-info-artist"></p>
                 </div>
-                <div class="circle">
-                    <i class="fa-solid fa-bars"></i>
+                <h1 id="song-title" class="hidden"></h1>
+                <p id="song-artist" class="hidden"></p>
+                <div class="bttn_audio">
+                    <button id="info-button">Show info</button>
+                    <audio id="player" controls>
+                        <!-- Empty source tag, it will be updated by JavaScript -->
+                        <source src="" type="audio/mpeg">
+                    </audio>
                 </div>
-            </nav>
-            <img src="../static/nav_icons/events.png" alt="Cover Art" class="song_img" id="song-img">
-            <div class="song-info-container hidden" id="song-info-container">
-                <h2 id="song-info-title"></h2>
-                <p id="song-info-artist"></p>
-            </div>
-            <h1 id="song-title" class="hidden"></h1>
-            <p id="song-artist" class="hidden"></p>
-            <div class="bttn_audio">
-                <button id="info-button">Show info</button>
-                <audio id="player" controls>
-                    <!-- Empty source tag, it will be updated by JavaScript -->
-                    <source src="" type="audio/mpeg">
-                </audio>
             </div>
         </div>
     </div>
+</div>
 
 
-
-    {% endblock %}
+{% endblock %}

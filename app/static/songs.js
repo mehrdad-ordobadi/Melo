@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const audioPlayer = document.getElementById('player');
   const songTitleElement = document.getElementById('song-title');
   const songArtistElement = document.getElementById('song-artist');
-  const songImgElement = document.getElementById('song-img'); // Added this line
+  const songImgElement = document.getElementById('song-img'); 
   const infoButton = document.getElementById('info-button');
   const songInfoTitleElement = document.getElementById('song-info-title');
   const songInfoArtistElement = document.getElementById('song-info-artist');

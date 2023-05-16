@@ -19,9 +19,13 @@ darkest green = #0C1713
     background-color: #A54657;
     height: 100%;
     width: 250px;
-    position: absolute;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
     top: 0;
     left: 0;
+    animation: slide-in 0.5s ease-in-out;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar .logo {
@@ -408,5 +412,13 @@ darkest green = #0C1713
 
     .sidebar {
         display: none;
+    }
+}
+@keyframes slide-in {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
     }
 }

@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300&display=swap');
+.hidden {
+    display: none;
+}
 
 body {
     margin-left: 25px;

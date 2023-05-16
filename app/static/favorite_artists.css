@@ -12,10 +12,12 @@ body {
 
 .favorite-artists-container {
     grid-column: 3/5;
+    animation: fadeInUp 1s ease-in-out;
 }
 
 h1 {
     font-family: 'Roboto slab', sans-serif;
+    animation: fadeInDown 1s ease-in-out;
 }
 
 .favorite-artists-container .playlist-list {
@@ -43,4 +45,26 @@ h1 {
 
 .favorite-artists-container .playlist-list li a:hover {
     color: #C5DAC1;
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
