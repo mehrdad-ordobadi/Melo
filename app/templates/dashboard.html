@@ -29,7 +29,11 @@
         <h3>Notifications:</h3>
         <ul class="notifications">
             {% for notification in notifications %}
-                <li>{{ notification.content }}</li>
+                <li>
+                    <a href="{{ url_for('read_notification', notification_id=notification.id) }}">
+                        {{ notification.content }}
+                    </a>
+                </li>
             {% endfor %}
         </ul>
     {% endif %}
