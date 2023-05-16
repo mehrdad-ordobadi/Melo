@@ -141,6 +141,8 @@ class Notification(db.Model):
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     expiry_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow()+timedelta(days=14))
     read = db.Column(db.Boolean, nullable=False, default=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('event.event_id'), nullable=True)
+    event = db.relationship('Event', backref=db.backref('notifications', lazy=True))
 
 
     def __repr__(self):
