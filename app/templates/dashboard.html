@@ -25,21 +25,7 @@
         </ul>
     {% endif %}
 {% endwith %}
-{% if current_user.is_authenticated %}
-    {% if notifications %}
-        <ul class="notifications"  id="notification_section">
-            {% for notification in notifications %}
-            {% if not notification.read %}
-                <li>
-                    <a href="{{ url_for('read_notification', notification_id=notification.id) }}">
-                        {{ notification.content }}
-                    </a>
-                </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endif %}
+
 
 
     <div class="dashboard-container">
@@ -71,11 +57,5 @@
         </div>
     </div>
 </main>
-<script>
-    setTimeout(function() {
-        var element = document.getElementById('notification_section');
-        element.style.display = 'none'; // hide the notifications after 5 seconds
-    }, 5000);
-</script>
 
 {% endblock %}
