@@ -409,7 +409,7 @@ def album_songs(album_id):
 
 
 def get_followers(artist):
-    all_listeners = Listener.query.all()
+    all_listeners = User.query.all()
     followers = [listener for listener in all_listeners if listener.is_following(artist)]
     return followers
 
@@ -497,8 +497,6 @@ def read_notification(notification_id):
 
     # Redirect to the event page with the artist_id as a query parameter
     return redirect(url_for('view_event', event_id=notification.event_id, artist_id=notification.event.artist_id))
-
-
 
 
 def remove_expired_notifications():
