@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
-{% set show_navbar = false %}
+{% set show_navbar = true %}
 {% block title %}
     Create Event
+{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="../static/create_events.css" />
 {% endblock %}
 
 {% block content %}
