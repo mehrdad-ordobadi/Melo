@@ -2,8 +2,14 @@
 
 {% block title %}{{ event.event_title }}{% endblock %}
 
+{% block extra_links %}
+<link rel="stylesheet" href="../static/view-event.css" />
+{% endblock %} 
+
 {% block content %}
+<main>
     <h1>{{ event.event_title }} by {{ artist.artist_stagename }}</h1>
     <p>Date: {{ event.event_date.strftime('%Y-%m-%d %H:%M') }}</p>
     <p>Venue: {{ event.event_venue }}</p>
+</main>
 {% endblock %}
