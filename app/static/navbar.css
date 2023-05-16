@@ -146,7 +146,7 @@ darkest green = #0C1713
     cursor: pointer;
 }
 
-.logout-button {
+/* .logout-button {
     background: #F26157;
     position: fixed;
     top: 0;
@@ -197,7 +197,9 @@ h3{
 
 .notify li {
     color: black;
-}
+} */
+
+
 /* Nav Mobile Hamburger */
 
 .nav-mobile {
