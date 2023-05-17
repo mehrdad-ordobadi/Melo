@@ -1,10 +1,10 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
 {% block title %}Upload Music File{% endblock %}
 
-{%block extra_links %}
+{% block extra_links %}
 <link rel="stylesheet" href="../static/upload.css" />
-{% endblock %} 
+{% endblock %}
 
 {% block content %}
 <main>
@@ -20,33 +20,71 @@
         {% endif %} 
       {% endwith %}
 
-        <form method="post" enctype="multipart/form-data">
-          <div class="album-input">
-            {{ form.hidden_tag() }}
-            <label for="album">Album:</label>
-            {{ form.album_title(id='album') }}
-          </div>
+      <form method="post" enctype="multipart/form-data">
+        <div class="album-input">
+          {{ form.hidden_tag() }}
+          <label for="album">Album:</label>
+          {{ form.album_title(id='album') }}
+        </div>
 
-          <div class="release-date">
-            <label for="release">Release Date:</label>
-            {{ form.album_release_date }}
-          </div>
+        <div class="release-date">
+          <label for="release">Release Date:</label>
+          {{ form.album_release_date }}
+        </div>
 
-          <div class="select-songs">
-            <label for="file">Songs:</label>
-            <input type="file" name="file" id="file" accept=".mp3" multiple>
-          </div>
+        <div class="select-songs custom-file-input">
+          <label>Songs:</label>
+          <div class="input-label"><span>No files selected</span></div>
+          <input type="file" name="file" id="file" accept=".mp3" multiple>
+        </div>
+        
 
-          <div class="cover-art">
-            <label for="cover">Cover Art:</label>
-            <input type="file" name="cover" id="cover" accept=".jpeg, .jpg" multiple>
-          </div>
-                
-          <div class="upload-button">
-              <input type="submit" value="Upload">
-          </div> 
-        </form>
+        <div class="cover-art custom-file-input">
+          <label>Cover Art:</label>
+          <div class="input-label"><span>No files selected</span></div>
+          <input type="file" name="cover" id="cover" accept=".jpeg, .jpg" multiple>
+        </div>
+
+        <div class="upload-button">
+          <input type="submit" value="Upload">
+        </div>
+
+        <div class="uploaded-songs">
+          <h2>Uploaded Songs:</h2>
+          <ul id="song-list"></ul>
+        </div>
+      </form>
     </div>
   </div>
 </main>
+
+<script>
+document.getElementById('file').addEventListener('change', function() {
+  const span = this.previousElementSibling.querySelector('span');
+  span.textContent = Array.from(this.files).map(file => file.name).join(', ');
+});
+
+document.getElementById('cover').addEventListener('change', function() {
+  const span = this.previousElementSibling.querySelector('span');
+  span.textContent = Array.from(this.files).map(file => file.name).join(', ');
+});
+</script>
+
+<script>
+  document.getElementById('file').addEventListener('change', function() {
+    const span = this.previousElementSibling.querySelector('span');
+    span.textContent = this.files.length + ' file(s) selected';
+  
+    const ul = document.getElementById('song-list');
+    ul.innerHTML = '';
+    Array.from(this.files).forEach(file => {
+      const li = document.createElement('li');
+      li.textContent = file.name;
+      ul.appendChild(li);
+    });
+  });
+  </script>
+  
+  
+
 {% endblock %}
