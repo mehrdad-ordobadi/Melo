@@ -127,7 +127,7 @@ main {
   
   .uploaded-songs li {
     padding: 5px;
-    border-bottom: 1px solid #242424;
+    border-bottom: 1px solid #242424;    
   }
   
   .uploaded-songs li:last-child {
