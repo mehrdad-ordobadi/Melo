@@ -32,6 +32,10 @@ Event {% endblock %}
         <label for="{{ form.event_venue.id }}">Venue:</label>
         {{ form.event_venue }}
       </div>
+      <div class="event-description">
+        <label for="{{ form.description.id }}">Description:</label>
+        {{ form.description }}
+      </div>
 
       <div class="upload-button">
         {{ form.submit }}

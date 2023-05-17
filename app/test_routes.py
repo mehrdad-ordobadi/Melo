@@ -42,3 +42,24 @@ def test_upload_no_album_details(test_client, init_database, mocker):
 
     assert 'New albums require a release dates!' == flashed_messages['message']
 
+
+# Test failure when an unauthenticated user tries to upload an album.
+def test_upload_without_login(test_client, init_database):
+    # Create a dummy file for testing
+    with open('test.mp3', 'w') as f:
+        f.write('Dummy file content')
+
+    data = {
+        'file': (open('test.mp3', 'rb'), 'test.mp3'),
+        'cover': (None, ''),
+        'album_title': 'test_album',
+        'album_release_date': '2023-05-20'
+    }
+
+    response = test_client.post('/upload', data=data, content_type='multipart/form-data')
+
+    os.remove('test.mp3')  # Cleanup after test
+
+    # Here we expect the response status code to be 401 (Unauthorized) 
+    # because the user is not logged in. But your actual status code may be different.
+    assert response.status_code == 302

@@ -79,6 +79,10 @@ ul.notifications li {
     margin: 10px 0;
 }
 
+li a{
+    color: white;
+}
+
 @media screen and (max-width: 450px) {
     body {
         display: block;
