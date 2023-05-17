@@ -89,10 +89,6 @@ main {
     transition: background-color 0.3s ease;
 }
 
-.upload-button:hover {
-    background-color: #242424;
-}
-
 .select-songs ul {
     list-style-type: none;
     padding: 0;
