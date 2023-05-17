@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
-{% set show_navbar = false %}
+{% set show_navbar = true %}
 {% block title %}View Events{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="../static/my_events.css"> 
+{% endblock %}
 
 {% block content %}
 {% with messages = get_flashed_messages() %}
@@ -13,6 +17,7 @@
     {% endif %}
 {% endwith %}
 
+<main>
     <h1>Events by {{ artist_name }}</h1>
     <ul>
         {% for event in events %}
@@ -28,4 +33,5 @@
             <li>No events found.</li>
         {% endfor %}
     </ul>
+</main>
 {% endblock %}
