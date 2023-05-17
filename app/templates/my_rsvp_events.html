@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% set show_navbar = false %}
+
+{% block content %}
+
+    <h1>My RSVPed Events</h1>
+    
+    {% if events %}
+    <ul>
+        {% for event in events %}
+        <li>
+            <h2>{{ event.event_title }}</h2>
+            <p>Date: {{ event.event_date }}</p>
+            <p>Venue: {{ event.event_venue }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>You have not RSVPed to any events.</p>
+    {% endif %}
+{% endblock %}

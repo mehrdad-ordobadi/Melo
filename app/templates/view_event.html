@@ -8,8 +8,21 @@
 
 {% block content %}
 <main>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
     <h1>{{ event.event_title }} by {{ artist.artist_stagename }}</h1>
     <p>Date: {{ event.event_date.strftime('%Y-%m-%d %H:%M') }}</p>
     <p>Venue: {{ event.event_venue }}</p>
+    <form action="{{ url_for('rsvp', event_id=event.event_id) }}" method="POST">
+        <input type="submit" value="RSVP here">
+    </form>
 </main>
 {% endblock %}

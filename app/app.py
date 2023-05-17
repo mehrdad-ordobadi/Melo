@@ -478,8 +478,17 @@ def rsvp(event_id):
         flash(f'Successfully RSVPed to {event.event_title}.')
     else:
         flash(f'You have already RSVPed to {event.event_title}.')
+    return redirect(request.referrer or url_for('view_events', artist_id=event.artist_id))
 
-    return redirect(url_for('view_events', artist_id=event.artist_id))
+    # return redirect(url_for('view_events', artist_id=event.artist_id))
+
+@app.route('/my-rsvp-events', methods=['GET'])
+def my_rsvp_events():
+    user_id = current_user.id
+    user_events = UserEvent.query.filter_by(user_id=user_id).all()
+    event_ids = [ue.event_id for ue in user_events]
+    events = Event.query.filter(Event.event_id.in_(event_ids)).order_by(Event.event_date).all()
+    return render_template('my_rsvp_events.html', events=events)
 
 
 @app.route('/read-notification/<int:notification_id>', methods=['GET'])
@@ -512,6 +521,7 @@ def start_scheduler():
     scheduler = BackgroundScheduler()
     scheduler.add_job(remove_expired_notifications, 'interval', hours=6)
     scheduler.start()
+
 
 
 if __name__ == '__main__':
