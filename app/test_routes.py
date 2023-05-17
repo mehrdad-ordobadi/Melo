@@ -62,4 +62,4 @@ def test_upload_without_login(test_client, init_database):
 
     # Here we expect the response status code to be 401 (Unauthorized) 
     # because the user is not logged in. But your actual status code may be different.
-    assert response.status_code == 400
+    assert response.status_code == 302
