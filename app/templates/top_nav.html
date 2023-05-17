@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="../static/top-nav.css"/>
+<link rel="stylesheet" href="../static/top-nav.css" />
 
-
-<div class="logout-button">
+<div class="top-nav">
+  <div class="logout-button">
     <form class="logout" action="{{ url_for('logout') }}" method="POST">
       <input type="submit" value="Logout" />
     </form>
@@ -13,15 +13,13 @@
         />
       </button>
       <div class="dropdown-content" id="dropdownContent">
-        {% if current_user.is_authenticated %} 
-        {% if notifications %}
+        {% if current_user.is_authenticated %} {% if notifications %}
         <h3>Notifications:</h3>
         <ul class="notify">
-          {% for notification in notifications %}
-          {% set notification_parts = notification.content.split("on") %}
-  
+          {% for notification in notifications %} {% set notification_parts =
+          notification.content.split("on") %}
+
           <li>
-  
             <a
               href="{{ url_for('read_notification', notification_id=notification.id) }}"
             >
@@ -34,3 +32,4 @@
       </div>
     </div>
   </div>
+</div>

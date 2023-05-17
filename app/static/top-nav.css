@@ -1,5 +1,5 @@
-.logout-button {
-    background: #F26157;
+
+.top-nav .logout-button {
     position: fixed;
     top: 0;
     right: 0;
@@ -9,11 +9,22 @@
     color: #FFF;
     letter-spacing: 1px;
     cursor: pointer;
+    display: inline-block;
+}
+
+.top-nav .logout-button form {
+    display: inline;
 }
 
 h3{
     size: 100px;
     color:#A54657
+}
+
+.dropbtn {
+    background-color: #0C1713;
+    border: 0;
+
 }
 
 .dropbtn img{
@@ -24,6 +35,7 @@ h3{
 .dropdown {
     position: relative;
     display: inline-block;
+    top: 8px;
 }
 
 
