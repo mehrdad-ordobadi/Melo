@@ -1,36 +1,32 @@
 <link rel="stylesheet" href="../static/top-nav.css"/>
 
-
 <div class="logout-button">
-    <form class="logout" action="{{ url_for('logout') }}" method="POST">
-      <input type="submit" value="Logout" />
-    </form>
-    <div class="dropdown">
-      <button class="dropbtn">
-        <img
-          src="{{ url_for('static', filename='nav_icons/notification.png') }}"
-          alt="Notifications"
-        />
-      </button>
-      <div class="dropdown-content" id="dropdownContent">
-        {% if current_user.is_authenticated %} 
-        {% if notifications %}
-        <h3>Notifications:</h3>
-        <ul class="notify">
-          {% for notification in notifications %}
-          {% set notification_parts = notification.content.split("on") %}
-  
-          <li>
-  
-            <a
-              href="{{ url_for('read_notification', notification_id=notification.id) }}"
-            >
+  <form class="logout" action="{{ url_for('logout') }}" method="POST">
+    <input type="submit" value="Logout" />
+  </form>
+  <div class="dropdown">
+    <button class="dropbtn">
+      <img
+        src="{{ url_for('static', filename='nav_icons/notification.png') }}"
+        alt="Notifications"
+      />
+    </button>
+    <div class="dropdown-content" id="dropdownContent">
+      {% if current_user.is_authenticated %} 
+      {% if notifications %}
+      <h3>Notifications:</h3>
+      <ul class="notify">
+        {% for notification in notifications %}
+        {% set notification_parts = notification.content.split("on") %}
+
+        <li class="{{ 'unread' if not notification.read else 'read' }}">
+          <a href="{{ url_for('read_notification', notification_id=notification.id) }}">
               {{ notification_parts[0] }}
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
-        {% endif %} {% endif %}
-      </div>
+          </a>
+      </li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endif %}
     </div>
   </div>
+</div>

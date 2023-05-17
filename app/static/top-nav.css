@@ -53,3 +53,10 @@ h3{
 .notify li {
     color: black;
 }
+.notify .unread a {
+    background-color: rgb(234, 165, 165);
+}
+
+.notify .read a {
+    background-color: rgb(255, 255, 255); 
+}

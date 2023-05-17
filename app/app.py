@@ -478,8 +478,9 @@ def rsvp(event_id):
         flash(f'Successfully RSVPed to {event.event_title}.')
     else:
         flash(f'You have already RSVPed to {event.event_title}.')
+    return redirect(request.referrer or url_for('view_events', artist_id=event.artist_id))
 
-    return redirect(url_for('view_events', artist_id=event.artist_id))
+    # return redirect(url_for('view_events', artist_id=event.artist_id))
 
 @app.route('/my-rsvp-events', methods=['GET'])
 def my_rsvp_events():
@@ -520,6 +521,7 @@ def start_scheduler():
     scheduler = BackgroundScheduler()
     scheduler.add_job(remove_expired_notifications, 'interval', hours=6)
     scheduler.start()
+
 
 
 if __name__ == '__main__':
