@@ -205,7 +205,7 @@ def dashboard():
     # Fetch the user's notifications
     notifications = Notification.query.filter_by(user_id=user_id).order_by(Notification.timestamp.desc()).all()
 
-    return render_template('dashboard.html', playlists=playlists, albums=albums, notifications=s)
+    return render_template('dashboard.html', playlists=playlists, albums=albums, notifications=notifications)
 
 
 
