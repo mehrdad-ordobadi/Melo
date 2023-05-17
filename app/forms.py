@@ -21,4 +21,6 @@ class EventForm(FlaskForm):
     event_title = StringField('Event Title', validators=[DataRequired()])
     event_date = DateTimeLocalField('Event Date', format='%Y-%m-%dT%H:%M', validators=[DataRequired()])
     event_venue = StringField('Venue', validators=[DataRequired()])
+    description=StringField('Description', validators=[])
+
     submit = SubmitField('Add Event')

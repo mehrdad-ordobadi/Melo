@@ -79,6 +79,7 @@ class Event(db.Model):
     event_title = db.Column(db.String(80), nullable=False)
     event_date = db.Column(db.DateTime, nullable=False)
     event_venue = db.Column(db.String(80), nullable=False)
+    description = db.Column(db.Text, nullable=False)
     artist_id = db.Column(db.Integer, db.ForeignKey('artist.user_id'))
     user_events = db.relationship('UserEvent', backref='event', lazy=True)
 
