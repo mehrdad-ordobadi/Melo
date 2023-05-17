@@ -80,6 +80,11 @@ ul button {
   animation: fadeInUp 1s ease-in-out;
 }
 
+.artist-content hr {
+  margin-top: 30px;
+}
+
+
 .artist-info {
   background-color: #0C1713;
   border-radius: 5%;
