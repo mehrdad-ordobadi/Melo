@@ -187,6 +187,9 @@ def logout():
     flash('Logged out successfully.', 'success')
     return redirect(url_for('login'))
 
+def get_notifications():
+    return Notification.query.filter_by(user_id=current_user.id).order_by(Notification.timestamp.desc()).all()
+
 @app.route('/dashboard')
 @login_required
 def dashboard():
@@ -381,8 +384,10 @@ def my_playlists():
     playlists = Playlist.query.filter_by(listener_id=current_user.id).all()
     for playlist in playlists:
         playlist.songs = [ps.song for ps in playlist.playlist_songs]
+    
+    notifications = get_notifications()
 
-    return render_template('my_playlists.html', playlists=playlists)
+    return render_template('my_playlists.html', playlists=playlists, notifications=notifications)
 
 @app.route('/delete_song_from_playlist', methods=['POST'])
 @login_required
