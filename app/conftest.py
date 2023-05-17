@@ -4,6 +4,13 @@ from app import app, db
 from models import User, Artist, Event
 from flask_login import login_user
 
+
+
+class TestConfig:
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'  # Use an in-memory SQLite database for testing
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 # Use app instance directly from your app module
 @pytest.fixture(scope='module')
 def test_client():
@@ -31,3 +38,5 @@ def init_database():
         db.session.commit()
 
     yield db
+    
+    db.drop_all()
