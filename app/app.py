@@ -104,6 +104,7 @@ def allowed_file(filename):
 
 
 @app.route('/upload', methods=['GET', 'POST'])
+@login_required
 def upload_file():
     form = AlbumForm()
     if request.method == 'POST':
