@@ -30,6 +30,7 @@
                   <h2>{{ event.event_title }}</h2>
                   <p>Date: {{ event.event_date.strftime('%Y-%m-%d %H:%M') }}</p>
                   <p>Venue: {{ event.event_venue }}</p>
+                  <p>Description: {{ event.description }}</p>
                   <form action="{{ url_for('rsvp', event_id=event.event_id) }}" method="POST">
                       <div class="upload-button">
                           <input type="submit" value="RSVP">

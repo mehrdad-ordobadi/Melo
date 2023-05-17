@@ -415,11 +415,13 @@ def create_event():
         event_date = form.event_date.data
         event_venue = form.event_venue.data
         event_artist = current_user.id
+        description = form.description.data
         new_event = Event(
             event_title=event_title,
             artist_id=event_artist,
             event_date=event_date,
-            event_venue=event_venue
+            event_venue=event_venue,
+            description=description
         )
         artist = Artist.query.get(event_artist)
         artist.events.append(new_event)
