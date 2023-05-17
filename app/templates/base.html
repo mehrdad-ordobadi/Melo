@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if show_navbar|default(true) %}
+        <link rel="stylesheet" href="../static/top-nav.css"/>
+    {% endif %}
     {% block extra_links %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
