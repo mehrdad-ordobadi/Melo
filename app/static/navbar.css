@@ -451,7 +451,7 @@ darkest green = #0C1713
     }
 
     .create-events {
-        padding-top: 37px;
+        padding-top: 40px;
         padding-left: 29px;
         display: table-caption;
     }
@@ -459,6 +459,10 @@ darkest green = #0C1713
     .upload-page {
         padding-top: 40px;
         display: table;
+    }
+
+    .rsvp-page, .view-events-page, .view-event {
+        padding-top: 40px;
     }
 
 }
