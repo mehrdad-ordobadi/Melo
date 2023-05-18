@@ -14,8 +14,8 @@ h1 {
     font-family: 'Roboto', sans-serif;
 }
 
-main {
-    grid-column: 3/5
+.upload-page, .rsvp-page, .view-events-page {
+    grid-column: 3/5;
 }
 
 .box {
@@ -24,18 +24,22 @@ main {
     background: #fff;
     border-radius: 10px;
     margin-top: 75px;
-  }
+}
 
 .box .box-content {
     margin: 0 auto;
     display: table;
 }
 
-.box input[type="text" i],input[type="date" i] {
-    height: 25px;
-    flex: 1;
-    border: 1px solid #242424;
-    outline: none;
+.album-input, .release-date {
+    position: relative;
+    padding: 5px;
+    border: 2px solid #242424;
+    border-radius: 5px;
+}
+
+.album-input input, .release-date input {
+    border: none;
 }
 
 .box label {
@@ -43,10 +47,87 @@ main {
     margin-right: 10px;
 }
 
-.album-input, .release-date ,.select-songs, .cover-art {
-    margin: 20px 0 10px 0;
+.custom-file-input {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border: 2px solid #242424;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.custom-file-input:hover {
+    border-color: #555555;
+}
+
+.custom-file-input input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.input-label {
+    text-align: center;
+    width: 100%;
+}
+
+.custom-file-input:hover .input-label {
+    color: #555555;
 }
 
 .upload-button {
     margin-top: 50px;
+    transition: background-color 0.3s ease;
 }
+
+.select-songs ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+  
+  .select-songs li {
+    padding: 5px;
+    border-bottom: 1px solid #242424;
+  }
+  
+  .select-songs li:last-child {
+    border-bottom: none;
+  }
+  
+  .uploaded-songs {
+    margin-top: 50px;
+    border: 2px solid #242424;
+    border-radius: 5px;
+    padding: 20px;
+    transition: height 0.3s ease;
+  }
+  
+  .uploaded-songs h2 {
+    margin-bottom: 10px;
+  }
+  
+  .uploaded-songs ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .uploaded-songs li {
+    padding: 5px;
+    border-bottom: 1px solid #242424;    
+  }
+  
+  .uploaded-songs li:last-child {
+    border-bottom: none;
+  }
+  
+

@@ -6,10 +6,12 @@
 {% block extra_links %}
 <link rel="stylesheet" href="/static/album_songs.css" />
 <link rel="stylesheet" href="/static/navbar.css" />
+<link rel="stylesheet" href="/static/top-nav.css">
 
 {% endblock %}
 
 {% block content %}
+<!-- side-nav -->
 <nav class="sidebar">
     <div class="logo"><a href="{{ url_for('dashboard') }}"><img src="/static/homepage-images/melo-logo-150.png" /></a>
     </div>
@@ -44,6 +46,7 @@
         </div>
     </div>
 </nav>
+<!-- side-nav ends-->
 
 <h1>{{ album.album_title }} Songs</h1>
 <div class="songs-content">
@@ -57,14 +60,18 @@
 
     <ul class="song-lists">
         {% for song in album.songs %}
+        <!-- <div class="each-song"> -->
         <li>
             <a href="#" class="song-link"
                 data-src="{{ url_for('static', filename='audio/' + album.artist_id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}"
                 data-title="{{ song.song_title }}" data-artist="{{ song.album.artist.artist_stagename }}">
+                <span>
                 {{ song.song_title }}
+            </span>
             </a>
 
         </li>
+    <!-- </div> -->
         {% endfor %}
     </ul>
 </div>
@@ -81,7 +88,7 @@
 
         <div class="player-nav">
             <button class="circle" id="prev-button" onclick="playPreviousSong()">
-                << /button>
+                < /button>
                     <button id="info-button" onclick="toggleSongInfo()">Show info</button>
                     <button class="circle" id="next-button" onclick="playNextSong()">></button>
         </div>

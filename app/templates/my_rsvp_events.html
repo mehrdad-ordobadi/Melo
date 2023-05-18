@@ -1,17 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}View Events{% endblock %}
+{% block title %}My RSVPed Events{% endblock %}
 
 {% block extra_links %}
 <link rel="stylesheet" href="../static/upload.css" />
 {% endblock %}
 
 {% block content %}
-<main class="view-events-page">
-  
-
-  <div class="box">
-    {% with messages = get_flashed_messages() %}
+<main class="rsvp-page">
+  {% with messages = get_flashed_messages() %}
   {% if messages %}
       <ul class="flashes">
           {% for message in messages %}
@@ -20,8 +17,10 @@
       </ul>
   {% endif %}
   {% endwith %}
+
+  <div class="box">
     <div class="box-content">
-      <h1>Events by {{ artist_name }}</h1>
+      <h1>My RSVPed Events</h1>
 
       {% if events %}
       <div class="uploaded-songs">
@@ -29,20 +28,15 @@
               {% for event in events %}
               <li>
                   <h2>{{ event.event_title }}</h2>
-                  <p>Date: {{ event.event_date.strftime('%Y-%m-%d %H:%M') }}</p>
+                  <p>Date: {{ event.event_date }}</p>
                   <p>Venue: {{ event.event_venue }}</p>
                   <p>Description: {{ event.description }}</p>
-                  <form action="{{ url_for('rsvp', event_id=event.event_id) }}" method="POST">
-                      <div class="upload-button">
-                          <input type="submit" value="RSVP">
-                      </div>
-                  </form>
               </li>
               {% endfor %}
           </ul>
       </div>
       {% else %}
-      <p>No events found.</p>
+      <p>You have not RSVPed to any events.</p>
       {% endif %}
     </div>
   </div>
