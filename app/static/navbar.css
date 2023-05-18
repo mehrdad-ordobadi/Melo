@@ -445,6 +445,10 @@ darkest green = #0C1713
         padding-top: 90px;
         text-align: center;
     }
+
+    .my-playlist-header {
+        padding-top: 45px;
+    }
 }
 @keyframes slide-in {
     0% {
