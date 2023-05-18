@@ -436,6 +436,15 @@ darkest green = #0C1713
     ul.playlist-list {
         list-style-type: disclosure-closed;
     }
+
+    body {
+        display: block;
+    }
+
+    .favorite-artists-container {
+        padding-top: 90px;
+        text-align: center;
+    }
 }
 @keyframes slide-in {
     0% {
