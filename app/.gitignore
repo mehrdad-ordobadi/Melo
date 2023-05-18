@@ -1,4 +1,7 @@
 venv/
 static/audio
-instance/
-app/__pycache__
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store

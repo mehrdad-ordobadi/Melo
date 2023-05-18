@@ -29,6 +29,11 @@
             <p>No biography available for this artist.</p>
             {% endif %}
 
+            <a href="{{ url_for('view_events', artist_id=artist.id) }}"
+                ><span
+                    >Artist Events</span
+                ></a>
+
             {% if current_user.is_authenticated %}
 
             {% if not current_user.is_following(artist) %}
@@ -114,6 +119,4 @@
         </div>
     </div>
 </div>
-
-
 {% endblock %}

@@ -80,6 +80,11 @@ ul button {
   animation: fadeInUp 1s ease-in-out;
 }
 
+.artist-content hr {
+  margin-top: 30px;
+}
+
+
 .artist-info {
   background-color: #0C1713;
   border-radius: 5%;
@@ -102,6 +107,7 @@ ul button {
 .artist-info a:focus {
   text-decoration: underline;
 }
+
 
 .album_list {
   background-color: #0C1713;

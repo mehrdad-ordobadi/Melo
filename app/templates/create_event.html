@@ -6,7 +6,7 @@ Event {% endblock %}
 {% endblock %} 
 
 {% block content %}
-<main>
+<main class="create-events">
   <div class="box">
     <div class="box-content">
       <h1>Create Event</h1>
@@ -31,6 +31,10 @@ Event {% endblock %}
       <div class="event-venue">
         <label for="{{ form.event_venue.id }}">Venue:</label>
         {{ form.event_venue }}
+      </div>
+      <div class="event-description">
+        <label for="{{ form.description.id }}">Description:</label>
+        {{ form.description }}
       </div>
 
       <div class="upload-button">
