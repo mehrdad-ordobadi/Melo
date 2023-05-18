@@ -455,6 +455,12 @@ darkest green = #0C1713
         padding-left: 29px;
         display: table-caption;
     }
+
+    .upload-page {
+        padding-top: 40px;
+        display: table;
+    }
+
 }
 @keyframes slide-in {
     0% {
