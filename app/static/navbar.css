@@ -449,6 +449,12 @@ darkest green = #0C1713
     .my-playlist-header {
         padding-top: 45px;
     }
+
+    .create-events {
+        padding-top: 37px;
+        padding-left: 29px;
+        display: table-caption;
+    }
 }
 @keyframes slide-in {
     0% {
