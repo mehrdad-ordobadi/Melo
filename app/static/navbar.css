@@ -383,7 +383,7 @@ darkest green = #0C1713
       transition-delay: 0.1s;
       visibility: visible;
   }
-  
+
   .toggler:checked ~ .menu > div > ul > li > a:hover{
       color: orange;
   }
