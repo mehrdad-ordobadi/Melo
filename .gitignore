@@ -1,6 +1,5 @@
 venv/
 static/audio
-instance/
 app/__pycache__/
 *.pyc
 *.pyo
