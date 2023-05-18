@@ -406,6 +406,12 @@ darkest green = #0C1713
         position: fixed;
         top: 0;
         left: 0;
+        width: 74%;
+        z-index: 1000;
+    }
+
+    .menu .logo {
+        margin-left: 75px;
     }
 
     .sidebar {
