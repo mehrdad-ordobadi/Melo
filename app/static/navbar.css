@@ -146,59 +146,6 @@ darkest green = #0C1713
     cursor: pointer;
 }
 
-/* .logout-button {
-    background: #F26157;
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 35px;
-    border: none;
-    outline: none;
-    color: #FFF;
-    letter-spacing: 1px;
-    cursor: pointer;
-}
-h3{
-    size: 100px;
-    color:#A54657
-}
-.dropbtn img{
-    width: 30px;
-    height: 30px;
-}
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    z-index: 1;
-    right: 0;
-
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {display: block;}
-
-.notify li {
-    color: black;
-} */
-
 
 /* Nav Mobile Hamburger */
 
@@ -390,18 +337,16 @@ h3{
     /* APPLYING TRANSITION TO THE MENU :  */
     
       transition: all 0.4s ease;
-      margin-left: -8px;
   }
   
   .menu .logo {
-    margin-left: 140px;
+    margin-left: 100px;
   }
 
   /* IF THE TOGGLER IS CHECKED, THEN INCREASE THE WIDTH OF THE MENU TO 30% , CREATING A SMOOTH EFFECT :  */
   
   .toggler:checked ~ .menu{
-      width: 84%;
-      margin-top: -10px;
+    width: 90%;
   }
   
   
@@ -446,12 +391,44 @@ h3{
 
 
 @media screen and (max-width: 450px) {
+
+    h2, h3 {
+        text-align: center;
+        margin: 0 0 25px 0;
+    }
+
+    .dashboard-playlist {
+        margin: 0;
+    }
+
     .nav-mobile {
         display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
     }
 
     .sidebar {
         display: none;
+    }
+
+    .dashboard-container {
+        padding-top: 70px;
+        padding-left: 0;
+    }
+
+    ul.album-lists {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        grid-gap: 35px;
+        list-style: none;
+        padding: 10px;
+        display: grid;
+        margin-top: 0;
+        margin-left: 0;
+    }
+
+    ul.playlist-list {
+        list-style-type: disclosure-closed;
     }
 }
 @keyframes slide-in {

@@ -43,6 +43,17 @@
               ></a
             >
           </li>
+          <li class="nav-link">
+            <a
+            href="{{ url_for('view_events', artist_id=current_user.user_id) }}"
+            ><img src="../static/nav_icons/events.png" /><span
+                >My Events</span
+            ></a
+            >
+          </li>
+          <li class="nav-link">
+            <a href="/create-event"><img src="../static/nav_icons/events.png" /><span>Create Event</span></a>
+          </li>
           {% endif %}
           <li class="nav-link_listener">
             <a href="/songs"
@@ -61,6 +72,14 @@
               ><img src="../static/nav_icons/playlist.png" /><span
                 >My Playlist</span
               ></a
+            >
+          </li>
+          <li class="nav-link_listener">
+            <a
+            href="{{ url_for('my_rsvp_events') }}"
+            ><img src="../static/nav_icons/upcoming.png" /><span
+                >Upcoming Events</span
+            ></a
             >
           </li>
         </div>
@@ -143,36 +162,3 @@
   </div>
 </nav>
 
-<!-- <div class="logout-button">
-  <form class="logout" action="{{ url_for('logout') }}" method="POST">
-    <input type="submit" value="Logout" />
-  </form>
-  <div class="dropdown">
-    <button class="dropbtn">
-      <img
-        src="{{ url_for('static', filename='nav_icons/bell_icon.png') }}"
-        alt="Notifications"
-      />
-    </button>
-    <div class="dropdown-content" id="dropdownContent">
-      {% if current_user.is_authenticated %} 
-      {% if notifications %}
-      <h3>Notifications:</h3>
-      <ul class="notify">
-        {% for notification in notifications %}
-        {% set notification_parts = notification.content.split("on") %}
-
-        <li>
-
-          <a
-            href="{{ url_for('read_notification', notification_id=notification.id) }}"
-          >
-            {{ notification_parts[0] }}
-          </a>
-        </li>
-        {% endfor %}
-      </ul>
-      {% endif %} {% endif %}
-    </div>
-  </div>
-</div> -->
