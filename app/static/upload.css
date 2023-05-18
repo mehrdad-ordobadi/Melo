@@ -14,7 +14,7 @@ h1 {
     font-family: 'Roboto', sans-serif;
 }
 
-main {
+.upload-page, .rsvp-page, .view-events-page {
     grid-column: 3/5;
 }
 
@@ -130,4 +130,4 @@ main {
     border-bottom: none;
   }
   
-   
+

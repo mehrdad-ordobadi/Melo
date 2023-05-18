@@ -62,6 +62,10 @@ h3{
 
 .dropdown:hover .dropdown-content {display: block;}
 
+.notify {
+    list-style-type: none;
+}
+
 .notify li {
     color: black;
 }
