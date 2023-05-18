@@ -104,6 +104,7 @@ def allowed_file(filename):
 
 
 @app.route('/upload', methods=['GET', 'POST'])
+@login_required
 def upload_file():
     form = AlbumForm()
     if request.method == 'POST':
@@ -170,15 +171,15 @@ def upload_file():
         db.session.commit()
         flash('Files uploaded successfully')
         return redirect(url_for('upload_file'))
-
-    return render_template('upload.html', form=form)
-
+    notifications = get_notifications()
+    return render_template('upload.html', form=form, notifications=notifications)
 
 
 @app.route('/songs')
 def songs():
     all_albums = Album.query.all()
-    return render_template('songs.html', albums=all_albums)
+    notifications = get_notifications()
+    return render_template('songs.html', albums=all_albums, notifications=notifications)
 
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
@@ -186,6 +187,9 @@ def logout():
     logout_user()
     flash('Logged out successfully.', 'success')
     return redirect(url_for('login'))
+
+def get_notifications():
+    return Notification.query.filter_by(user_id=current_user.id).order_by(Notification.timestamp.desc()).all()
 
 @app.route('/dashboard')
 @login_required
@@ -203,8 +207,7 @@ def dashboard():
         albums = []
 
     # Fetch the user's notifications
-    notifications = Notification.query.filter_by(user_id=user_id).order_by(Notification.timestamp.desc()).all()
-
+    notifications = get_notifications()
     return render_template('dashboard.html', playlists=playlists, albums=albums, notifications=notifications)
 
 
@@ -220,8 +223,8 @@ def search():
     search_query = request.form['search_query']
     # artists = Artist.query.filter(Artist.artist_stagename.ilike(f'%{search_query}%')).all()
     artists = Artist.query.filter((Artist.artist_stagename.ilike(f'%{search_query}%')) | (Artist.artist_tags.ilike(f'%{search_query}%'))).all()
-
-    return render_template('search_results.html', artists=artists)
+    notifications = get_notifications()
+    return render_template('search_results.html', artists=artists, notifications=notifications)
 
 
 @app.route('/artist/<int:artist_id>', methods=['GET'])
@@ -229,7 +232,8 @@ def artist_page(artist_id):
     artist = Artist.query.get_or_404(artist_id)
     albums = Album.query.filter_by(artist_id=artist_id).all()
     playlists = Playlist.query.filter_by(listener_id=current_user.id).all() if current_user.is_authenticated else []
-    return render_template('artist_page.html', artist=artist, albums=albums, playlists=playlists)
+    notifications = get_notifications()
+    return render_template('artist_page.html', artist=artist, albums=albums, playlists=playlists, notifications=notifications)
 
 
 @app.route('/favorite_artists')
@@ -238,7 +242,8 @@ def favorite_artists():
 
     artist_ids = current_user.followed_ids.split(',')
     artists = Artist.query.filter(Artist.id.in_(artist_ids)).all()
-    return render_template('favorite_artists.html', artists=artists)
+    notifications = get_notifications()
+    return render_template('favorite_artists.html', artists=artists, notifications=notifications)
 
 
 @app.route('/artist/<int:artist_id>/biography', methods=['GET', 'POST'])
@@ -257,8 +262,8 @@ def artist_biography(artist_id):
         return redirect(url_for('artist_page', artist_id=artist_id))
     elif artist.artist_biography:
         form.biography.data = artist.artist_biography
-
-    return render_template('artist_biography.html', artist=artist, form=form)
+    notifications = get_notifications()
+    return render_template('artist_biography.html', artist=artist, form=form, notifications=notifications)
 
 
 @app.route('/follow/<int:artist_id>', methods=['POST'])
@@ -323,22 +328,6 @@ def delete_song(song_id):
     return redirect(url_for('artist_page', artist_id=artist_id))
 
 
-# @app.route('/create_playlist', methods=['POST'])
-# @login_required
-# def create_playlist():
-#     data = request.get_json()
-#     playlist_name = data.get('playlist_name', '').strip()
-
-#     if not playlist_name:
-#         flash('Playlist can not be empty')
-#         return 400
-
-#     new_playlist = Playlist(playlist_title=playlist_name, listener_id=current_user.id)
-#     db.session.add(new_playlist)
-#     db.session.commit()
-
-#     return jsonify({'success': True})
-
 @app.route('/get_playlists')
 @login_required
 def get_playlists():
@@ -381,8 +370,9 @@ def my_playlists():
     playlists = Playlist.query.filter_by(listener_id=current_user.id).all()
     for playlist in playlists:
         playlist.songs = [ps.song for ps in playlist.playlist_songs]
-
-    return render_template('my_playlists.html', playlists=playlists)
+    
+    notifications = get_notifications()
+    return render_template('my_playlists.html', playlists=playlists, notifications=notifications)
 
 @app.route('/delete_song_from_playlist', methods=['POST'])
 @login_required
@@ -404,8 +394,8 @@ def delete_song_from_playlist():
 @app.route('/album/<int:album_id>/songs', methods=['GET'])
 def album_songs(album_id):
     album = Album.query.get_or_404(album_id)
-
-    return render_template('album_songs.html', album=album)
+    notifications = get_notifications()
+    return render_template('album_songs.html', album=album, notifications=notifications)
 
 
 def get_followers(artist):
@@ -425,11 +415,13 @@ def create_event():
         event_date = form.event_date.data
         event_venue = form.event_venue.data
         event_artist = current_user.id
+        description = form.description.data
         new_event = Event(
             event_title=event_title,
             artist_id=event_artist,
             event_date=event_date,
-            event_venue=event_venue
+            event_venue=event_venue,
+            description=description
         )
         artist = Artist.query.get(event_artist)
         artist.events.append(new_event)
@@ -443,14 +435,16 @@ def create_event():
         db.session.commit()
         flash(f'Event {event_title} created successfully!')
         return redirect(request.url)
-    return render_template('create_event.html', form=form)
+    notifications = get_notifications()
+    return render_template('create_event.html', form=form, notifications=notifications)
 
 @app.route('/view-events/<int:artist_id>', methods=['GET'])
 def view_events(artist_id):
     # Fetching events directly from the Event model using a query
     events = Event.query.filter_by(artist_id=artist_id).order_by(Event.event_date).all()
     artist = Artist.query.get_or_404(artist_id)
-    return render_template('view_events.html', artist_name=artist.artist_stagename, events=events)
+    notifications = get_notifications()
+    return render_template('view_events.html', artist_name=artist.artist_stagename, events=events, notifications=notifications)
 
 @app.route('/view-event/<int:event_id>', methods=['GET'])
 def view_event(event_id):
@@ -460,7 +454,8 @@ def view_event(event_id):
 
     event = Event.query.get_or_404(event_id)
     artist = Artist.query.get_or_404(artist_id)
-    return render_template('view_event.html', event=event, artist=artist)
+    notifications = get_notifications()
+    return render_template('view_event.html', event=event, artist=artist, notifications=notifications)
 
 
 
@@ -488,7 +483,8 @@ def my_rsvp_events():
     user_events = UserEvent.query.filter_by(user_id=user_id).all()
     event_ids = [ue.event_id for ue in user_events]
     events = Event.query.filter(Event.event_id.in_(event_ids)).order_by(Event.event_date).all()
-    return render_template('my_rsvp_events.html', events=events)
+    notifications = get_notifications()
+    return render_template('my_rsvp_events.html', events=events, notifications=notifications)
 
 
 @app.route('/read-notification/<int:notification_id>', methods=['GET'])
