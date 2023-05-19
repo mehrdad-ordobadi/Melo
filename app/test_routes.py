@@ -10,7 +10,7 @@ from werkzeug.datastructures import FileStorage
 
 def test_dashboard_not_logged_in(test_client):
     response = test_client.get('/dashboard', follow_redirects=True)
-    assert response.status_code == 201
+    assert response.status_code == 200
     assert b'login' in response.data
 
 def test_logout_not_logged_in(test_client):
