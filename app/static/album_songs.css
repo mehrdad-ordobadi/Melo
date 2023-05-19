@@ -15,11 +15,11 @@ h1 {
     grid-column: 3/5
 }
 
-.song-lists {
+/* .song-lists {
     list-style-type: none;
     padding: 0px;
     margin: 0px;
-}
+} */
 
 .song-lists li {
     display: flex;
