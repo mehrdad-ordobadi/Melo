@@ -328,6 +328,32 @@ def delete_song(song_id):
     return redirect(url_for('artist_page', artist_id=artist_id))
 
 
+@app.route('/delete_album_song/<int:song_id>', methods=['POST'])
+@login_required
+def delete_album_song(song_id):
+    song = Song.query.get(song_id)
+    if song is None:
+        flash('Song not found.')
+        return redirect(url_for('songs'))
+    album = song.album
+
+    if current_user.user_type == 'artist' and song.album.artist_id == current_user.user_id:
+        os.remove(song.file_path)
+        artist_id = album.artist_id
+
+        db.session.delete(song)
+        db.session.commit()
+        flash(f'Song {song.song_title} has been deleted.')
+        if len(album.songs) == 0:
+            db.session.delete(album)
+            db.session.commit()
+            flash(f'Album {album.album_title} has been deleted.')
+            return redirect(url_for('dashboard'))  # Redirect to album_songs.html
+    else:
+        flash('You do not have permission to delete this song.')
+
+    return redirect(url_for('album_songs', album_id=song.album_id))
+
 @app.route('/get_playlists')
 @login_required
 def get_playlists():
