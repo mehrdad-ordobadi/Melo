@@ -395,7 +395,8 @@ def delete_song_from_playlist():
 def album_songs(album_id):
     album = Album.query.get_or_404(album_id)
     notifications = get_notifications()
-    return render_template('album_songs.html', album=album, notifications=notifications)
+    artist = album.artist
+    return render_template('album_songs.html', album=album,artist=artist, notifications=notifications)
 
 
 def get_followers(artist):
