@@ -464,6 +464,23 @@ darkest green = #0C1713
         padding-top: 40px;
     }
 
+    .search-content {
+        padding-top: 90px;
+    }
+
+    .search_list {
+        padding-left: 55px;
+    }
+
+    .artist-content {
+        padding-top: 85px;
+    }
+
+    .album-content {
+        padding-top: 95px;
+        display: flex;
+    }
+
 }
 @keyframes slide-in {
     0% {
