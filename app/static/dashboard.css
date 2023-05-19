@@ -10,6 +10,7 @@ body {
     font-family: 'Roboto slab', sans-serif;
     padding-left: 15%; 
 }
+
 h1 {
     grid-column: 3/5;
     font-family: 'Roboto slab', sans-serif;
@@ -17,9 +18,11 @@ h1 {
     text-align: center;
     animation: fadeIn 1s;
 }
+
 h2{
     margin-left: 200px;
 }
+
 .all-playlists{
     color: white;
 }
@@ -57,6 +60,10 @@ h2{
     background:  #A54657;
     color: #120e0e;
     padding: 5px;
+}
+
+.album-lists li a {
+    text-decoration: none;
 }
 
 .dashboard-playlist {

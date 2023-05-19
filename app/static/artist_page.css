@@ -9,7 +9,7 @@ body {
   color: white;
   background-color: #0C1713;
   font-family: 'Roboto slab', sans-serif;
-  margin-left: 20%;
+  margin-left: 23%;
 }
 
 h1 {
@@ -29,8 +29,9 @@ h2 {
   margin-right: 5px;
 }
 
+
 .song-link:hover {
-  font-size: large;
+  font-size: 1.5rem;
   text-decoration: underline;
 }
 
@@ -67,6 +68,10 @@ ul button {
   font-size: large;
 }
 
+.add-to-playlist-form {
+  display: flex;
+}
+
 .add-to-playlist-form button {
   width: 35px;
   height: 23px;
@@ -84,14 +89,22 @@ ul button {
   margin-top: 30px;
 }
 
-
 .artist-info {
   background-color: #0C1713;
   border-radius: 5%;
   width: 50%;
   height: 160px;
-  margin-bottom: 1%;
+  margin-bottom: 2%;
 }
+
+.artist-info form input {
+  margin-top: 10px;
+}
+
+.artist-info form {
+  margin-bottom: 10px;
+}
+
 
 .artist-info a {
   color: #fff;
@@ -108,6 +121,10 @@ ul button {
   text-decoration: underline;
 }
 
+.artist-info a span {
+  margin-bottom: 10px;
+}
+
 
 .album_list {
   background-color: #0C1713;
@@ -115,6 +132,16 @@ ul button {
   width: 100%;
   height: 430px;
   animation: fadeInUp 1s ease-in-out;
+}
+
+.album_list ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.album_list ul li ul {
+  display: flex;
+  flex-direction: column;
 }
 
 .album_list li {
@@ -142,6 +169,12 @@ ul button {
   margin-left: 10px;
   /* border-color: #F26157; */
   /* background-color: #e63946; */
+}
+
+.delete_btn:hover {
+  width: 57px;
+  height: 27px;
+  font-size: 1rem;
 }
 
 .player-container {
