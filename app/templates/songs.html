@@ -1,22 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Songs</title>
-</head>
-<body>
-    <h1>Songs</h1>
-    <ul>
-        {% for song in songs %}
-            <li>
-                {{ song.song_title }}
-                <audio controls>
-                    <source src="{{ url_for('static', filename=song.file_path.split('/', 1)[-1]) }}" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-            </li>
+{% extends 'base.html' %}
+
+{% block title %}Songs{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="../static/songs.css"/>
+{% endblock %}
+
+{% block content %}
+    <h1>Songs</h1>    
+    <div class="songs-content"></div>    
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
         {% endfor %}
-    </ul>
-</body>
-</html>
+    {% endif %}
+    {% endwith %}
+
+        <ul>
+            {% for album in albums %}
+                <h3>{{ album.album_title }}</h3>
+                {% for song in album.songs %}
+                    <li>
+                        {{ song.song_title }}
+                        <audio controls class="song-player">
+                            <source src="{{ url_for('static', filename='audio/' + album.artist_id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}" type="audio/mpeg">
+                        </audio>
+                        {% if current_user.user_type== 'artist' %}
+                <form action="{{ url_for('delete_song', song_id=song.song_id) }}" method="post" onsubmit="return confirmDelete('{{ song.song_title }}');">
+                    <button type="submit">Delete</button>
+                </form>
+                <script>
+                    function confirmDelete(songTitle) {
+                        return confirm("Are you sure you want to delete the song \"" + songTitle + "\"?");
+                    }
+                </script>
+            {% endif %}
+
+                    </li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+    <script>
+    let audioElements = Array.from(document.getElementsByClassName("song-player"));
+
+    audioElements.forEach((audio, index) => {
+        audio.addEventListener('ended', function () {
+            let nextIndex = index + 1;
+            if (nextIndex < audioElements.length) {
+                audioElements[nextIndex].play();
+            }
+        });
+    });
+    </script>
+{% endblock %}

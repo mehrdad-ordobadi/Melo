@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/users.css" />
+    <title>Login - Melodiscover</title>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <a href="index.html"><img src="IngyuKim.jpg" alt="Logo"></a>
+            <h1>Melo</h1>
+        </div>
+    </nav>
+    <main>
+        <div class="login-container">
+            <h1>Login</h1>
+            <form method="post" action="{{ url_for('login') }}">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <div class="flashes">
+                    {% for message in messages %}
+                    {{ message }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
+                <label>Username:</label>
+                <input type="text" name="username" required>
+                <br>
+                <label>Password:</label>
+                <input type="password" name="password" required>
+                <br>
+                <input type="submit" value="Login" class="submit-btn">
+            </form>
+            <p>Don't have an account? <a href="{{ url_for('register') }}">Register</a></p>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 Melodiscover</p>
+    </footer>
+</body>
+
+</html>

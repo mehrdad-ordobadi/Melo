@@ -1,0 +1,14 @@
+body {
+    margin-left: 25px;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-auto-rows: auto;
+    background-color: #0C1713;
+    color: #FFF;
+    font-family: 'Roboto Slab', serif;
+}
+
+main {
+    grid-column: 3/5;
+    animation: fadeInUp 1s ease-in-out;
+}

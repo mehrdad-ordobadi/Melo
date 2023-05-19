@@ -1,0 +1,491 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300&display=swap');
+
+/* FONT
+HEADERS: 'Roboto', sans-serif
+BODY: 'Roboto Slab', serif
+*/
+
+
+/* COLOURS
+pomegranate = #A54657
+seafoam green = #C5DAC1
+burgundy = #582630
+coral = #F26157
+darkest green = #0C1713
+*/
+
+.sidebar {
+    color: #FFF;
+    background-color: #A54657;
+    height: 100%;
+    width: 275px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    animation: slide-in 0.5s ease-in-out;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar .logo {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+.sidebar .logo a {
+    padding: 20px;
+    display: inline-block;
+}
+
+#form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#form input {
+    height:33px;
+    flex: 1;
+    border: none;
+    outline: none;
+}
+
+
+.navList {
+    color: #0C1713;    
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 275px;
+    margin-top: 20px;
+    font-family: 'Dosis', sans-serif;
+}
+
+.navList .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 0 15px 0px;
+    width: 100%;
+    align-self: stretch;
+
+}
+
+.navList .nav-link a {
+    text-decoration: none;
+    color: black;
+}
+
+.navList .nav-link:hover {
+    background-color: #C5DAC1;
+    cursor: pointer;
+}
+
+.navList .nav-link img {
+    width: 30px;
+    height: 30px;
+    margin-left: 35px;
+    vertical-align: middle;
+}
+
+.navList .nav-link span {
+    font-size: 1.35rem;
+    top: 2px;
+    position: relative;
+    left: 8px;
+    font-family: 'Roboto Slab', serif;
+}
+
+/*   */
+.navList .nav-link_listener {
+    display: flex;
+    align-items: center;
+    padding: 10px 0 15px 0px;
+    width: 100%;
+    align-self: stretch;
+
+}
+
+.navList .nav-link_listener a {
+    text-decoration: none;
+    color: black;
+}
+
+.navList .nav-link_listener:hover {
+    background-color: #C5DAC1;
+    cursor: pointer;
+}
+
+.navList .nav-link_listener img {
+    width: 30px;
+    height: 30px;
+    margin-left: 35px;
+    vertical-align: middle;
+}
+
+.navList .nav-link_listener span {
+    font-size: 1.35rem;
+    top: 2px;
+    position: relative;
+    left: 8px;
+    font-family: 'Roboto Slab', serif;
+}
+
+
+
+#form button, input[type="submit" i] {
+    background: #F26157;
+    padding: 10px 15px;
+    height: 35px;
+    border: none;
+    outline: none;
+    color: #FFF;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+
+/* Nav Mobile Hamburger */
+
+.nav-mobile {
+    display: none;
+}
+
+#nav-mobile-form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#nav-mobile-form input {
+    flex: 1;
+    border: none;
+    outline: none;
+}
+
+#nav-mobile-form button {
+    background: #F26157;
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    color: white;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.mobile-navigation {
+    margin-left: -8px;
+}
+
+.list-container {
+    margin-left: -33px;
+}
+
+.list-container .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 0 15px 0px;
+    width: 100%;
+    align-self: stretch;
+
+}
+
+.list-container .nav-link a {
+    text-decoration: none;
+    color: black;
+}
+
+.list-container .nav-link:hover {
+    background-color: #C5DAC1;
+    cursor: pointer;
+}
+
+.list-container .nav-link img {
+    width: 30px;
+    height: 30px;
+    margin-left: 70px;
+    vertical-align: middle;
+}
+
+.list-container .nav-link span {
+    font-size: 1.35rem;
+    top: 2px;
+    position: relative;
+    left: 8px;
+}
+
+.list-container .nav-link_listener {
+    display: flex;
+    align-items: center;
+    padding: 10px 0 15px 0px;
+    width: 100%;
+    align-self: stretch;
+
+}
+
+.list-container .nav-link_listener a {
+    text-decoration: none;
+    color: black;
+}
+
+.list-container .nav-link_listener:hover {
+    background-color: #C5DAC1;
+    cursor: pointer;
+}
+
+.list-container .nav-link_listener img {
+    width: 30px;
+    height: 30px;
+    margin-left: 70px;
+    vertical-align: middle;
+}
+
+.list-container .nav-link_listener span {
+    font-size: 1.35rem;
+    top: 2px;
+    position: relative;
+    left: 8px;
+}
+
+.toggler{
+    /* ALWAYS KEEPING THE TOGGLER OR THE CHECKBOX ON TOP OF EVERYTHING :  */
+      z-index:2;
+      height: 50px;
+      width: 50px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      cursor: pointer;
+      opacity: 0;
+  }
+  
+    .hamburger {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 40px;
+      width: 40px;
+      padding: 0.6rem;
+    
+    /* FOR DISPLAYING EVERY ELEMENT IN THE CENTER : */
+    
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  
+  /* CREATING THE MIDDLE LINE OF THE HAMBURGER : */
+  
+  .hamburger > div {
+      position: relative;
+      top: 0;
+      left: 0;
+      background: white;
+      height: 2px;
+      width: 60%;
+      transition: all  0.4s ease;
+  }
+  
+  /* CREATING THE TOP AND BOTTOM LINES : 
+  TOP AT -10PX ABOVE THE MIDDLE ONE AND BOTTOM ONE IS 10PX BELOW THE MIDDLE: */
+  
+  .hamburger > div::before,
+  .hamburger > div::after{
+      content: '';
+      position: absolute;
+      top: -10px;
+      background: white;
+      width: 100%;
+      height: 2px;
+      transition: all  0.4s ease;
+  }
+  
+  .hamburger > div::after{
+      top: 10px;
+  }
+  
+  /* IF THE TOGGLER IS IN ITS CHECKED STATE, THEN SETTING THE BACKGROUND OF THE MIDDLE LAYER TO COMPLETE BLACK AND OPAQUE :  */
+  
+  .toggler:checked + .hamburger > div{
+      background: rgba(0,0,0,0);
+  }
+  
+  .toggler:checked + .hamburger > div::before{
+      top: 0;
+      transform: rotate(45deg);
+      background: black;
+  }
+  
+  /* AND ROTATING THE TOP AND BOTTOM LINES :  */
+  
+  .toggler:checked + .hamburger > div::after{
+      top: 0;
+      transform: rotate(135deg);
+      background: black;
+  }
+  
+  
+  /* MAIN MENU WITH THE WHITE BACKGROUND AND THE TEXT :  */
+  
+  .menu{
+      background: #A54657;
+      width: 0%;
+      height: 100vh;
+    
+    /* APPLYING TRANSITION TO THE MENU :  */
+    
+      transition: all 0.4s ease;
+  }
+  
+  .menu .logo {
+    margin-left: 100px;
+  }
+
+  /* IF THE TOGGLER IS CHECKED, THEN INCREASE THE WIDTH OF THE MENU TO 30% , CREATING A SMOOTH EFFECT :  */
+  
+  .toggler:checked ~ .menu{
+    width: 90%;
+  }
+  
+  
+  /* STYLING THE LIST :  */
+  
+  .menu >  div > ul{
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 70px;
+      padding-left: 10px;
+    
+    /* HIDDEN INITIALLY  :  */
+    
+      visibility: hidden;
+  }
+  
+  .menu > div > ul > li{
+      list-style: none;
+      padding: 0.5rem;
+  }
+  
+  .menu > div > ul > li > a{
+      color: black;
+      text-decoration: none;
+      font-size: 1.25rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* WHEN THE TOGGLER IS CHECKED, CHANGE THE VISIBILITY TO VISIBLE :  */
+  
+  .toggler:checked ~ .menu > div > ul{
+      transition: visibility 0.4s ease;
+      transition-delay: 0.1s;
+      visibility: visible;
+  }
+
+  .toggler:checked ~ .menu > div > ul > li > a:hover{
+      color: orange;
+  }
+
+@media screen and (max-width: 450px) {
+    
+    h2, h3 {
+        text-align: center;
+        margin: 0 0 25px 0;
+    }
+
+    .dashboard-playlist {
+        margin: 0;
+    }
+
+    .nav-mobile {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 74%;
+        z-index: 1000;
+    }
+
+    .menu .logo {
+        margin-left: 75px;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .dashboard-container {
+        padding-top: 70px;
+        padding-left: 0;
+    }
+
+    ul.album-lists {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        grid-gap: 35px;
+        list-style: none;
+        padding: 10px;
+        display: grid;
+        margin-top: 0;
+        margin-left: 0;
+    }
+
+    ul.playlist-list {
+        list-style-type: disclosure-closed;
+    }
+
+    body {
+        display: block;
+    }
+
+    .favorite-artists-container {
+        padding-top: 90px;
+        text-align: center;
+    }
+
+    .my-playlist-header {
+        padding-top: 45px;
+    }
+
+    .create-events {
+        padding-top: 40px;
+        padding-left: 29px;
+        display: table-caption;
+    }
+
+    .upload-page {
+        padding-top: 40px;
+        display: table;
+    }
+
+    .rsvp-page, .view-events-page, .view-event {
+        padding-top: 40px;
+    }
+
+    .search-content {
+        padding-top: 90px;
+    }
+
+    .search_list {
+        padding-left: 55px;
+    }
+
+    .artist-content {
+        padding-top: 85px;
+    }
+
+    .album-content {
+        padding-top: 95px;
+        display: flex;
+    }
+
+}
+@keyframes slide-in {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

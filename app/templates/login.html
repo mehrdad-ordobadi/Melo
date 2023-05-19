@@ -1,36 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-    <h1>Login</h1>
-    
-    <form method="post" action="{{ url_for('login') }}">
-        {% with messages = get_flashed_messages() %}
+{% extends 'base.html' %}
+
+{% set show_navbar = false %}
+
+{% block title %}Login{% endblock %}
+{% block extra_links %}
+<link rel="stylesheet" href="../static/register.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="logo"><img src="..//static/homepage-images/melo-logo-150.png"/></div>
+    <div class="title">Login</div>
+    <div class="content">
+        <form method="post" action="{{ url_for('login') }}">
+            {% with messages = get_flashed_messages() %}
             {% if messages %}
-                 <div class="flashes">
-                    {% for message in messages %}
-                        {{ message }}
-                    {% endfor %}
-                 </div>
+            <div class="flashes">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+            </div>
             {% endif %}
-        {% endwith %}
-        <label>Username:</label>
-        <input type="text" name="username" required>
-        <br>
-        <label>Password:</label>
-        <input type="password" name="password" required>
-        <br>
-        <label>
-            <input type="checkbox" name="remember">
-            Remember me
-        </label>
-        <br>
-        <input type="submit" value="Login">
-    </form>
-    <p>Don't have an account? <a href="{{ url_for('register') }}">Register</a></p>
-    
-</body>
-</html>
+            {% endwith %}
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">Username:</span>
+                    <input type="text" name="username" class="form-input" required placeholder="Enter your Username">
+                </div>
+                <div class="input-box">
+                    <span class="details">Password:</span>
+                    <input type="password" name="password" class="form-input" required placeholder="Enter your Password">
+                </div>
+                <div class="remember-me">
+                    <label>
+                        <input type="checkbox" name="remember">
+                        Remember me
+                    </label>
+                </div>
+            </div>
+            <div class="button">
+                <input type="submit" value="Login" class="submit-btn">
+            </div>
+        </form>
+        <p>Don't have an account? <a href="{{ url_for('register') }}" style="color: #3C8071;">Register</a></p>
+    </div>
+</div>
+{% endblock %}

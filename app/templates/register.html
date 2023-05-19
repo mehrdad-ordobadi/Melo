@@ -1,37 +1,114 @@
+{% extends 'base.html' %}
+{% set show_navbar = false %}
+{% block title %}Registration{% endblock %}
+
+{% block extra_links %}
+    <link rel="stylesheet" href="../static/register.css">
+    <script>
+        function toggleArtistFields() {
+            const userType = document.querySelector('input[name="{{ form.user_type.name }}"]:checked').value;
+            const artistFields = document.getElementsByClassName("artist-field");
+            for (let i = 0; i < artistFields.length; i++) {
+                artistFields[i].style.display = userType === "artist" ? "block" : "none";
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Register</title>
-</head>
-<body>
-    <h1>Register</h1>
-    <form method="POST" action="{{ url_for('register') }}">
-        {{ form.hidden_tag() }}
-        <div>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}
+  <body>
+    <div class="container">
+        <div class="logo"><img src="..//static/homepage-images/melo-logo-150.png"/></div>
+      <div class="title">Registration</div>
+      <div class="content">
+        <form method="POST" action="{{ url_for('register') }}">
+          {{ form.hidden_tag() }}
+          <div class="user-details">
+            
+            <div class="input-box">
+              <span class="details">{{ form.username.label }}</span>
+              {{ form.username(class="form-input", placeholder="Enter your Username") }}
+            </div>
+            <div class="input-box">
+              <span class="details">{{ form.email.label }}</span>
+              {{ form.email(class="form-input", placeholder="Enter your Email") }}
+            </div>
+            <div class="input-box">
+              <span class="details">{{ form.password.label }}</span>
+              {{ form.password(class="form-input", placeholder="Enter your Password") }}
+            </div>
+            <div class="input-box">
+              <span class="details">{{ form.confirm_password.label }}</span>
+              {{ form.confirm_password(class="form-input", placeholder="Confirm your password") }}
+            </div>
+            <div class="input-box">
+              <span class="details">{{ form.first_name.label }}</span>
+              {{ form.first_name(class="form-input", placeholder="Enter your First Name") }}
+            </div>
+            <div class="input-box">
+              <span class="details">{{ form.last_name.label }}</span>
+              {{ form.last_name(class="form-input", placeholder="Enter your Last Name") }}
+            </div>
+            <div class="input-box artist-field" style="display:none;">
+                <span class="details">{{ form.artist_stagename.label }}</span>
+                {{ form.artist_stagename(class="form-input", placeholder="Enter your Stage Name") }}
+            </div>
+            <div class="input-box artist-field" style="display:none;">
+                <span class="details">{{ form.artist_tags.label }}</span>
+                {{ form.artist_tags(class="form-input", placeholder="Enter your Artist Tags") }}
+            </div>
+            <div class="input-box artist-field" style="display:none;">
+                <span class="details">{{ form.artist_city.label }}</span>
+                {{ form.artist_city(class="form-input", placeholder="Enter your current City") }}
+              </div>
+              <div class="artist-or-user">
+                <input type="radio" id="dot-1" name="{{ form.user_type.name }}" value="artist" onchange="toggleArtistFields()" {% if form.user_type.data == "artist" %}checked{% endif %}>
+                <input type="radio" id="dot-2" name="{{ form.user_type.name }}" value="listener" onchange="toggleArtistFields()" {% if form.user_type.data == "listener" %}checked{% endif %}>
+                <span class="gender-title">{{ form.user_type.label }}</span>
+                <div class="category">
+                  <label for="dot-1">
+                    <span class="dot one"></span>
+                    <span class="user">Artist</span>
+                  </label>
+                  <label for="dot-2">
+                    <span class="dot two"></span>
+                    <span class="user">Listener</span>
+                  </label>
+                </div>
+              </div>
+              <div class="button">
+                {{ form.submit(class="submit-btn", value="Register") }}
+              </div>
+              <div id="artist-fields" style="display: none;">
+                <label for="artist_name">Artist Name</label>
+                <input type="text" name="artist_name" id="artist_name">
+            
+                <label for="genre">Genre</label>
+                <input type="text" name="genre" id="genre">
+            
+                <label for="biography">Biography</label>
+                <textarea name="biography" id="biography"></textarea>
+            </div>
+            </form>
+          </div>
         </div>
-        <div>
-            {{ form.email.label }}<br>
-            {{ form.email(size=32) }}
-        </div>
-        <div>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}
-        </div>
-        <div>
-            {{ form.confirm_password.label }}<br>
-            {{ form.confirm_password(size=32) }}
-        </div>
-        <div>
-            {{ form.user_type.label }}<br>
-            {{ form.user_type() }}
-        </div>
-        <div>
-            {{ form.submit() }}
-        </div>
-    </form>
-    <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
-</body>
-</html>
+      </body>
+    </html>
+    
+    {% if form.errors %}
+    <div class="form-errors">
+        <ul>
+        {% for field, errors in form.errors.items() %}
+            {% for error in errors %}
+            <li>{{ field }}: {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <p>Already have an account? <a href="{{ url_for('login') }}" style="color: #3C8071;">Login</a></p>
+    
+    {% endblock %}
+    

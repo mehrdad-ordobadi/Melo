@@ -1,0 +1,78 @@
+
+.top-nav .logout-button {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 35px;
+    border: none;
+    outline: none;
+    color: #FFF;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.top-nav .logout-button form {
+    display: inline;
+}
+
+h3{
+    size: 100px;
+    color:#A54657
+}
+
+.dropbtn {
+    background-color: #0C1713;
+    border: 0;
+
+}
+
+.dropbtn img{
+    width: 30px;
+    height: 30px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    top: 8px;
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    right: 0;
+
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.notify {
+    list-style-type: none;
+}
+
+.notify li {
+    color: black;
+}
+.notify .unread a {
+    background-color: rgb(234, 165, 165);
+}
+
+.notify .read a {
+    background-color: rgb(255, 255, 255); 
+}

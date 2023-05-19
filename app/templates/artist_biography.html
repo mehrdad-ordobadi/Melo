@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ artist.artist_stagename }}'s Biography{% endblock %}
+
+{% block extra_links %}
+<script src="/static/createPlaylist.js"></script>
+<script src="/static/songs.js"></script>
+<link rel="stylesheet" href="/static/artist_bio.css">
+<link rel="stylesheet" href="/static/navbar.css" />
+<link rel="stylesheet" href="/static/animations.css"> 
+{% endblock %}
+
+{% block content %}
+<nav class="sidebar">
+    <div class="logo"><a href="{{ url_for('dashboard') }}"><img src="/static/homepage-images/melo-logo-150.png" /></a></div>
+    <!-- Form animations -->
+    <form id="form" action="{{ url_for('search') }}" method="POST" class="form-animation">
+        <input type="text" name="search_query" placeholder="Search for artists..." class="input-animation">
+        <button type="submit" class="button-animation">Search</button>
+    </form>
+    <div class="navList">
+        {% if current_user.user_type == 'artist' %}
+        <div class="nav-link">
+            <a href="/upload" class="nav-link-animation"><img src="/static/nav_icons/upload.png" /><span>Upload Music</span></a>
+        </div>
+        <div class="nav-link">
+            <a href="{{ url_for('artist_biography', artist_id=current_user.user_id) }}" class="nav-link-animation"><img
+                    src="/static/nav_icons/bio.png" /><span>Add/Edit Bio</span></a>
+        </div>
+        {% endif %}
+        <div class="nav-link_listener">
+            <a href="/songs" class="nav-link-animation"><img src="/static/nav_icons/songs.png" /><span>Songs</span></a>
+        </div>
+        <div class="nav-link_listener">
+            <a href="{{ url_for('favorite_artists') }}" class="nav-link-animation"><img src="/static/nav_icons/artists.png" /><span>Favorite
+                    Artists</span></a>
+        </div>
+        <div class="nav-link_listener">
+            <a href="{{ url_for('my_playlists') }}" class="nav-link-animation"><img src="/static/nav_icons/playlist.png" /><span>My
+                    Playlist</span></a>
+        </div>
+    </div>
+</nav>
+
+<div class="logout-button">
+    <form class="logout" action="{{ url_for('logout') }}" method="POST" class="form-animation">
+        <input type="submit" value="Logout" class="button-animation">
+    </form>
+</div>
+
+<div class="artist-content">
+    <h1>{{ artist.artist_stagename }}'s Biography</h1>
+    
+    {% if artist.artist_biography %}
+        <p>{{ artist.artist_biography }}</p>
+    {% else %}
+        <p>No biography available for this artist.</p>
+    {% endif %}
+        
+    {% if current_user.user_type == 'artist' and current_user.id == artist.id %}
+        <form method="POST" class="form-animation">
+            {{ form.hidden_tag() }}
+            {{ form.biography.label() }}
+            {{ form.biography() }}
+            {{ form.submit(class="button-animation") }}
+            <input type="submit" name="delete" value="Delete" onclick="return confirmDelete('{{artist.username }}');" class="button-animation" />
+        </form>
+        <script>
+            function confirmDelete(username) {
+                return confirm("Are you sure you want to delete the biography for " + username + "?");
+            }
+        </script>
+    {% endif %}
+</div>
+{% endblock %}
+

@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300&display=swap');
+
+body {
+  background-color: #0C1713;
+  margin: 0;
+  font-family: 'Roboto slab', sans-serif;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.top-nav {
+  background-color: #A54657;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+nav .logo {
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
+nav .logo a {
+  margin-right: 3%;
+}
+
+nav .logo img {
+  height: 60px;
+}
+
+nav .login_signup {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: end;
+}
+
+h2 {
+  margin: 0px;
+}
+
+main {
+  margin-top: 10%;
+}
+
+.main_images {
+  display: grid;
+  justify-content: space-evenly;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-row: 1fr 1fr;
+}
+
+.main_images div {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.main_images img {
+  width: 100%;
+}
+
+main h2 {
+  display: flex;
+  color: white;
+  justify-content: center;
+  font-size: 3rem;
+  margin-bottom: 5%;
+  font-family: 'Roboto Slab', serif;
+}
+
+p {
+  color: white;
+}
+
+.main_images div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main_images img {
+  width: 150px;
+}
+
+.main_images p {
+  font-size: 2rem;
+}
+
+.login_signup a {
+  padding-right: 10px;
+}
+
+.login-btn {
+  height: 100%;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 5px;
+  border: none;
+  color: black;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #C5DAC1, #F26157);
+}
+
+.signup-btn {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  color: black;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #C5DAC1, #F26157);
+}
+
+.login_signup button:hover {
+  background: #C5DAC1;
+}
+
+/* footer */
+
+footer {
+  margin-top: 15%;
+  padding: 0%;
+}
+
+footer p {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 5%;
+  margin-bottom: 0px;
+}
+
+/* footer */
+
+@media (max-width: 450px) {
+  .logo h1 {
+    display: none;
+  }
+
+  body {
+    background-color: #0C1713;
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr;
+  }
+}

@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300&display=swap');
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #0C1713;
+    color: #fff;
+    font-family: 'Roboto Slab', sans-serif;
+    overflow-x: hidden;
+}
+
+h1.my-playlist-header {
+    text-align: center;
+    margin: 60px 0;
+    font-size: 2em;
+    color: #fff;
+}
+
+.playlist-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0 auto;
+    overflow-x: auto;
+    padding-bottom: 20px; /* Give some room for scrollbar */
+    max-width: 100%;
+}
+
+.playlist-card {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    margin: 20px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.playlist-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.playlist-card h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.playlist-card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.playlist-card ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 0;
+}
+
+.playlist-card ul li:last-child {
+    border-bottom: none;
+}
+
+.song-link {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.song-link:hover {
+    color: #1DB954;  /* Spotify green for a little touch */
+}
+
+.delete-btn {
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #1DB954;
+    color: #fff;
+    border-color: #1DB954;
+}
