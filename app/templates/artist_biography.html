@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/static/artist_bio.css">
 <link rel="stylesheet" href="/static/navbar.css" />
 <link rel="stylesheet" href="/static/animations.css"> 
+<link rel="stylesheet" href="/static/top-nav.css">
 {% endblock %}
 
 {% block content %}
@@ -41,12 +42,6 @@
         </div>
     </div>
 </nav>
-
-<div class="logout-button">
-    <form class="logout" action="{{ url_for('logout') }}" method="POST" class="form-animation">
-        <input type="submit" value="Logout" class="button-animation">
-    </form>
-</div>
 
 <div class="artist-content">
     <h1>{{ artist.artist_stagename }}'s Biography</h1>

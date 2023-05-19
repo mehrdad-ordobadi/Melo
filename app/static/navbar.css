@@ -480,6 +480,9 @@ darkest green = #0C1713
         display: flex;
     }
 
+    .playlist-container {
+        display: block;
+    }
 }
 @keyframes slide-in {
     0% {
