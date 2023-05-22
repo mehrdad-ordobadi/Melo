@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block extra_links %}
-<script src="../static/songs.js"></script>
+<script src="../static/playlist.js"></script>
 <link rel="stylesheet" href="../static/playlists.css">
 
 {% endblock %}
@@ -38,5 +38,26 @@
     </div>
 
     <!-- Your audio player code goes here -->
+    <div class="player-container hidden">
+        <div class="player">
+            <div id="song-title"></div>
+            <img src="{{ url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}" alt="Cover Art" class="song_img">
+
+            <div class="song-info-container hidden" id="song-info">
+                <p id="artist-name"></p>
+            </div>
+
+            <div class="player-nav">
+                <button class="circle" id="prev-button" onclick="playPreviousSong()"><</button>
+                <button id="info-button" onclick="toggleSongInfo()">Show info</button>
+                <button class="circle" id="next-button" onclick="playNextSong()">></button>
+            </div>
+            <div class="bttn_audio">
+                <audio id="player" controls>
+                    <source src="" type="audio/mpeg">
+                </audio>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
