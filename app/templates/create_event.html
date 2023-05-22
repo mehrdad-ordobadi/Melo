@@ -6,15 +6,23 @@ Event {% endblock %}
 {% endblock %} 
 
 {% block content %}
+
+
 <main class="create-events">
   <div class="box">
     <div class="box-content">
       <h1>Create Event</h1>
-      {% with messages = get_flashed_messages() %} {% if messages %} {% for
-      message in messages %}
-      <p>{{ message }}</p>
-      {% endfor %} {% endif %} {% endwith %}
+      
 
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          <ul class="flashes">
+              {% for message in messages %}
+                  <li>{{ message }}</li>
+              {% endfor %}
+          </ul>
+      {% endif %}
+  {% endwith %}
       <div class="event-title">
       <form action="" method="POST">
         {{ form.hidden_tag() }}

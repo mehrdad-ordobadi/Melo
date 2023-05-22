@@ -8,7 +8,13 @@
 
 {% block content %}
 <main class="upload-page">
-  {% with messages = get_flashed_messages() %}
+  
+
+  <div class="box">
+    <div class="box-content">
+      <h1>Upload Music File</h1>
+
+      {% with messages = get_flashed_messages() %}
   {% if messages %}
       <ul class="flashes">
           {% for message in messages %}
@@ -17,18 +23,6 @@
       </ul>
   {% endif %}
 {% endwith %}
-
-  <div class="box">
-    <div class="box-content">
-      <h1>Upload Music File</h1>
-
-      {% with messages = get_flashed_messages() %} 
-        {% if messages %} 
-          {% for message in messages %}
-            <p>{{ message }}</p>
-          {% endfor %}
-        {% endif %} 
-      {% endwith %}
 
       <form method="post" enctype="multipart/form-data">
         <div class="album-input">

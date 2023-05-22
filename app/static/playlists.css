@@ -177,3 +177,16 @@ h1.my-playlist-header {
 #artist-name {
     color: black;
 }
+
+.flashes {
+    list-style: none;
+    padding: 10px;
+    margin: 10px 125px 0px 0px;
+    background-color:#A54657;
+    border: 1px solid #A54657;
+    border-radius: 5px;
+  }
+  
+  .flashes li {
+    margin-bottom: 5px;
+  }
