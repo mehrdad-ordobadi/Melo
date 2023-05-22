@@ -80,10 +80,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const songArtist = songLink.dataset.artist;
         const songCover = songLink.dataset.cover; 
   
-        audioPlayer.src = songSrc;
-        songInfoTitleElement.textContent = songTitle;
-        songInfoArtistElement.textContent = songArtist;
-        songImgElement.src = songCover;
+        // audioPlayer.src = songSrc;
+        // songInfoTitleElement.textContent = songTitle;
+        // songInfoArtistElement.textContent = songArtist;
+        // songImgElement.src = songCover;
   
         audioPlayer.play();
         const playerContainer = document.querySelector('.player-container');
