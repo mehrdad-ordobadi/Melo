@@ -11,6 +11,13 @@
 {% endblock %}
 
 {% block content %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<p>{{ message }}</p>
+{% endfor %}
+{% endif %}
+{% endwith %}
 <!-- side-nav -->
 <nav class="sidebar">
     <div class="logo"><a href="{{ url_for('dashboard') }}"><img src="/static/homepage-images/melo-logo-150.png" /></a>
@@ -50,14 +57,6 @@
 
 <h1>{{ album.album_title }} Songs</h1>
 <div class="songs-content">
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-
     <ul class="song-lists">
         {% for song in album.songs %}
         <!-- <div class="each-song"> -->
@@ -69,6 +68,12 @@
                 {{ song.song_title }}
             </span>
             </a>
+            {% if current_user.user_type == 'artist' and current_user.id == artist.id %}
+            <form action="{{ url_for('delete_album_song', song_id=song.song_id) }}" method="post"
+                onsubmit="return confirmDelete('{{ song.song_title }}');">
+                <button type="submit">Delete</button>
+            </form>
+            {% endif %}
 
         </li>
     <!-- </div> -->
@@ -100,5 +105,7 @@
     </div>
 </div>
 <script src="/static/album_songs.js"></script>
+<script src="/static/artist_page.js" ></script>
+
 
 {% endblock %}
