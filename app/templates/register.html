@@ -2,6 +2,7 @@
 {% set show_navbar = false %}
 {% block title %}Registration{% endblock %}
 
+
 {% block extra_links %}
     <link rel="stylesheet" href="../static/register.css">
     <script>
@@ -16,12 +17,35 @@
 {% endblock %}
 
 {% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
   <body>
+    
     <div class="container">
+      
         <div class="logo"><img src="..//static/homepage-images/melo-logo-150.png"/></div>
       <div class="title">Registration</div>
+      {% if form.errors %}
+    <div class="form-errors">
+        <ul>
+        {% for field, errors in form.errors.items() %}
+            {% for error in errors %}
+            <li> {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="flashes">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
       <div class="content">
         <form method="POST" action="{{ url_for('register') }}">
           {{ form.hidden_tag() }}
@@ -97,17 +121,7 @@
       </body>
     </html>
     
-    {% if form.errors %}
-    <div class="form-errors">
-        <ul>
-        {% for field, errors in form.errors.items() %}
-            {% for error in errors %}
-            <li>{{ field }}: {{ error }}</li>
-            {% endfor %}
-        {% endfor %}
-        </ul>
-    </div>
-    {% endif %}
+    
     <p>Already have an account? <a href="{{ url_for('login') }}" style="color: #3C8071;">Login</a></p>
     
     {% endblock %}

@@ -9,11 +9,8 @@
 {% block title %}{{ artist.artist_stagename }}{% endblock %}
 
 {% block content %}
-<div class="artist-content">
-    <h1>{{ artist.artist_stagename }}</h1>
 
-    <div>
-        {% with messages = get_flashed_messages() %}
+{% with messages = get_flashed_messages() %}
             {% if messages %}
             <div class="flashes">
                 {% for message in messages %}
@@ -22,6 +19,11 @@
             </div>
             {% endif %}
             {% endwith %}
+<div class="artist-content">
+    <h1>{{ artist.artist_stagename }}</h1>
+
+    <div>
+        
         
         <div class="artist-info">
             <p>{{ artist.artist_city }}</p>
