@@ -97,3 +97,7 @@ h1.my-playlist-header {
     color: #fff;
     border-color: #1DB954;
 }
+
+.hidden {
+    display: none;
+}

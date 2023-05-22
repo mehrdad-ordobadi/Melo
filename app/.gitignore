@@ -1,5 +1,6 @@
 instance/
 venv/
+instance/users.db
 static/audio
 __pycache__/
 *.pyc
