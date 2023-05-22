@@ -101,3 +101,79 @@ h1.my-playlist-header {
 .hidden {
     display: none;
 }
+
+
+
+/*player css*/
+.player-container {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+}
+
+.player {
+    background-color: #fff;
+    width: 350px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.song_img {
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.player-nav {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+
+.player-nav .circle {
+    border-radius: 50%;
+    background-color: #000;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.bttn_audio {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.bttn_audio audio {
+    width: 100%;
+}
+
+.bttn_audio button {
+    background-color: #162e23;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.bttn_audio button:hover {
+    background-color: #134420;
+}
+
+.bttn_audio button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #162e23;
+}
+
+#artist-name {
+    color: black;
+}
