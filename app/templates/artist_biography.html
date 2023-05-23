@@ -12,6 +12,17 @@
 {% endblock %}
 
 {% block content %}
+
+{% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="flashes">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+            
 <nav class="sidebar">
     <div class="logo"><a href="{{ url_for('dashboard') }}"><img src="/static/homepage-images/melo-logo-150.png" /></a></div>
     <!-- Form animations -->

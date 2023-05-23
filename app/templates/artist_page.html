@@ -9,17 +9,22 @@
 {% block title %}{{ artist.artist_stagename }}{% endblock %}
 
 {% block content %}
+
+{% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="flashes">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
 <div class="artist-content">
     <h1>{{ artist.artist_stagename }}</h1>
 
     <div>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        <p>{{ message }}</p>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
+        
+        
         <div class="artist-info">
             <p>{{ artist.artist_city }}</p>
             <p>{{ artist.artist_tags }}</p>

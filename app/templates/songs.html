@@ -10,13 +10,14 @@
     <h1>Songs</h1>    
     <div class="songs-content"></div>    
     {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for message in messages %}
-            <p>{{ message }}</p>
-        {% endfor %}
-    {% endif %}
-    {% endwith %}
-
+            {% if messages %}
+            <div class="flashes">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
         <ul>
             {% for album in albums %}
                 <h3>{{ album.album_title }}</h3>

@@ -147,3 +147,31 @@ form .user-details .input-box{
     flex-direction: column;
   }
 }
+
+
+.flashes {
+  list-style: none;
+  padding: 10px;
+  margin: 10px 125px 0px 0px;
+  background-color:#C5DAC1;
+  border: 1px solid #C5DAC1;
+  border-radius: 5px;
+}
+
+.flashes li {
+  margin-bottom: 5px;
+}
+
+.form-errors {
+  list-style: none;
+  padding: 10px;
+  margin: 10px 125px 0px 0px;
+  background-color:#C5DAC1;
+  border: 1px solid #C5DAC1;
+  border-radius: 5px;
+}
+
+.form-errors li {
+  margin-bottom: 5px;
+  list-style-type: none;
+}
