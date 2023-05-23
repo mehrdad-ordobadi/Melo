@@ -46,6 +46,9 @@ def load_user(user_id):
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """
+    Register a new user (listener or artist) in the system.
+    """
     form = RegistrationForm()
     if form.validate_on_submit():
 
@@ -84,6 +87,9 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Log in a user.
+    """
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -100,12 +106,18 @@ def login():
 
 
 def allowed_file(filename):
+    """
+    Check if the filename has an allowed file extension.
+    """
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route('/upload', methods=['GET', 'POST'])
 @login_required
 def upload_file():
+    """
+    Upload audio files and create new albums and songs.
+    """
     form = AlbumForm()
     if request.method == 'POST':
         files = request.files.getlist('file')
@@ -177,6 +189,9 @@ def upload_file():
 
 @app.route('/songs')
 def songs():
+    """
+    Display all albums and songs.
+    """
     all_albums = Album.query.all()
     notifications = get_notifications()
     return render_template('songs.html', albums=all_albums, notifications=notifications)
@@ -184,16 +199,25 @@ def songs():
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
+    """
+    Log out the user.
+    """
     logout_user()
     flash('Logged out successfully.', 'success')
     return redirect(url_for('login'))
 
 def get_notifications():
+    """
+    Get the notifications for the current user.
+    """
     return Notification.query.filter_by(user_id=current_user.id).order_by(Notification.timestamp.desc()).all()
 
 @app.route('/dashboard')
 @login_required
 def dashboard():
+    """
+    Display the dashboard for the logged-in user.
+    """
     user_id = current_user.id
 
     # Fetch the user's playlists
@@ -215,11 +239,17 @@ def dashboard():
 
 @app.route('/')
 def homepage():
+    """
+    Display the homepage.
+    """
     return render_template('homepage.html')
 
 
 @app.route('/search', methods=['POST'])
 def search():
+    """
+    Perform a search for artists based on the search query.
+    """
     search_query = request.form['search_query']
     # artists = Artist.query.filter(Artist.artist_stagename.ilike(f'%{search_query}%')).all()
     artists = Artist.query.filter((Artist.artist_stagename.ilike(f'%{search_query}%')) | (Artist.artist_tags.ilike(f'%{search_query}%'))).all()
@@ -229,6 +259,9 @@ def search():
 
 @app.route('/artist/<int:artist_id>', methods=['GET'])
 def artist_page(artist_id):
+    """
+    Display the artist page for the given artist ID.
+    """
     artist = Artist.query.get_or_404(artist_id)
     albums = Album.query.filter_by(artist_id=artist_id).all()
     playlists = Playlist.query.filter_by(listener_id=current_user.id).all() if current_user.is_authenticated else []
@@ -239,7 +272,9 @@ def artist_page(artist_id):
 @app.route('/favorite_artists')
 @login_required
 def favorite_artists():
-
+    """
+    Display the favorite artists for the current user.
+    """
     artist_ids = current_user.followed_ids.split(',')
     artists = Artist.query.filter(Artist.id.in_(artist_ids)).all()
     notifications = get_notifications()
@@ -249,6 +284,9 @@ def favorite_artists():
 @app.route('/artist/<int:artist_id>/biography', methods=['GET', 'POST'])
 @login_required
 def artist_biography(artist_id):
+    """
+    Display and update the biography for the given artist ID.
+    """
     artist = Artist.query.get_or_404(artist_id)
     form = BiographyForm()
     if form.validate_on_submit():
@@ -270,6 +308,9 @@ def artist_biography(artist_id):
 @app.route('/follow/<int:artist_id>', methods=['POST'])
 @login_required
 def follow_artist(artist_id):
+    """
+    Follow an artist.
+    """
     artist = Artist.query.get(artist_id)
     if artist is None:
         flash('Artist not found.')
@@ -287,6 +328,9 @@ def follow_artist(artist_id):
 @app.route('/unfollow/<int:artist_id>', methods=['POST'])
 @login_required
 def unfollow_artist(artist_id):
+    """
+    unfollow an artist.
+    """
     artist = Artist.query.get(artist_id)
     if artist is None:
         flash('Artist not found.')
@@ -305,6 +349,9 @@ def unfollow_artist(artist_id):
 @app.route('/delete_song/<int:song_id>', methods=['POST'])
 @login_required
 def delete_song(song_id):
+    """
+    Delete a song.
+    """
     song = Song.query.get(song_id)
     if song is None:
         flash('Song not found.')
@@ -332,6 +379,9 @@ def delete_song(song_id):
 @app.route('/delete_album_song/<int:song_id>', methods=['POST'])
 @login_required
 def delete_album_song(song_id):
+    """
+    Delete a song from an album.
+    """
     song = Song.query.get(song_id)
     if song is None:
         flash('Song not found.')
@@ -358,12 +408,18 @@ def delete_album_song(song_id):
 @app.route('/get_playlists')
 @login_required
 def get_playlists():
+    """
+    Get the playlists for the current user.
+    """
     playlists = Playlist.query.filter_by(listener_id=current_user.id).all()
     return jsonify({'playlists': [{'id': p.playlist_id, 'title': p.playlist_title} for p in playlists]})
 
 @app.route("/add_to_playlist", methods=["POST"])
 @login_required
 def add_to_playlist():
+    """
+    Add a song to a playlist.
+    """
     song_id = request.form.get("song_id")
     playlist_id = request.form.get("playlist_id")
     new_playlist_name = request.form.get("new_playlist_name")
@@ -394,6 +450,9 @@ def add_to_playlist():
 @app.route('/my_playlists')
 @login_required
 def my_playlists():
+    """
+    Display the playlists for the current user.
+    """
     playlists = Playlist.query.filter_by(listener_id=current_user.id).all()
     for playlist in playlists:
         playlist.songs = [ps.song for ps in playlist.playlist_songs]
@@ -404,6 +463,9 @@ def my_playlists():
 @app.route('/delete_song_from_playlist', methods=['POST'])
 @login_required
 def delete_song_from_playlist():
+    """
+    Delete a song from a playlist.
+    """
     song_id = request.form.get("song_id")
     playlist_id = request.form.get("playlist_id")
 
@@ -420,6 +482,9 @@ def delete_song_from_playlist():
 
 @app.route('/album/<int:album_id>/songs', methods=['GET'])
 def album_songs(album_id):
+    """
+    Display the songs for the given album ID.
+    """
     album = Album.query.get_or_404(album_id)
     notifications = get_notifications()
     artist = album.artist
@@ -427,6 +492,9 @@ def album_songs(album_id):
 
 
 def get_followers(artist):
+    """
+    Get the followers of an artist.
+    """
     all_listeners = User.query.all()
     followers = [listener for listener in all_listeners if listener.is_following(artist)]
     return followers
@@ -434,6 +502,9 @@ def get_followers(artist):
 
 @app.route('/create-event', methods=['GET', 'POST'])
 def create_event():
+    """
+    Create a new event.
+    """
     form = EventForm()
     if request.method == 'POST':
         if current_user.type != 'artist':
@@ -468,6 +539,9 @@ def create_event():
 
 @app.route('/view-events/<int:artist_id>', methods=['GET'])
 def view_events(artist_id):
+    """
+    View the events for the given artist ID.
+    """
     # Fetching events directly from the Event model using a query
     events = Event.query.filter_by(artist_id=artist_id).order_by(Event.event_date).all()
     artist = Artist.query.get_or_404(artist_id)
@@ -476,6 +550,9 @@ def view_events(artist_id):
 
 @app.route('/view-event/<int:event_id>', methods=['GET'])
 def view_event(event_id):
+    """
+    View the details of a specific event.
+    """
     artist_id = request.args.get('artist_id', None)
     if artist_id is None:
         abort(404)
@@ -489,6 +566,9 @@ def view_event(event_id):
 
 @app.route('/rsvp/<int:event_id>', methods=['POST'])
 def rsvp(event_id):
+    """
+    RSVP to an event.
+    """
     event = Event.query.get_or_404(event_id)
     user_id = current_user.id
 
@@ -507,6 +587,9 @@ def rsvp(event_id):
 
 @app.route('/my-rsvp-events', methods=['GET'])
 def my_rsvp_events():
+    """
+    Display the RSVPed events for the current user.
+    """
     user_id = current_user.id
     user_events = UserEvent.query.filter_by(user_id=user_id).all()
     event_ids = [ue.event_id for ue in user_events]
@@ -518,6 +601,9 @@ def my_rsvp_events():
 @app.route('/read-notification/<int:notification_id>', methods=['GET'])
 @login_required
 def read_notification(notification_id):
+    """
+    Mark a notification as read.
+    """
     notification = Notification.query.get_or_404(notification_id)
 
     # Check if the current user is the owner of the notification
@@ -533,6 +619,9 @@ def read_notification(notification_id):
 
 
 def remove_expired_notifications():
+    """
+    Remove expired notifications from the database.
+    """
     with app.app_context():
         now = datetime.utcnow()
         expired_notifications = Notification.query.filter(Notification.expiry_date < now).all()
@@ -542,10 +631,12 @@ def remove_expired_notifications():
 
 
 def start_scheduler():
+    """
+    Start the background scheduler for removing expired notifications.
+    """
     scheduler = BackgroundScheduler()
     scheduler.add_job(remove_expired_notifications, 'interval', hours=6)
     scheduler.start()
-
 
 
 if __name__ == '__main__':
