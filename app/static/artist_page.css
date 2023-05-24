@@ -185,8 +185,8 @@ ul button {
 }
 
 .player-container .song_img {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
 }
 
@@ -242,8 +242,8 @@ ul button {
 
 .player {
   background-color: white;
-  width: 400px;
-  padding: 25px 25px;
+  width: 350px;
+  padding: 15px 15px;
   border-radius: 10%;
   text-align: center;
 }
@@ -251,7 +251,7 @@ ul button {
 .player-nav {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: -6px;
 }
 
 .player-nav .circle {
@@ -265,9 +265,9 @@ ul button {
 }
 
 .song_img {
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  
   border: 8px solid black;
   box-shadow: 0 10px 60px rgb(0, 0, 0, 0.4);
 }
@@ -320,7 +320,7 @@ ul button {
 }
 
 .player-container img {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 @keyframes fadeInDown {

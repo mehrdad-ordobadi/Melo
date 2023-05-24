@@ -189,3 +189,9 @@ h1.my-playlist-header {
   .flashes li {
     margin-bottom: 5px;
   }
+  #song-title {
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    margin-bottom: 10px; /* space between the song title and album cover */
+}
