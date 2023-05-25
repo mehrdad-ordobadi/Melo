@@ -37,7 +37,8 @@ nav .logo a {
 }
 
 nav .logo img {
-  height: 60px;
+  height: 90px;
+  margin-left: 15px;
 }
 
 nav .login_signup {
