@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../static/navbar.css" />
 
-<!-- MOBILE VIEW -->
+
 <div class="nav-mobile">
   <input type="checkbox" class="toggler" />
   <div class="hamburger"><div></div></div>
@@ -55,11 +55,11 @@
             <a href="/create-event"><img src="../static/nav_icons/events.png" /><span>Create Event</span></a>
           </li>
           {% endif %}
-          <li class="nav-link_listener">
+          <!-- <li class="nav-link_listener">
             <a href="/songs"
               ><img src="../static/nav_icons/songs.png" /><span>Songs</span></a
             >
-          </li>
+          </li> -->
           <li class="nav-link_listener">
             <a href="{{ url_for('favorite_artists') }}"
               ><img src="../static/nav_icons/artists.png" /><span
@@ -131,11 +131,11 @@
     </div>
 
     {% endif %}
-    <div class="nav-link_listener">
+    <!-- <div class="nav-link_listener">
       <a href="/songs"
         ><img src="../static/nav_icons/songs.png" /><span>Songs</span></a
       >
-    </div>
+    </div> -->
     <div class="nav-link_listener">
       <a href="{{ url_for('favorite_artists') }}"
         ><img src="../static/nav_icons/artists.png" /><span

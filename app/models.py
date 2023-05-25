@@ -94,7 +94,7 @@ Attributes:
 
 """
 class Listener(User):
-    # user_name = db.Column(db.String(80), db.ForeignKey('user.username'), primary_key=True)
+    
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
 
 
@@ -123,9 +123,9 @@ class Album(db.Model):
     album_id = db.Column(db.Integer, primary_key=True)
     album_title = db.Column(db.String(80), nullable=False)
     album_release_date = db.Column(db.DateTime, nullable=False)
-    # user_name = db.Column(db.String(80), db.ForeignKey('artist.user_name'))
+    
     artist_id = db.Column(db.Integer, db.ForeignKey('artist.user_id'), nullable=False)
-    # artist_id = db.Column(db.Integer, db.ForeignKey('artist.user_id'))
+   
     songs = db.relationship('Song', backref='album', lazy=True)
     cover_art = db.Column(db.String(255), nullable=True)
     cover_name = db.Column(db.String(255), nullable=True)
@@ -227,7 +227,7 @@ class Playlist(db.Model):
     playlist_id = db.Column(db.Integer, primary_key=True)
     playlist_title = db.Column(db.String(80), nullable=False)
     playlist_creation_date = db.Column(db.DateTime, nullable=False)
-    # user_name = db.Column(db.String(80), db.ForeignKey('listener.user_name'))
+
     listener_id = db.Column(db.Integer, db.ForeignKey('listener.user_id'))
     playlist_songs = db.relationship('PlaylistSong', backref='playlist', lazy=True)
 
@@ -247,7 +247,7 @@ Methods:
 """  
 class ListenerSong(db.Model):
     song_id = db.Column(db.Integer, db.ForeignKey('song.song_id'), primary_key=True)
-    # user_name = db.Column(db.String(80), db.ForeignKey('listener.user_name'), primary_key=True)
+    
     listener_id = db.Column(db.Integer, db.ForeignKey('listener.user_id'), primary_key=True)
 
     def __repr__(self):
