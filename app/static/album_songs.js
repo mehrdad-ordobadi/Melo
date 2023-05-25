@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Autoplay the song
         player.play();
 
-        // Update the current index
+    
         currentIndex = index;
     }
 
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
         playSong(previousIndex);
     }
 
-    // Add click event listener to each song link
+
     for (var i = 0; i < songLinks.length; i++) {
         songLinks[i].addEventListener("click", function (event) {
             // Prevent the default action (which would be to follow the link)

@@ -98,7 +98,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and check_password_hash(user.password, password):
             login_user(user, remember=remember)
-            # flash('Logged in successfully.', 'success')
+          
             return redirect(url_for('dashboard'))
         else:
             flash('Unable to log in. Please check your credentials and try again.', 'danger')
@@ -225,7 +225,7 @@ def dashboard():
 
     # If user is an artist, fetch their albums
     if current_user.user_type == 'artist':
-        artist_id = current_user.id  # Assuming there is an attribute 'id' in the Artist model
+        artist_id = current_user.id 
         albums = Album.query.filter_by(artist_id=artist_id).all()
     else:
         albums = []
@@ -251,7 +251,7 @@ def search():
     Perform a search for artists based on the search query.
     """
     search_query = request.form['search_query']
-    # artists = Artist.query.filter(Artist.artist_stagename.ilike(f'%{search_query}%')).all()
+ 
     artists = Artist.query.filter((Artist.artist_stagename.ilike(f'%{search_query}%')) | (Artist.artist_tags.ilike(f'%{search_query}%'))).all()
     notifications = get_notifications()
     return render_template('search_results.html', artists=artists, notifications=notifications)
@@ -399,7 +399,7 @@ def delete_album_song(song_id):
             db.session.delete(album)
             db.session.commit()
             flash(f'Album {album.album_title} has been deleted.')
-            return redirect(url_for('dashboard'))  # Redirect to album_songs.html
+            return redirect(url_for('dashboard'))  
     else:
         flash('You do not have permission to delete this song.')
 
@@ -583,7 +583,7 @@ def rsvp(event_id):
         flash(f'You have already RSVPed to {event.event_title}.')
     return redirect(request.referrer or url_for('view_events', artist_id=event.artist_id))
 
-    # return redirect(url_for('view_events', artist_id=event.artist_id))
+ 
 
 @app.route('/my-rsvp-events', methods=['GET'])
 def my_rsvp_events():
@@ -614,7 +614,6 @@ def read_notification(notification_id):
     notification.read = True
     db.session.commit()
 
-    # Redirect to the event page with the artist_id as a query parameter
     return redirect(url_for('view_event', event_id=notification.event_id, artist_id=notification.event.artist_id))
 
 
