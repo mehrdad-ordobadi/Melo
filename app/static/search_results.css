@@ -60,7 +60,11 @@ body {
     background-color: #0C1713;
     font-family: 'Red Hat Display', sans-serif;
     margin-left: 23%;
-    grid-auto-rows: auto
+    grid-auto-rows: auto;
+    background-image: url(../static/background/starry-night-sky.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
 }
 
 .search-content h1 {

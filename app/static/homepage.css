@@ -4,6 +4,10 @@ body {
   background-color: #0C1713;
   margin: 0;
   font-family: 'Roboto slab', sans-serif;
+  background-image: url(../static/background/starry-night-sky.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
 }
 
 button {
