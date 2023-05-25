@@ -19,7 +19,7 @@ button {
 }
 
 .top-nav {
-  background-color: #A54657;
+  background-color: transparent;
   display: flex;
   justify-content: space-between;
   align-items: center;
