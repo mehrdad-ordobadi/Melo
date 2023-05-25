@@ -11,6 +11,10 @@ body {
     color: #fff;
     font-family: 'Roboto Slab', sans-serif;
     overflow-x: hidden;
+    background-image: url(../static/background/starry-night-sky.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
 }
 
 h1.my-playlist-header {
