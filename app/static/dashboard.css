@@ -2,11 +2,15 @@
 
 body {
     color: #FFF;
-    background-color: #0C1713;
+    background-color: transparent;
+    background-image: url(../static/background/music_purple.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
 }
 .dashboard-container {
     color: #FFF;
-    background-color: #0C1713;
+    background-color: transparent;
     font-family: 'Roboto slab', sans-serif;
     padding-left: 15%; 
 }
@@ -79,11 +83,11 @@ ul.notifications {
     position: fixed;
     bottom: 0;
     width: 450px;
-    background-color: #0C1713; /* choose color that fits your design */
+    background-color: #0C1713; 
     text-align: center;
-    z-index: 1000; /* to make sure the notifications appear on top of other elements */
+    z-index: 1000; 
     padding: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* optional: adds a bit of shadow for a floating effect */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
     margin-left: 560px;
 }
 

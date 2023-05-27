@@ -2,7 +2,13 @@ from flask_wtf import FlaskForm
 from wtforms import TextAreaField, SubmitField
 from wtforms.validators import DataRequired
 
+
 class BiographyForm(FlaskForm):
+    """Form for adding artist biography
+
+    Args:
+        FlaskForm: Base class for creating forms in Flask.
+    """
     biography = TextAreaField('Biography', validators=[DataRequired()])
     submit = SubmitField('Save')
 
