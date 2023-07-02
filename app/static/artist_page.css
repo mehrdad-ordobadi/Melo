@@ -7,10 +7,10 @@
 
 body {
   color: white;
-  background-color: transparent;
+  background-color: #0C1713;
   font-family: 'Roboto slab', sans-serif;
   margin-left: 23%;
-  background-image: url(../static/background/music_purple.jpg);
+  /* background-image: url(../static/background/music_purple.jpg); */
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -23,6 +23,17 @@ h1 {
 
 h2 {
   animation: fadeInDown 1s ease-in-out;
+}
+
+.heading{
+  display: flex;
+  font-style: italic;
+  font-weight:lighter;
+  color: gray;
+  
+}
+.title{
+  margin-left: 40px;
 }
 
 .song-link {
@@ -205,6 +216,16 @@ ul button {
 
 .player-container .song-info .show-info-btn {
   margin-left: 10px;
+}
+.artist-name{
+  font-size: 14px;
+  font-style: oblique;
+  margin-top: -30px;
+  margin-left: 55px;
+}
+
+.song-number{
+  margin-right: 45px;
 }
 
 

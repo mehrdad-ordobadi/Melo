@@ -1,116 +1,154 @@
-{% extends 'base.html' %}
-
-
-{% block title %}{{ album.album_title }} Songs{% endblock %}
-
-{% block extra_links %}
+{% extends 'base.html' %} {% block title %}{{ album.album_title }} Songs{%
+endblock %} {% block extra_links %}
 <link rel="stylesheet" href="/static/album_songs.css" />
 <link rel="stylesheet" href="/static/navbar.css" />
-<link rel="stylesheet" href="/static/top-nav.css">
+<link rel="stylesheet" href="/static/top-nav.css" />
 
-{% endblock %}
-
-{% block content %}
-
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul class="flashes">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
+{% endblock %} {% block content %} {% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class="flashes">
+  {% for message in messages %}
+  <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %} {% endwith %}
 
 <nav class="sidebar">
-    <div class="logo"><a href="{{ url_for('dashboard') }}"><img src="/static/homepage-images/melo-logo-150.png" /></a></div>
+  <div class="logo">
+    <a href="{{ url_for('dashboard') }}"
+      ><img src="/static/homepage-images/melo-logo-150.png"
+    /></a>
+  </div>
 
-    <form id="form" action="{{ url_for('search') }}" method="POST" class="form-animation">
-        <input type="text" name="search_query" placeholder="Search for artists..." class="input-animation">
-        <button type="submit" class="button-animation">Search</button>
-    </form>
-    <div class="navList">
-        {% if current_user.user_type == 'artist' %}
-        <div class="nav-link">
-            <a href="/upload" class="nav-link-animation"><img src="/static/nav_icons/upload.png" /><span>Upload Music</span></a>
-        </div>
-        <div class="nav-link">
-            <a href="{{ url_for('artist_biography', artist_id=current_user.user_id) }}" class="nav-link-animation"><img
-                    src="/static/nav_icons/bio.png" /><span>Add/Edit Bio</span></a>
-        </div>
-        <div class="nav-link">
-            <a href="{{ url_for('view_events', artist_id=current_user.user_id) }}" class="nav-link-animation"><img src="/static/nav_icons/events.png" /><span>My Events</span></a>
-        </div>
-        <div class="nav-link">
-            <a href="/create-event" class="nav-link-animation"><img src="/static/nav_icons/events.png" /><span>Create Event</span></a>
-        </div>
-        {% endif %}
-        <div class="nav-link_listener">
-            <a href="/songs" class="nav-link-animation"><img src="/static/nav_icons/songs.png" /><span>Songs</span></a>
-        </div>
-        <div class="nav-link_listener">
-            <a href="{{ url_for('favorite_artists') }}" class="nav-link-animation"><img src="/static/nav_icons/artists.png" /><span>Favorite
-                    Artists</span></a>
-        </div>
-        <div class="nav-link_listener">
-            <a href="{{ url_for('my_playlists') }}" class="nav-link-animation"><img src="/static/nav_icons/playlist.png" /><span>My
-                    Playlist</span></a>
-        </div>
-        <div class="nav-link_listener">
-            <a href="{{ url_for('my_rsvp_events') }}" class="nav-link-animation"><img src="/static/nav_icons/upcoming.png" /><span>Upcoming Events</span></a>
-        </div>
+  <form
+    id="form"
+    action="{{ url_for('search') }}"
+    method="POST"
+    class="form-animation"
+  >
+    <input
+      type="text"
+      name="search_query"
+      placeholder="Search for artists..."
+      class="input-animation"
+    />
+    <button type="submit" class="button-animation">Search</button>
+  </form>
+  <div class="navList">
+    {% if current_user.user_type == 'artist' %}
+    <div class="nav-link">
+      <a href="/upload" class="nav-link-animation"
+        ><img src="/static/nav_icons/upload.png" /><span>Upload Music</span></a
+      >
     </div>
+    <div class="nav-link">
+      <a
+        href="{{ url_for('artist_biography', artist_id=current_user.user_id) }}"
+        class="nav-link-animation"
+        ><img src="/static/nav_icons/bio.png" /><span>Add/Edit Bio</span></a
+      >
+    </div>
+    <div class="nav-link">
+      <a
+        href="{{ url_for('view_events', artist_id=current_user.user_id) }}"
+        class="nav-link-animation"
+        ><img src="/static/nav_icons/events.png" /><span>My Events</span></a
+      >
+    </div>
+    <div class="nav-link">
+      <a href="/create-event" class="nav-link-animation"
+        ><img src="/static/nav_icons/events.png" /><span>Create Event</span></a
+      >
+    </div>
+    {% endif %}
+    <div class="nav-link_listener">
+      <a href="/songs" class="nav-link-animation"
+        ><img src="/static/nav_icons/songs.png" /><span>Songs</span></a
+      >
+    </div>
+    <div class="nav-link_listener">
+      <a href="{{ url_for('favorite_artists') }}" class="nav-link-animation"
+        ><img src="/static/nav_icons/artists.png" /><span
+          >Favorite Artists</span
+        ></a
+      >
+    </div>
+    <div class="nav-link_listener">
+      <a href="{{ url_for('my_playlists') }}" class="nav-link-animation"
+        ><img src="/static/nav_icons/playlist.png" /><span>My Playlist</span></a
+      >
+    </div>
+    <div class="nav-link_listener">
+      <a href="{{ url_for('my_rsvp_events') }}" class="nav-link-animation"
+        ><img src="/static/nav_icons/upcoming.png" /><span
+          >Upcoming Events</span
+        ></a
+      >
+    </div>
+  </div>
 </nav>
 
 <h1>{{ album.album_title }} Songs</h1>
 <div class="songs-content">
-    <ul class="song-lists">
-        {% for song in album.songs %}
-        <li>
-            <a href="#" class="song-link"
-                data-src="{{ url_for('static', filename='audio/' + album.artist_id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}"
-                data-title="{{ song.song_title }}" data-artist="{{ song.album.artist.artist_stagename }}">
-                <span>
-                {{ song.song_title }}
-            </span>
-            </a>
-            {% if current_user.user_type == 'artist' and current_user.id == artist.id %}
-            <form action="{{ url_for('delete_album_song', song_id=song.song_id) }}" method="post"
-                onsubmit="return confirmDelete('{{ song.song_title }}');">
-                <button type="submit">Delete</button>
-            </form>
-            {% endif %}
-
-        </li>
-        {% endfor %}
-    </ul>
+  <ul class="song-lists">
+    {% for song in album.songs %}
+    <li>
+      <a
+        href="#"
+        class="song-link"
+        data-src="{{ url_for('static', filename='audio/' + album.artist_id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}"
+        data-title="{{ song.song_title }}"
+        data-artist="{{ song.album.artist.artist_stagename }}"
+      >
+        <span> {{ song.song_title }} </span>
+      </a>
+      {% if current_user.user_type == 'artist' and current_user.id == artist.id
+      %}
+      <form
+        action="{{ url_for('delete_album_song', song_id=song.song_id) }}"
+        method="post"
+        onsubmit="return confirmDelete('{{ song.song_title }}');"
+      >
+        <button type="submit">Delete</button>
+      </form>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
 </div>
 
 <div class="player-container hidden">
     <div class="player">
-        <div id="song-title"></div> 
-        <img src="{{ url_for('static', filename='audio/' + album.artist_id|string + '/' + album.album_title.replace(' ', '_').lower() + '/album_cover/' + album.cover_name) if album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}"
-            alt="Cover Art" class="song_img">
-
-        <div class="song-info-container hidden" id="song-info">
-            <p id="artist-name"></p>
-        </div>
-
-        <div class="player-nav">
-            <button class="circle" id="prev-button" onclick="playPreviousSong()">
-                </button>
-                    <button id="info-button" onclick="toggleSongInfo()">Show info</button>
-                    <button class="circle" id="next-button" onclick="playNextSong()">></button>
-        </div>
+      <img
+        src="{{ url_for('static', filename='audio/' + album.artist_id|string + '/' + album.album_title.replace(' ', '_').lower() + '/album_cover/' + album.cover_name) if album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}"
+        alt="Cover Art"
+        class="song_img"
+      />
+      <div class="top-nav_h1">
+        <div id="song-title"></div>
+        <div id="artist-name"></div>
+      </div>
+  
+      <!-- <div class="song-info-container hidden" id="song-info">  <p id="artist-name"></p>
+              <button id="info-button" onclick="toggleSongInfo()">Show info</button></div> -->
+      <div class="player-nav">
+        <button class="circle" id="prev-button" onclick="playPreviousSong()">
+          <
+        </button>
         <div class="bttn_audio">
-            <audio id="player" controls autoplay>
-                <source src="" type="audio/mpeg">
-            </audio>
+          <audio id="player" controls autoplay>
+            <source src="" type="audio/mpeg" />
+          </audio>
         </div>
+  
+        <button class="circle" id="next-button" onclick="playNextSong()">
+          >
+        </button>
+      </div>
     </div>
-</div>
+  
+  </div>
 <script src="/static/album_songs.js"></script>
-<script src="/static/artist_page.js" ></script>
-
+<script src="/static/artist_page.js"></script>
 
 {% endblock %}

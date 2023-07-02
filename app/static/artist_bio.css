@@ -11,9 +11,9 @@ body {
     grid-auto-rows: auto;
     font-family: 'Roboto', sans-serif;
     transition: all 0.3s ease-in-out;
-    background-color: #C5DAC1;
+    background-color: #0C1713;
     color: #FFF;
-    background-image: url(../static/background/music_purple.jpg);
+    /* background-image: url(../static/background/music_purple.jpg); */
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;

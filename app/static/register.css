@@ -8,11 +8,12 @@
 }
 body{
   height: 100vh;
+  background-color: #0C1713;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
-  background-image: url(../static/background/music_purple.jpg);
+  /* background-image: url(../static/background/music_purple.jpg); */
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;

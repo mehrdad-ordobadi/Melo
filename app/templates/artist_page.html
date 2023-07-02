@@ -54,8 +54,12 @@
             {% endif %}
         </div>
         <div class="album-content">
-        <h2>Albums</h2>
+        <!-- <h2>Albums</h2> -->
         <div class="album_list">
+            <div class="heading">
+                <p>#</p>
+                <p class="title">Title</p>
+            </div>
             <ul>
                 {% for album in albums %}
                 <li>
@@ -63,6 +67,7 @@
                     <ul>
                         {% for song in album.songs %}
                         <li>
+                            <span class="song-number">{{ loop.index }}</span>
                             <a href="#" class="song-link"
                                 data-src="{{ url_for('static', filename='audio/' + artist.id|string + '/' + album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}"
                                 data-title="{{ song.song_title }}" data-artist="{{ artist.artist_stagename }}"
@@ -90,6 +95,8 @@
                             </form>
                             {% endif %}
                         </li>
+                        <p class="artist-name">{{ artist.artist_stagename }}</p>
+
                         {% endfor %}
                     </ul>
                 </li>

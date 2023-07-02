@@ -11,7 +11,7 @@ body {
     color: #fff;
     font-family: 'Roboto Slab', sans-serif;
     overflow-x: hidden;
-    background-image: url(../static/background/music_purple.jpg);
+    /* background-image: url(../static/background/music_purple.jpg); */
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
