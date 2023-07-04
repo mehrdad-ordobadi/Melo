@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Update song info
         document.getElementById("song-title").innerText = song.dataset.title;
         document.getElementById("artist-name").innerText = song.dataset.artist;
-
+      
         // Load the new song into the player
         player.load();
 

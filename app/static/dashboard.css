@@ -21,6 +21,7 @@ h1 {
     margin-bottom: 1em;
     text-align: center;
     animation: fadeIn 1s;
+    font-size: xx-large;
 }
 
 h2{
@@ -64,6 +65,7 @@ h2{
     background:  #A54657;
     color: #120e0e;
     padding: 5px;
+    font-size: revert;
 }
 
 .album-lists li a {

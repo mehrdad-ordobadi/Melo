@@ -3,17 +3,38 @@
 body {
   background-color: #0C1713;
   color: black;
-  margin-left: 25px;
+  margin-left: 150px;
   display: grid;
-  grid-template-columns: repeat(6,1fr);
+  /* grid-template-columns: repeat(6,1fr); */
   grid-auto-rows: auto;
   font-family: 'Roboto Slab', serif;
+  margin-top: 50px;
   /* background-image: url(../static/background/music_purple.jpg); */
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: 100% 100%;
+  background-size: 100% 100%; */
 }
 
+#submit:hover{
+  background-color: rgb(204, 112, 89);
+}
+
+@media screen and (max-width: 770px) {
+ .card{
+  padding: 0px;
+  margin: 20px;
+  margin-left: 130px;
+ }
+}
+@media screen and (max-width: 550px) {
+  .card{
+
+   margin-left:0% ;
+  margin-right: 30%;
+  
+}
+ }
+/* 
 h1 {
   font-family: 'Roboto', sans-serif;
 }
@@ -66,4 +87,4 @@ h1 {
 
 .flashes li {
   margin-bottom: 5px;
-}
+} */

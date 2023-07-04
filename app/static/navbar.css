@@ -50,7 +50,7 @@ darkest green = #0C1713
     flex: 1;
     border: none;
     outline: none;
-    padding-left: 15px;
+    padding-left: 4px;
 }
 
 
@@ -138,8 +138,8 @@ darkest green = #0C1713
 
 #form button, input[type="submit" i] {
     background: #F26157;
-    padding: 10px 15px;
-    height: 35px;
+    padding: 0px 9px 0px 6px;
+    height: 33px;
     border: none;
     outline: none;
     color: #FFF;
@@ -389,7 +389,7 @@ darkest green = #0C1713
       color: orange;
   }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 550px) {
     
     h2, h3 {
         text-align: center;

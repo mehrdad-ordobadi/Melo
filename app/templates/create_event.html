@@ -3,51 +3,51 @@ Event {% endblock %}
 
 {% block extra_links %}
 <link rel="stylesheet" href="../static/create_events.css" />
+<link rel="stylesheet" href="/static/navbar.css" />
 {% endblock %} 
-
 {% block content %}
-
-
 <main class="create-events">
-  <div class="box">
-    <div class="box-content">
-      <h1>Create Event</h1>
-      
-
-      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-          <ul class="flashes">
-              {% for message in messages %}
-                  <li>{{ message }}</li>
-              {% endfor %}
-          </ul>
-      {% endif %}
-  {% endwith %}
-      <div class="event-title">
-      <form action="" method="POST">
-        {{ form.hidden_tag() }}
-      
-        <label for="{{ form.event_title.id }}">Event Title:</label>
-        {{ form.event_title }}
-      </div>
-
-      <div class="event-date">
-        <label for="{{ form.event_date.id }}">Event Date:</label>
-        {{ form.event_date(class="datetime-local") }}
-      </div>
-
-      <div class="event-venue">
-        <label for="{{ form.event_venue.id }}">Venue:</label>
-        {{ form.event_venue }}
-      </div>
-      <div class="event-description">
-        <label for="{{ form.description.id }}">Description:</label>
-        {{ form.description }}
-      </div>
-
-      <div class="upload-button">
-        {{ form.submit }}
-      </form>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title">Create Event</h1>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <div class="alert alert-info">
+                <ul class="mb-0">
+                  {% for message in messages %}
+                    <li>{{ message }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+            {% endwith %}
+            <form action="" method="POST">
+              {{ form.hidden_tag() }}
+              <div class="mb-3">
+                <label for="{{ form.event_title.id }}" class="form-label">Event Title:</label>
+                {{ form.event_title(class="form-control") }}
+              </div>
+              <div class="mb-3">
+                <label for="{{ form.event_date.id }}" class="form-label">Event Date:</label>
+                {{ form.event_date(class="form-control") }}
+              </div>
+              <div class="mb-3">
+                <label for="{{ form.event_venue.id }}" class="form-label">Venue:</label>
+                {{ form.event_venue(class="form-control") }}
+              </div>
+              <div class="mb-3">
+                <label for="{{ form.description.id }}" class="form-label">Description:</label>
+                {{ form.description(class="form-control") }}
+              </div>
+              <div class="d-grid">
+                {{ form.submit(class="btn btn-primary") }}
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -8,56 +8,58 @@
 
 {% block content %}
 <main class="upload-page">
-  
+  <div class="container">
+    <div class="box">
+      <div class="box-content">
+        <h1 class="mb-4">Upload Music File</h1>
 
-  <div class="box">
-    <div class="box-content">
-      <h1>Upload Music File</h1>
-
-      {% with messages = get_flashed_messages() %}
-  {% if messages %}
-      <ul class="flashes">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flashes">
           {% for message in messages %}
-              <li>{{ message }}</li>
+          <li>{{ message }}</li>
           {% endfor %}
-      </ul>
-  {% endif %}
-{% endwith %}
+        </ul>
+        {% endif %}
+        {% endwith %}
 
-      <form method="post" enctype="multipart/form-data">
-        <div class="album-input">
-          {{ form.hidden_tag() }}
-          <label for="album">Album:</label>
-          {{ form.album_title(id='album') }}
-        </div>
+        <form method="post" enctype="multipart/form-data">
+          <div class="mb-3">
+            {{ form.hidden_tag() }}
+            <label for="album" class="form-label">Album:</label>
+            {{ form.album_title(id='album', class='form-control') }}
+          </div>
 
-        <div class="release-date">
-          <label for="release">Release Date:</label>
-          {{ form.album_release_date }}
-        </div>
+          <div class="mb-3">
+            <label for="release" class="form-label">Release Date:</label>
+            {{ form.album_release_date(class='form-control') }}
+          </div>
 
-        <div class="select-songs custom-file-input">
-          <label>Songs:</label>
-          <div class="input-label"><span>No files selected</span></div>
-          <input type="file" name="file" id="file" accept=".mp3" multiple>
-        </div>
-        
+          <div class="mb-3">
+            <label class="form-label">Songs:</label>
+            <div class="input-label"><span>No files selected</span></div>
+            <input type="file" name="file" id="file" accept=".mp3" class="form-control" multiple>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label">Cover Art:</label>
+            <div class="input-label"><span>No files selected</span></div>
+            <input type="file" name="cover" id="cover" accept=".jpeg, .jpg" class="form-control">
+          </div>
+          
 
-        <div class="cover-art custom-file-input">
-          <label>Cover Art:</label>
-          <div class="input-label"><span>No files selected</span></div>
-          <input type="file" name="cover" id="cover" accept=".jpeg, .jpg" multiple>
-        </div>
+          <div class="mb-2">
+            <input type="submit" value="Upload" class="btn btn-primary">
+          </div>
 
-        <div class="upload-button">
-          <input type="submit" value="Upload">
-        </div>
+          <div class="uploaded-songs">
+            <hr class="my-4">
 
-        <div class="uploaded-songs">
-          <h2>Uploaded Songs:</h2>
-          <ul id="song-list"></ul>
-        </div>
-      </form>
+            <h2>Uploaded Songs:</h2>
+            <ul id="song-list"></ul>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </main>
@@ -75,20 +77,17 @@ document.getElementById('cover').addEventListener('change', function() {
 </script>
 
 <script>
-  document.getElementById('file').addEventListener('change', function() {
-    const span = this.previousElementSibling.querySelector('span');
-    span.textContent = this.files.length + ' file(s) selected';
-  
-    const ul = document.getElementById('song-list');
-    ul.innerHTML = '';
-    Array.from(this.files).forEach(file => {
-      const li = document.createElement('li');
-      li.textContent = file.name;
-      ul.appendChild(li);
-    });
-  });
-  </script>
-  
-  
+document.getElementById('file').addEventListener('change', function() {
+  const span = this.previousElementSibling.querySelector('span');
+  span.textContent = this.files.length + ' file(s) selected';
 
+  const ul = document.getElementById('song-list');
+  ul.innerHTML = '';
+  Array.from(this.files).forEach(file => {
+    const li = document.createElement('li');
+    li.textContent = file.name;
+    ul.appendChild(li);
+  });
+});
+</script>
 {% endblock %}
