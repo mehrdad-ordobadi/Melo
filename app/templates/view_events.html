@@ -1,24 +1,17 @@
-{% extends 'base.html' %}
-
-{% block title %}View Events{% endblock %}
-
-{% block extra_links %}
+{% extends 'base.html' %} {% block title %}View Events{% endblock %} {% block
+extra_links %}
 <link rel="stylesheet" href="../static/upload.css" />
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <main class="view-events-page">
   <div class="container">
     <div class="box">
-      {% with messages = get_flashed_messages() %}
-      {% if messages %}
+      {% with messages = get_flashed_messages() %} {% if messages %}
       <ul class="flashes">
         {% for message in messages %}
         <li>{{ message }}</li>
         {% endfor %}
       </ul>
-      {% endif %}
-      {% endwith %}
+      {% endif %} {% endwith %}
       <div class="box-content">
         <h1>Events by {{ artist_name }}</h1>
 
@@ -31,11 +24,26 @@
               <p>Date: {{ event.event_date.strftime('%Y-%m-%d %H:%M') }}</p>
               <p>Venue: {{ event.event_venue }}</p>
               <p>Description: {{ event.description }}</p>
-              <form action="{{ url_for('rsvp', event_id=event.event_id) }}" method="POST">
+              {% if event.event_id in user_rsvp %}
+              <form
+                action="{{ url_for('unrsvp', event_id=event.event_id) }}"
+                method="POST"
+              >
                 <div class="upload-button">
-                  <input type="submit" value="RSVP" class="btn btn-primary">
+                  <input type="submit" value="UnRSVP" />
                 </div>
               </form>
+              {% else %}
+              <form
+                action="{{ url_for('unrsvp', event_id=event.event_id) }}"
+                method="POST"
+              >
+                <div class="upload-button">
+                  <input type="submit" value="UnRSVP" class="btn btn-danger" />
+                </div>
+              </form>
+
+              {% endif %}
             </li>
             {% endfor %}
           </ul>
