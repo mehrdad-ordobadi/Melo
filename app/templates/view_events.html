@@ -8,7 +8,6 @@
 
 {% block content %}
 <main class="view-events-page">
-  
 
   <div class="box">
     {% with messages = get_flashed_messages() %}
@@ -32,11 +31,19 @@
                   <p>Date: {{ event.event_date.strftime('%Y-%m-%d %H:%M') }}</p>
                   <p>Venue: {{ event.event_venue }}</p>
                   <p>Description: {{ event.description }}</p>
+                  {% if event.event_id in user_rsvp %}
+                  <form action="{{ url_for('unrsvp', event_id=event.event_id) }}" method="POST">
+                      <div class="upload-button">
+                          <input type="submit" value="UnRSVP">
+                      </div>
+                  </form>
+                  {% else %}
                   <form action="{{ url_for('rsvp', event_id=event.event_id) }}" method="POST">
                       <div class="upload-button">
                           <input type="submit" value="RSVP">
                       </div>
                   </form>
+                  {% endif %}
               </li>
               {% endfor %}
           </ul>
