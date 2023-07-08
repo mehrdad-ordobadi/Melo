@@ -18,6 +18,11 @@ body {
 #submit:hover{
   background-color: rgb(204, 112, 89);
 }
+.alert-info{
+  background-color: #A54657;
+  border-color: #A54657;
+  color: black;
+}
 
 @media screen and (max-width: 770px) {
  .card{
