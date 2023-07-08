@@ -532,6 +532,8 @@ def create_event():
     notifications = get_notifications()
     return render_template('create_event.html', form=form, notifications=notifications)
 
+from flask_login import current_user
+
 @app.route('/view-events/<int:artist_id>', methods=['GET'])
 def view_events(artist_id):
     """
@@ -539,9 +541,20 @@ def view_events(artist_id):
     """
     events = Event.query.filter_by(artist_id=artist_id).order_by(Event.event_date).all()
     artist = Artist.query.get_or_404(artist_id)
-    notifications = get_notifications()
-    return render_template('view_events.html', artist_name=artist.artist_stagename, events=events, notifications=notifications)
 
+    if current_user.is_authenticated:
+        user_rsvp = [ue.event_id for ue in UserEvent.query.filter_by(user_id=current_user.id).all()]
+    else:
+        user_rsvp = []
+
+    notifications = get_notifications()
+
+    return render_template('view_events.html', artist_name=artist.artist_stagename, 
+                           events=events, notifications=notifications, user_rsvp=user_rsvp)
+
+
+
+from flask_login import current_user
 
 @app.route('/view-event/<int:event_id>', methods=['GET'])
 def view_event(event_id):
@@ -554,8 +567,18 @@ def view_event(event_id):
 
     event = Event.query.get_or_404(event_id)
     artist = Artist.query.get_or_404(artist_id)
+
+    if current_user.is_authenticated:
+        user_event = UserEvent.query.filter_by(user_id=current_user.id, event_id=event_id).first()
+        has_rsvped = bool(user_event)
+    else:
+        has_rsvped = False
+
     notifications = get_notifications()
-    return render_template('view_event.html', event=event, artist=artist, notifications=notifications)
+
+    return render_template('view_event.html', event=event, artist=artist, 
+                           notifications=notifications, has_rsvped=has_rsvped)
+
 
 
 @app.route('/rsvp/<int:event_id>', methods=['POST'])
@@ -575,7 +598,20 @@ def rsvp(event_id):
         flash(f'You have already RSVPed to {event.event_title}.')
     return redirect(request.referrer or url_for('view_events', artist_id=event.artist_id))
 
- 
+
+@app.route('/unrsvp/<int:event_id>', methods=['POST'])
+def unrsvp(event_id):
+    event = Event.query.get_or_404(event_id)
+    user_id = current_user.id
+    user_event = UserEvent.query.filter_by(user_id=user_id, event_id=event_id).first()
+    if not user_event:
+        flash(f'You have not RSVPed to {event.event_title}')
+    else:
+        db.session.delete(user_event)
+        db.session.commit()
+        flash(f'Successfully unRSVPed to {event.event_title}.')
+    return redirect(request.referrer or url_for('view_events', artist_id=event.artist_id))
+        
 
 @app.route('/my-rsvp-events', methods=['GET'])
 def my_rsvp_events():
