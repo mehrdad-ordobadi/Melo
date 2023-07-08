@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% set show_navbar = false %}
+
+{% block title %}Send Notifications{% endblock %}
+
+{% block content %}
+<main class="send-notifications">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+    
+    <h1>Send Notifications</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.notification_title.label }}<br>
+            {{ form.notification_title(size=30) }}
+        </div>
+        <div>
+            {{ form.notification_content.label }}<br>
+            {{ form.notification_content }}
+        </div>
+        {{ form.submit() }}
+    </form>
+</main>
+{% endblock %}

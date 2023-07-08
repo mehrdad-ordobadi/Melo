@@ -18,7 +18,7 @@
       <h3>Notifications:</h3>
       <ul class="notify">
         {% for notification in notifications %}
-        {% set notification_parts = notification.content.split("on") %}
+        {% set notification_parts = notification.title.split("on") %}
 
         <li class="{{ 'unread' if not notification.read else 'read' }}">
           <a href="{{ url_for('read_notification', notification_id=notification.id) }}">
