@@ -40,3 +40,8 @@ class EventForm(FlaskForm):
     description = StringField('Description', validators=[])
 
     submit = SubmitField('Add Event')
+
+class NotificationForm(FlaskForm):
+    notification_title = StringField('Notification Title', validators=[DataRequired()])
+    notification_content = StringField('Content',  validators=[])
+    submit = SubmitField('Send')

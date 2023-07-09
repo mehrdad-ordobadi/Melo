@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, abort
+from flask_login import current_user
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import FlaskForm
 from models import User, Artist, Album, Listener, Song, Playlist, PlaylistSong, Event, UserEvent, Notification
-from forms import RegistrationForm, EventForm
+from forms import RegistrationForm, EventForm, NotificationForm
 from datetime import datetime
 from database import db
 from werkzeug.utils import secure_filename
@@ -523,8 +524,9 @@ def create_event():
         db.session.commit()
         id = new_event.event_id
         message = f"{artist.artist_stagename} has created a new event: {event_title} on {event_date}"
+        title = f"Event: {event_title} by {artist.artist_stagename}"
         for follower in get_followers(artist):
-            notification = Notification(user_id=follower.id, content=message, event_id=id, event=new_event)
+            notification = Notification(user_id=follower.id, content=message, event_id=id, event=new_event, title=title)
             db.session.add(notification)
         db.session.commit()
         flash(f'Event {event_title} created successfully!')
@@ -532,7 +534,35 @@ def create_event():
     notifications = get_notifications()
     return render_template('create_event.html', form=form, notifications=notifications)
 
-from flask_login import current_user
+
+@app.route('/send-notifications', methods=['POST', 'GET'])
+def send_notifications():
+    form = NotificationForm()
+# have to change database structure to include author of notification so that
+# we can include artist (venue) in the notification
+# also change notications in the top nav to distinguish btw event notification and normal notification
+    if form.validate_on_submit():
+        if current_user.type != 'artist':
+            flash('Only artists can create events!')
+            return redirect(request.url)
+        title = form.notification_title.data
+        msg = form.notification_content.data
+        artist = Artist.query.get(current_user.id)
+        for follower in get_followers(artist):
+            notification = Notification(user_id=follower.id, content=msg, title=title)
+            db.session.add(notification)
+        db.session.commit()
+        flash(f'Your followers were notified about the {title}!')
+    notifications = get_notifications()
+    return render_template('send_notifications.html', form=form, notifications=notifications)
+
+
+@app.route('/view-notification/<int:notification_id>', methods=['GET'])
+def view_notification(notification_id):
+    notification = Notification.query.get_or_404(notification_id)
+    notifications = get_notifications()
+    return render_template('view_notification.html', notification=notification, notifications=notifications)
+
 
 @app.route('/view-events/<int:artist_id>', methods=['GET'])
 def view_events(artist_id):
