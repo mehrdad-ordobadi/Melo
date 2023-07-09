@@ -1,109 +1,60 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&family=Roboto:wght@300&display=swap');
 
-
-/* first design */
-
-/* body {
-    font-family: 'Roboto', sans-serif;
-    color: white;
-    background-color: #0C1713;
-    font-family: 'Red Hat Display', sans-serif;
-    margin-left: 20%;
-    grid-auto-rows: auto
-}
-
-li a img {
-    width: 150px;
-    height: 150px;
-    border: 1px solid #15211c;
-    border-radius: 50%;
-    margin-right: 40px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-}
-
-.search-content ul {
-    list-style: none;
-    padding: 0px;
-}
-
-.search-content ul li{
-    margin-bottom: 30px;
-}
-
-.search-content ul li a {
-    background-color: #0e1c16;
-    border-radius: 2%;
-    width: 70%;
-}
-
-#artist_name {
-    display: flex;
-    font-size: 2rem;
-    align-items: center;
-    text-decoration: none;
-    color: #fff;
-}
-
-
-#artist_name:hover {
-    background-color: #12261d;
-} */
-
-/* first design end */
-
-/* second design */
 body {
-    font-family: 'Roboto', sans-serif;
-    color: white;
-    background-color: #0C1713;
-    font-family: 'Red Hat Display', sans-serif;
-    margin-left: 23%;
+    margin-left: 25px;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
     grid-auto-rows: auto;
+    background-color: #0C1713;
+    color: #FFF;
+    font-family: 'Roboto Slab', serif;
     /* background-image: url(../static/background/music_purple.jpg); */
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
 }
-
-.search-content h1 {
-    margin-bottom: 10%;
+.container{
+    grid-column: 3/5;
 }
-
-.search-content ul {
-    list-style: none;
-    padding: 0px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+.custom-list-item {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
 }
-
-.search-content ul li{
-    margin-bottom: 30px;
-    height: 120px;
+ul{
+    grid-column: 2/4;
 }
-
-.search-content ul li a {
-    background-color: #12241c;
-    border-radius: 5%;
-    width: 70%;
-}
-
 #artist_name {
-    display: flex;
-    font-size: 2rem;
+    display: grid;
+    background-color: #12241c;
+    font-size: 1.5rem;
     align-items: center;
     text-decoration: none;
     justify-content: center;
-    color: #fff;
+    color: #f6e8e8;
     width: 90%;
     border: 2px solid #12241c;
     border-radius: 5%;
     margin-right: 30px;
     height: 90%;
+    font-family: sans-serif;
+    padding: 10px;
 }
-
 #artist_name:hover {
     background-color: #162e23;
 }
-/* second design end */
+
+li{
+    list-style:none;
+
+}
+
+@media screen and (max-width:660px) {
+    .container{
+        grid-column: 4/6;
+        margin-top: 50px;
+    }
+    
+}
