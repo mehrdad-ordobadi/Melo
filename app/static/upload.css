@@ -13,9 +13,9 @@ body {
     background-size: 100% 100%;
 }
 
-h1 {
+/* h1 {
     font-family: 'Roboto', sans-serif;
-}
+} */
 h2{
   font-family: 'Roboto', sans-serif;
   font-size: revert;
@@ -52,7 +52,7 @@ h2{
 .btn-primary:hover {
   background-color:rgb(204, 112, 89) ;
 }
-.btn-primary:on-click{
+.btn-primary:onclick{
   background-color: #F26157;
 }
 @media screen and (max-width: 1100px) 

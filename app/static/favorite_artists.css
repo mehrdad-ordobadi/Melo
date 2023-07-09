@@ -13,13 +13,47 @@ body {
     background-attachment: fixed;
     background-size: 100% 100%;
 }
-
-.favorite-artists-container {
+.container{
     grid-column: 3/5;
-    animation: fadeInUp 1s ease-in-out;
+}
+.custom-list-item {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+ul{
+    grid-column: 2/4;
+}
+#artist_name {
+    display: grid;
+    font-size: 1.5rem;
+    align-items: center;
+    text-decoration: none;
+    justify-content: center;
+    color: #f6e8e8;
+    width: 90%;
+    border: 2px solid #12241c;
+    border-radius: 5%;
+    margin-right: 30px;
+    height: 90%;
+
+}
+#artist_name:hover{
+    background-color:#12241c;
 }
 
-h1 {
+li{
+    list-style:none;
+
+}
+/* .favorite-artists-container {
+    grid-column: 3/5;
+    animation: fadeInUp 1s ease-in-out;
+} */
+
+/* h1 {
     font-family: 'Roboto slab', sans-serif;
     animation: fadeInDown 1s ease-in-out;
 }
@@ -32,9 +66,9 @@ h1 {
 
 .favorite-artists-container .playlist-list li a:link {
     text-decoration: none;
-}
+} */
 
-.favorite-artists-container .playlist-list li a {
+/* .favorite-artists-container .playlist-list li a {
     color: #FFF;
     display: flex;
     align-items: center;
@@ -71,4 +105,4 @@ h1 {
         opacity: 1;
         transform: translateY(0);
     }
-}
+} */
