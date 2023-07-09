@@ -389,7 +389,7 @@ darkest green = #0C1713
       color: orange;
   }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 560px) {
     
     h2, h3 {
         text-align: center;
