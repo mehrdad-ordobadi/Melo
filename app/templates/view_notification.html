@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% set show_navbar = false %}
+
+{% block title %}Notification{% endblock %}
+
+{% block content %}
+<main>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    <h1>{{ notification.title }}</h1>
+    <p>{{ notification.content }}</p>
+    <p>Sent on: {{ notification.timestamp.strftime('%Y-%m-%d %H:%M') }}</p>
+    
+    {% if notification.event_id %}
+        <p>Related to event: 
+            <a href="{{ url_for('view_event', event_id=notification.event_id) }}">
+                View Event
+            </a>
+        </p>
+    {% endif %}
+
+</main>
+{% endblock %}
