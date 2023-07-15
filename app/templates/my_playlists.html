@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
+
 {% block extra_links %}
 <script src="../static/playlist.js"></script>
 <link rel="stylesheet" href="../static/playlists.css">
-
 {% endblock %}
+
 {% block title %}My Playlists{% endblock %}
 
 {% block content %}
-{% with messages = get_flashed_messages() %}
+
+
+
+<div class="playlist-container">
+    {% with messages = get_flashed_messages() %}
     {% if messages %}
         <ul class="flashes">
             {% for message in messages %}
@@ -16,58 +21,61 @@
         </ul>
     {% endif %}
 {% endwith %}
-
     <h1 class="my-playlist-header">My Playlists:</h1>
-    <div class="playlist-container">
-        {% for playlist in playlists %}
-        
-            <div class="playlist-card" id="{{ 'playlist-' + playlist.playlist_id|string }}">
-                <h2>{{ playlist.playlist_title }}</h2>
-                <ul>
-                    {% for song in playlist.songs %}
-                        <li>
-                            <a href="#" class="song-link" data-src="{{ url_for('static', filename='audio/' + song.album.artist_id|string + '/' + song.album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}" data-title="{{ song.song_title }}" data-artist="{{ song.album.artist.artist_stagename}}" data-cover="{{ url_for('static', filename='audio/' + song.album.artist_id|string + '/' + song.album.album_title.replace(' ', '_').lower() + '/' +'album_cover/' + song.album.cover_name) if song.album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}">{{ song.song_title }}</a>
 
-                            <form action="{{ url_for('delete_song_from_playlist') }}" method="post" onsubmit="return confirmDelete('{{ song.song_title }}');">
-                                <input type="hidden" name="playlist_id" value="{{ playlist.playlist_id }}">
-                                <input type="hidden" name="song_id" value="{{ song.song_id }}">
-                                <button type="submit" class="delete-btn">Delete</button>
-                            </form>
-                            
-                            <script>
-                                function confirmDelete(songTitle) {
-                                    return confirm("Are you sure you want to delete the song \"" + songTitle + "\"?");
-                                }
-                            </script>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endfor %}
-    </div>
-
-    
-    <div class="player-container hidden">
-        <div class="player">
-            <div id="song-title"></div>
-            
-            <img src="{{ url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}" alt="Cover Art" class="song_img">
-
-            <div class="song-info-container hidden" id="song-info">
-                <p id="artist-name"></p>
-            </div>
-
-            <div class="player-nav">
-                <button class="circle" id="prev-button" onclick="playPreviousSong()"><</button>
-                <button id="info-button" onclick="toggleSongInfo()">Show info</button>
-                <button class="circle" id="next-button" onclick="playNextSong()">></button>
-            </div>
-            <div class="bttn_audio">
-                <audio id="player" controls>
-                    <source src="" type="audio/mpeg">
-                </audio>
-            </div>
+    {% for playlist in playlists %}
+    <div class="card playlist-card" id="{{ 'playlist-' + playlist.playlist_id|string }}">
+        <div class="card-header">
+            <h2 class="card-title">{{ playlist.playlist_title }}</h2>
         </div>
+        <ul class="list-group list-group-flush">
+            {% for song in playlist.songs %}
+            <li class="list-group-item">
+                <a href="#" class="song-link" data-src="{{ url_for('static', filename='audio/' + song.album.artist_id|string + '/' + song.album.album_title.replace(' ', '_').lower() + '/' + song.song_title + '.mp3') }}" data-title="{{ song.song_title }}" data-artist="{{ song.album.artist.artist_stagename}}" data-cover="{{ url_for('static', filename='audio/' + song.album.artist_id|string + '/' + song.album.album_title.replace(' ', '_').lower() + '/' +'album_cover/' + song.album.cover_name) if song.album.cover_name else url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}">{{ song.song_title }}</a>
+                <form class='del-btn' action="{{ url_for('delete_song_from_playlist') }}" method="post" onsubmit="return confirmDelete('{{ song.song_title }}');">
+                    <input type="hidden" name="playlist_id" value="{{ playlist.playlist_id }}">
+                    <input type="hidden" name="song_id" value="{{ song.song_id }}">
+                    <button type="submit" class="btn btn-danger delete-btn">-</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
+    {% endfor %}
+</div>
+
+
+
+<div class="player-container hidden">
+    <div class="player">
+    
+      <img src="{{ url_for('static', filename='album_placeholder/music-placeholder.jpeg') }}" alt="Cover Art" class="song_img">
+
+      <div class="top-nav_h1">
+        <div id="song-title"></div>
+        <div id="artist-name"></div>
+      </div>
+  
+      <!-- <div class="song-info-container hidden" id="song-info">  <p id="artist-name"></p>
+              <button id="info-button" onclick="toggleSongInfo()">Show info</button></div> -->
+      <div class="player-nav">
+        <button class="circle" id="prev-button" onclick="playPreviousSong()">
+          <
+        </button>
+        <div class="bttn_audio">
+          <audio id="player" controls autoplay>
+            <source src="" type="audio/mpeg" />
+          </audio>
+        </div>
+  
+        <button class="circle" id="next-button" onclick="playNextSong()">
+          >
+        </button>
+      </div>
+    </div>
+  
+</div>
+<script src="/static/album_songs.js"></script>
+<script src="/static/artist_page.js"></script>
 
 {% endblock %}
