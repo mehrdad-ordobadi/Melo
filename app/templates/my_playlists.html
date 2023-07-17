@@ -22,6 +22,8 @@
     {% endif %}
 {% endwith %}
     <h1 class="my-playlist-header">My Playlists:</h1>
+    <hr class="mb-3 responsive-hr" >
+
 
     {% for playlist in playlists %}
     <div class="card playlist-card" id="{{ 'playlist-' + playlist.playlist_id|string }}">
