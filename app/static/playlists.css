@@ -23,6 +23,14 @@ h1.my-playlist-header {
     font-size: 2em; */
     /* color: #fff; */
 }
+.responsive-hr {
+    width: 100%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 1px -1px 20px 10px rgb(165 70 87);
+
+}
 
 /* .playlist-container {
     display: flex;
@@ -131,7 +139,7 @@ h1.my-playlist-header {
     /* max-width: 1250px; */
     z-index: 1000;
     margin-left: 50px;
-    box-shadow: 0 -6px 21px rgba(76.8, 20.5, 53.1, 69.1);
+    box-shadow: 0 -8px 40px rgba(76.8, 20.5, 53.1, 69.1);
   }
 .player {
     background-color: #0C1713;
@@ -182,8 +190,8 @@ h1.my-playlist-header {
     /* border-color: #FFF; */
     width: 34px;
     height: 34px;
-    line-height: 33px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+    line-height: 30px;
+    /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4); */
     text-align: center;
     margin: 0 10px;
     font-weight: 900;
