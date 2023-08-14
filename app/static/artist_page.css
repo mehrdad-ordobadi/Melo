@@ -15,6 +15,21 @@ body {
   background-attachment: fixed;
   background-size: 100% 100%;
 }
+.album-song-list {
+  max-height: 300px; /* Set the desired height */
+  overflow-y: auto;
+}
+.album-content {
+  max-height: calc(100vh - 200px); /* Adjust the value as needed */
+  overflow-y: auto;
+  padding-right: 15px; /* Add some padding to prevent the scrollbar from covering content */
+}
+hr{
+  background-color: #f1ecec;
+  color: #f1ecec;
+  border: 1px solid #ffffff;
+  margin: 10px;
+}
 
 h1 {
   filter: brightness(150%);
@@ -36,22 +51,15 @@ h2{
 }
 
 .song-link {
-  color: #fff;
+  /* color: #fff; */
   text-decoration: none;
-
   padding-bottom: 3px;
   margin-right: 5px;
 }
 
 
 .song-link:hover {
- 
   text-decoration: underline;
-}
-
-hr {
-  border: 1px solid #12241c;
-  margin: 0px;
 }
 
 h3 {
@@ -59,17 +67,33 @@ h3 {
 }
 
 ul button {
-  width: 20px;
+  width: 23px;
   height: 20px;
   border-radius: 10px;
-  padding-left: 4px;
+  padding-left: 5px;
   border: 2px solid white;
   background-color: #0C1713;
   color: #fff;
-
+  padding-bottom: 23px
+}
+.song-number {
+  text-align: center;
+  vertical-align: middle; 
+  width: 20px;
+  margin-right: 200px;
 }
 
-.add-to-playlist-form button:hover {
+.song-title {
+  text-align: left; /* Align the song title to the left */
+  vertical-align: middle; /* Vertically center the content */
+}
+
+
+.song-list{
+  list-style: none;
+}
+
+/* .add-to-playlist-form button:hover {
   width: 40px;
   height: 25px;
   border-radius: 20px;
@@ -80,11 +104,11 @@ ul button {
   height: 25px;
   border-radius: 20px;
  
-}
+} */
 
-.add-to-playlist-form {
+/* .add-to-playlist-form {
   display: flex;
-}
+} */
 
 .add-to-playlist-form button {
   width: 35px;
@@ -100,7 +124,7 @@ ul button {
 }
 
 .artist-content hr {
-  margin-top: 30px;
+  margin-top: 0px;
 }
 
 .artist-info {
@@ -178,10 +202,10 @@ ul button {
 }
 
 .delete_btn {
-  width: 50px;
-  height: 23px;
+  width: 30px;
+  height: 25px;
   margin-left: 10px;
-
+  float: right;
 }
 
 .delete_btn:hover {
@@ -194,13 +218,10 @@ ul button {
 .artist-name{
   font-size: 14px;
   font-style: oblique;
-  margin-top: -30px;
-  margin-left: 55px;
+  
 }
 
-.song-number{
-  margin-right: 45px;
-}
+
 
 
 @media (max-width: 768px) {
@@ -359,12 +380,13 @@ ul button {
 
 .player-container {
   position: fixed;
-  left: 60%;
+  left: 57%;
   bottom: 10px;
   transform: translateX(-50%);
-  width: 90%;
+  width: 70%;
   max-width: 1250px;
   z-index: 1000;
+  margin-left: 50px;
   box-shadow: 0 -6px 21px rgba(76.8, 20.5, 53.1, 69.1);
 }
 
